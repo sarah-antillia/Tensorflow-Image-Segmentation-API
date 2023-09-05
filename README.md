@@ -107,10 +107,6 @@ On detail of Image Segmentation by TensorflowSwinUNet-GastrointestinalPolyp, ple
 
 
 
-<--
-5
- -->
-
 
 <h2>
 5 TensorflowMultiResUNet
@@ -155,12 +151,6 @@ Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder
 
 On detail of Image Segmentation by TensorflowMultiResUNet-MultipleMyeloma, please see also.<br>
 <a href="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma">TensorflowMultiResUNet-Segmentation-MultipleMyeloma</a>
-
-
-
-<--
-6
- -->
 
 
 <h2>
