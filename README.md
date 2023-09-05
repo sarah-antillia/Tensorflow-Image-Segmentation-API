@@ -28,7 +28,7 @@ Please note that each dataset file has been archived in 7z format.
 <h2>
 3 TensorflowSlightlyFlexibleUNet
 </h2>
-This UNet model can be slightly flexibly customizable by a configuration file.<br>
+This <a href="./src/TensorflowUNet.py">TensorflowUNet</a> model can be slightly flexibly customizable by a configuration file.<br>
 For example, <b>TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> model will be customizable
 by using <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer.config">
 train_eval_infer.config.</a>
@@ -76,14 +76,14 @@ On detail of TensorflowSlightlyFlexibleUNet/MultipleMyeloma, please see also.<br
 <h2>
 4 TensorflowSwinUNet
 </h2>
-This UNet model can be slightly flexibly customizable by a configuration file.<br>
+This <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a> model can be slightly flexibly customizable by a configuration file.<br>
 For example, <b>TensorflowSwinUNet/GastrointestinalPolyp</b> model will be customizable
 by using <a href="./projects/TensorflowSwinUNet/GastrointestinalPolyp/train_eval_infer.config">
 train_eval_infer.config.</a>
 <h2>
 4.1 Training
 </h2>
-For example, please move to a <b>./projects/TensorflowSwinUNet/GastrointestinalPolyp</b> folder,<br>
+Please move to a <b>./projects/TensorflowSwinUNet/GastrointestinalPolyp</b> folder,<br>
 and run the following bat file to train TensorflowSwinUNet model for GastrointestinalPolyp.<br>
 <pre>
 ./1.train.bat
@@ -118,10 +118,16 @@ On detail of Image Segmentation by TensorflowSwinUNet-GastrointestinalPolyp, ple
 <h2>
 5 TensorflowMultiResUNet
 </h2>
+This <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a> model can be 
+slightly flexibly customizable by a configuration file.<br>
+For example, <b>TensorflowMultiResUNet/MultipleMyeloma</b> model will be customizable
+by using <a href="./projects/TensorflowMultiResUNet/MultipleMyeloma/train_eval_infer.config">
+train_eval_infer.config.</a>
+
 <h2>
 5.1 Training
 </h2>
-For example, please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder,<br>
+Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder,<br>
 and run the following bat file to train TensorflowMultiResUNet model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
@@ -163,6 +169,12 @@ On detail of Image Segmentation by TensorflowMultiResUNet-MultipleMyeloma, pleas
 <h2>
 6 TensorflowAttentionUNet
 </h2>
+This <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a> model can be 
+slightly flexibly customizable by a configuration file.<br>
+For example, <b>TensorflowAttentionUNet/MultipleMyeloma</b> model will be customizable
+by using <a href="./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config">
+train_eval_infer.config.</a>
+
 <h2>
 6.1 Training
 </h2>
@@ -205,17 +217,19 @@ On detail of Image Segmentation by TensorflowAttentionUNet, please see also.<br>
 <a href="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">Tensorflow-Slightly-Flexible-Attention-UNet</a>
 
 
-<!--
-https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet
--->
-
 <h2>
 7 TensorflowUNet3Plus
 </h2>
-<h2>
+This <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a> model can be 
+slightly flexibly customizable by a configuration file.<br>
+For example, <b>TTensorflowUNet3Plus/MultipleMyeloma</b> model will be customizable
+by using <a href="./projects/TensorflowUNet3Plus/MultipleMyeloma/train_eval_infer.config">
+train_eval_infer.config.</a>
+
+
 7.1 Training
 </h2>
-For example, please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder,<br>
+Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder,<br>
 and run the following bat file to train TensorflowUNet3Plus model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
