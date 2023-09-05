@@ -28,15 +28,18 @@ Please note that each dataset file has been archived in 7z format.
 <h2>
 3 TensorflowSlightlyFlexibleUNet
 </h2>
+This UNet model can be flexibly customizable by a configuration file.<br>
+For example, <b>TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> model will be customizable
+by using <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer.config">
+train_eval_infer.config</a>
 <h2>
 3.1 Training
 </h2>
-For example, please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder,<br>
+Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder,<br>
 and run the following bat file to train TensorflowUNet model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
 </pre>
-
 
 <h2>
 3.2 Evaluation
