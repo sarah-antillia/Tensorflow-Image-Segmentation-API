@@ -158,6 +158,56 @@ On detail of Image Segmentation by TensorflowMultiResUNet-MultipleMyeloma, pleas
 
 
 
+<--
+6
+ -->
 
 
+<h2>
+6 TensorflowAttentionUNet
+</h2>
+<h2>
+6.1 Training
+</h2>
+For example, please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to train TensorflowAttentionUNet model for MultipleMyeloma.<br>
+<pre>
+./1.train.bat
+</pre>
 
+
+<h2>
+6.2 Evaluation
+</h2>
+Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evalute TTensorflowAttentionUNet model for MultipleMyeloma.<br>
+<pre>
+./2.evaluate.bat
+</pre>
+
+
+<h2>
+6.3 Inference
+</h2>
+Please move to a <b>./projects/TTensorflowAttentionUNet/MultipleMyeloma</b> folder<br>
+,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowAttentionUNet model for MultipleMyeloma.<br>
+<pre>
+./3.infer.bat
+</pre>
+
+<h2>
+6.4 Tiled-Image-Inference 
+</h2>
+Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder<br>
+,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowAttentionUNet model for MultipleMyeloma.<br>
+<pre>
+./4.tiled_infer.bat
+</pre>
+
+On detail of Image Segmentation by TensorflowAttentionUNet, please see also.<br>
+<a href="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">Tensorflow-Slightly-Flexible-Attention-UNet</a>
+
+
+<!--
+https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet
+-->
