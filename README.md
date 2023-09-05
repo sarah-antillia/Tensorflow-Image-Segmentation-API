@@ -16,7 +16,7 @@ In this repository, we have Image Segmentation API corresponding to the followin
 We have the following dataset.<br>
 <li><a href="./dataset/ALL">ALL</a></li>
 <li><a href="./dataset/BrainTumor">BrainTumor</a></li>
-<li><a href="./dataset/Cervial-Cancer">Cervial-Cancer</a></li>
+<li><a href="./dataset/Cervical-Cancer">Cervical-Cancer</a></li>
 <li><a href="./dataset/GastrointestinalPolyp">GastrointestinalPolyp</a></li>
 <li><a href="./Mammogram">Mammogram</a></li>
 <li><a href="./MultipleMyeloma">MultipleMyeloma</a></li>
@@ -298,7 +298,7 @@ sequence and genomic cluster data available.
 Tumor genomic clusters and patient data is provided in data.csv file.
 </pre>
 
-<b>3. <a href="./dataset/Cervial-Cancer">Cervial-Cancer</a></b><br>
+<b>3. <a href="./dataset/Cervical-Cancer">Cervical-Cancer</a></b><br>
 <pre>
 Cervical Cancer largest dataset (SipakMed)
 https://www.kaggle.com/datasets/prahladmehandiratta/cervical-cancer-largest-dataset-sipakmed
