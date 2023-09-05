@@ -28,10 +28,10 @@ Please note that each dataset file has been archived in 7z format.
 <h2>
 3 TensorflowSlightlyFlexibleUNet
 </h2>
-This UNet model can be flexibly customizable by a configuration file.<br>
+This UNet model can be slightly flexibly customizable by a configuration file.<br>
 For example, <b>TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> model will be customizable
 by using <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer.config">
-train_eval_infer.config</a>
+train_eval_infer.config.</a>
 <h2>
 3.1 Training
 </h2>
@@ -76,6 +76,10 @@ On detail of TensorflowSlightlyFlexibleUNet/MultipleMyeloma, please see also.<br
 <h2>
 4 TensorflowSwinUNet
 </h2>
+This UNet model can be slightly flexibly customizable by a configuration file.<br>
+For example, <b>TensorflowSwinUNet/GastrointestinalPolyp</b> model will be customizable
+by using <a href="./projects/TensorflowSwinUNet/GastrointestinalPolyp/train_eval_infer.config">
+train_eval_infer.config.</a>
 <h2>
 4.1 Training
 </h2>
