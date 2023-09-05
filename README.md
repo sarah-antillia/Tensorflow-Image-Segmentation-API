@@ -18,10 +18,10 @@ We have the following dataset.<br>
 <li><a href="./dataset/BrainTumor">BrainTumor</a></li>
 <li><a href="./dataset/CervicalCancer">CervicalCancer</a></li>
 <li><a href="./dataset/GastrointestinalPolyp">GastrointestinalPolyp</a></li>
-<li><a href="./Mammogram">Mammogram</a></li>
-<li><a href="./MultipleMyeloma">MultipleMyeloma</a></li>
-<li><a href="./Nerve">Nerve</a></li>
-<li><a href="./Retinal-Vessel">Retinal-Vessel</a></li>
+<li><a href="./dataset/Mammogram">Mammogram</a></li>
+<li><a href="./dataset/MultipleMyeloma">MultipleMyeloma</a></li>
+<li><a href="./dataset/Nerve">Nerve</a></li>
+<li><a href="./dataset/Retinal-Vessel">Retinal-Vessel</a></li>
 
 Please note that each dataset file has been archived in 7z format.
 
@@ -354,7 +354,7 @@ Kvasir-SEG Data (Polyp segmentation & detection)
 https://www.kaggle.com/datasets/debeshjha1/kvasirseg
 </pre>
 
-<b>5. <a href="./Mammogram">Mammogram</a></b><br>
+<b>5. <a href="./dataset/Mammogram">Mammogram</a></b><br>
 <pre>
 http://www.eng.usf.edu/cvprg/mammography/database.html
 </pre>
@@ -379,7 +379,7 @@ You may find the methods about preprocessing of mammograms and manual
 annotations in our journal article.
 </pre>
 
-<b>6. <a href="./MultipleMyeloma">MultipleMyeloma</a></b><br>
+<b>6. <a href="./dataset/MultipleMyeloma">MultipleMyeloma</a></b><br>
 <pre>
 SegPC-2021: Segmentation of Multiple Myeloma Plasma Cells in Microscopic Images
 https://www.kaggle.com/datasets/sbilab/segpc2021dataset
@@ -413,7 +413,7 @@ License
 CC BY-NC-SA 4.0
 </pre>
 
-<b>7. <a href="./Nerve">Nerve</a></b><br>
+<b>7. <a href="./dataset/Nerve">Nerve</a></b><br>
 <pre>
  Ultrasound Nerve Segmentation<br>
  Identify nerve structures in ultrasound images of the neck<br>
@@ -444,7 +444,7 @@ demonstrate how to turn image masks into encoded text values for submission.
 sample_submission.csv shows the correct submission file format.
 </pre>
 
-<b>8. <a href="./Retinal-Vessel">Retinal-Vessel</a></b></br>
+<b>8. <a href="./dataset/Retinal-Vessel">Retinal-Vessel</a></b></br>
 <pre>
 Retinal Image Analysis
 </pre>
