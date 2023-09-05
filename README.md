@@ -70,6 +70,43 @@ On detail of TensorflowSlightlyFlexibleUNet/MultipleMyeloma, please see also.<br
 <a href="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma">Tiled-Image-Segmentation-Multiple-Myeloma</a>
 
 
+<h2>
+4 TensorflowSwinUNet
+</h2>
+<h2>
+4.1 Training
+</h2>
+For example, please move to a <b>./projects/TensorflowSwinUNet/GastrointestinalPolyp</b> folder,<br>
+and run the following bat file to train TensorflowSwinUNet model for GastrointestinalPolyp.<br>
+<pre>
+./1.train.bat
+</pre>
+
+
+<h2>
+4.2 Evaluation
+</h2>
+Please move to a <b>./projects/TensorflowSwinUNet/GastrointestinalPolyp</b> folder,<br>
+and run the following bat file to evalute TensorflowSwinUNet model for GastrointestinalPolyp.<br>
+<pre>
+./2.evaluate.bat
+</pre>
+
+
+<h2>
+4.3 Inference
+</h2>
+Please move to a <b>./projects/TensorflowSwinUNet/GastrointestinalPolyp</b> folder<br>
+,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowSwinUNet model for GastrointestinalPolyp.<br>
+<pre>
+./3.infer.bat
+</pre>
+
+On detail of Image Segmentation by TensorflowSwinUNet-GastrointestinalPolyp, please see also.<br>
+<a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-Gastrointestinal-Polyp">TensorflowSwinUNet-Segmentation-Gastrointestinal-Polyp</a>
+
+
+
 
 
 
