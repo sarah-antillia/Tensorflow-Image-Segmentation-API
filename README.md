@@ -26,12 +26,34 @@ We have the following dataset.<br>
 Please note that each dataset file has been archived in 7z format.
 
 <h2>
-3 Train a model
+3 Train
 </h2>
-For example, please moved to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b><br>
-Please run the following bat file to train TensorflowUNet model for MultipleMyeloma.<br>
+For example, please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to train TensorflowUNet model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
+</pre>
+
+
+
+<h2>
+4 Evaluate
+</h2>
+Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evalute TensorflowUNet model for MultipleMyeloma.<br>
+<pre>
+./2.evaluate.bat
+</pre>
+
+
+
+<h2>
+5 Infer 
+</h2>
+Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder<br>
+,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowUNet model for MultipleMyeloma.<br>
+<pre>
+./3.infer.bat
 </pre>
 
 
