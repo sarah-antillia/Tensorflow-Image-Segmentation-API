@@ -2,13 +2,13 @@
 <h2>
 1 Image Segmentaion API 
 </h2>
-We have the following Tensorflow Image Segmentation models<br>
+In this repository, we have Image Segmentation API correspoing to the following Tensorflow UNet models. <br>
 
-<li><a href="">TensorflowSlightlyFlexibleUNet</a></li>
-<li><a href="">TensorflowSwinUNet</a></li>
-<li><a href="">TensorflowMultiResUNet</a></li>
-<li><a href="">TensorflowAttentionUNet</a></li>
-<li><a href="">TensorflowUNet3Plus</a></li>
+<li>TensorflowSlightlyFlexibleUNet</li>
+<li>TensorflowSwinUNet</li>
+<li>TensorflowMultiResUNet</li>
+<li>TensorflowAttentionUNet</li>
+<li>TensorflowUNet3Plus</li>
 
 <h2>
 2 Dataset
