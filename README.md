@@ -246,4 +246,187 @@ Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br
 On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 <a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma">TensorflowUNet3Plus-Segmentation-MultipleMyeloma</a>
 
+<br>
+<h2>
+Dataset citations
+</h2>
+<h3></h3>
 
+<b>1. <a href="./dataset/ALL">ALL</a></b><br>
+<pre>
+Acute Lymphoblastic Leukemia (ALL) image dataset
+https://www.kaggle.com/datasets/mehradaria/leukemia
+</pre>
+<pre>
+If you use this dataset in your research, please credit the authors.
+Data Citation:
+Mehrad Aria, Mustafa Ghaderzadeh, Davood Bashash, Hassan Abolghasemi, Farkhondeh Asadi, 
+and Azamossadat Hosseini, “Acute Lymphoblastic Leukemia (ALL) image dataset.” Kaggle, 
+(2021). DOI: 10.34740/KAGGLE/DSV/2175623.
+
+Publication Citation:
+Ghaderzadeh, M, Aria, M, Hosseini, A, Asadi, F, Bashash, D, Abolghasemi, 
+H. A fast and efficient CNN model for B-ALL diagnosis and its subtypes 
+classification using peripheral blood smear images. Int J Intell Syst. 2022; 37: 5113- 5133. doi:10.1002/int.22753
+</pre>
+
+<b>2. <a href="./dataset/BrainTumor">BrainTumor</a></b><br>
+<pre>
+Brain MRI segmentation
+https://www.kaggle.com/datasets/mateuszbuda/lgg-mri-segmentation
+</pre>
+<pre>
+LGG Segmentation Dataset<br>
+Dataset used in:<br>
+
+Mateusz Buda, AshirbaniSaha, Maciej A. Mazurowski "Association of genomic subtypes of 
+lower-grade gliomas with shape features automatically extracted by a deep learning 
+algorithm." Computers in Biology and Medicine, 2019.
+and
+Maciej A. Mazurowski, Kal Clark, Nicholas M. Czarnek, Parisa Shamsesfandabadi, 
+Katherine B. Peters, Ashirbani Saha "Radiogenomics of lower-grade glioma: 
+algorithmically-assessed tumor shape is associated with tumor genomic subtypes 
+and patient outcomes in a multi-institutional study with 
+The Cancer Genome Atlas data." Journal of Neuro-Oncology, 2017.
+
+This dataset contains brain MR images together with manual FLAIR abnormality 
+segmentation masks.
+The images were obtained from The Cancer Imaging Archive (TCIA).
+They correspond to 110 patients included in The Cancer Genome Atlas (TCGA) 
+lower-grade glioma collection with at least fluid-attenuated inversion recovery (FLAIR) 
+sequence and genomic cluster data available.
+Tumor genomic clusters and patient data is provided in data.csv file.
+</pre>
+
+<b>3. <a href="./dataset/Cervial-Cancer">Cervial-Cancer</a></b><br>
+<pre>
+Cervical Cancer largest dataset (SipakMed)
+https://www.kaggle.com/datasets/prahladmehandiratta/cervical-cancer-largest-dataset-sipakmed
+</pre>
+<b>About Dataset</b><br>
+<pre>
+Please don't forget to upvote if you find this useful.
+Context
+Cervical cancer is the fourth most common cancer among women in the world, estimated more than 0.53 million 
+women are diagnosed in every year but more than 0.28 million women’s lives are taken by cervical cancer 
+in every years . Detection of the cervical cancer cell has played a very important role in clinical practice.
+
+Content
+The SIPaKMeD Database consists of 4049 images of isolated cells that have been manually cropped from 966 cluster
+ cell images of Pap smear slides. These images were acquired through a CCD camera adapted to an optical microscope. 
+ The cell images are divided into five categories containing normal, abnormal and benign cells.
+
+Acknowledgements
+IEEE International Conference on Image Processing (ICIP) 2018, Athens, Greece, 7-10 October 2018.
+
+Inspiration
+CERVICAL Cancer is an increasing health problem and an important cause of mortality in women worldwide. 
+Cervical cancer is a cancer is grow in the tissue of the cervix . It is due to the abnormal growth of cell that 
+are spread to the other part of the body.
+Automatic detection technique are used for cervical abnormality to detect Precancerous cell or cancerous cell 
+than no pathologist are required for manually detection process.
+</pre>
+
+<b>4. <a href="./dataset/GastrointestinalPolyp">GastrointestinalPolyp</a></b><br>
+<pre>
+Kvasir-SEG Data (Polyp segmentation & detection)
+https://www.kaggle.com/datasets/debeshjha1/kvasirseg
+</pre>
+
+<b>5. <a href="./Mammogram">Mammogram</a></b><br>
+<pre>
+http://www.eng.usf.edu/cvprg/mammography/database.html
+</pre>
+<pre>
+# Digital Database for Screening Mammography segmentation annotation data
+The images files in this directory are 66 Digital Database for Screening Mammography (DDSM) 
+mammograms and the corresponding manual annotations of mammograms which show
+the fibroglandular, adipose, and pectoral muscle tissue regions. To our knowledge, the dataset 
+is the first publicly available breast tissue segmentation masks for screen film mammography 
+in the world. The permission for the use of DDSM data is explained in our paper.
+The dataset includes manual annotations for 16 Type A, 20 Type B, 17 Type C, and 13 Type D mammograms. 
+Manual annotation file names are the original mammogram file name
+concatenated with “_LI”, which stands for “labelled image”. Mammograms and the manual annotations have
+a resolution of 960x480. 64, 128, 192, and 255 intensity pixels in the manual annotations show background, 
+adipose tissue, fibroglandular tissue, and pectoral muscle
+tissue regions, respectively. The images are grayscale. Mammograms and manual annotations  are located 
+under "fgt_seg" and "fgt_seg_labels" subdirectories of
+"train_valid" and "test" directories. These are the training, validation, and test mammograms that were 
+used for modelling the mammogram segmentation in our article. We
+have given the names of the cross-validation file names in the supplementary materials document. 
+You may find the methods about preprocessing of mammograms and manual
+annotations in our journal article.
+</pre>
+
+<b>6. <a href="./MultipleMyeloma">MultipleMyeloma</a></b><br>
+<pre>
+SegPC-2021: Segmentation of Multiple Myeloma Plasma Cells in Microscopic Images
+https://www.kaggle.com/datasets/sbilab/segpc2021dataset
+</pre>
+Citation:<br>
+<pre>
+Anubha Gupta, Ritu Gupta, Shiv Gehlot, Shubham Goswami, April 29, 2021, "SegPC-2021: Segmentation of Multiple Myeloma Plasma Cells 
+in Microscopic Images", IEEE Dataport, doi: https://dx.doi.org/10.21227/7np1-2q42.
+BibTex
+@data{segpc2021,
+doi = {10.21227/7np1-2q42},
+url = {https://dx.doi.org/10.21227/7np1-2q42},
+author = {Anubha Gupta; Ritu Gupta; Shiv Gehlot; Shubham Goswami },
+publisher = {IEEE Dataport},
+title = {SegPC-2021: Segmentation of Multiple Myeloma Plasma Cells in Microscopic Images},
+year = {2021} }
+IMPORTANT:
+If you use this dataset, please cite below publications-
+1. Anubha Gupta, Rahul Duggal, Shiv Gehlot, Ritu Gupta, Anvit Mangal, Lalit Kumar, Nisarg Thakkar, and Devprakash Satpathy, 
+ "GCTI-SN: Geometry-Inspired Chemical and Tissue Invariant Stain Normalization of Microscopic Medical Images," 
+ Medical Image Analysis, vol. 65, Oct 2020. DOI: 
+ (2020 IF: 11.148)
+2. Shiv Gehlot, Anubha Gupta and Ritu Gupta, 
+ "EDNFC-Net: Convolutional Neural Network with Nested Feature Concatenation for Nuclei-Instance Segmentation,"
+ ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), 
+ Barcelona, Spain, 2020, pp. 1389-1393.
+3. Anubha Gupta, Pramit Mallick, Ojaswa Sharma, Ritu Gupta, and Rahul Duggal, 
+ "PCSeg: Color model driven probabilistic multiphase level set based tool for plasma cell segmentation in multiple myeloma," 
+ PLoS ONE 13(12): e0207908, Dec 2018. DOI: 10.1371/journal.pone.0207908
+License
+CC BY-NC-SA 4.0
+</pre>
+
+<b>7. <a href="./Nerve">Nerve</a></b><br>
+<pre>
+ Ultrasound Nerve Segmentation<br>
+ Identify nerve structures in ultrasound images of the neck<br>
+</pre>
+
+<pre>
+Dataset Description
+The task in this competition is to segment a collection of nerves called the Brachial Plexus (BP) in ultrasound images. 
+You are provided with a large training set of images where the nerve has been manually annotated by humans. 
+Annotators were trained by experts and instructed to annotate images where they felt confident about the existence of 
+the BP landmark.
+
+Please note these important points:
+
+The dataset contains images where the BP is not present. Your algorithm should predict no pixel values in these cases.
+As with all human-labeled data, you should expect to find noise, artifacts, and potential mistakes in the ground truth. 
+Any individual mistakes (not affecting the broader integrity of the competition) will be left as is.
+Due to the way the acquisition machine generates image frames, you may find identical images or very similar images.
+In order to reduce the submission file sizes, this competition uses run-length encoding (RLE) on the pixel values. 
+The details of how to use RLE are described on the 'Evaluation' page.
+File descriptions
+/train/ contains the training set images, named according to subject_imageNum.tif. Every image with the same subject 
+number comes from the same person. This folder also includes binary mask images showing the BP segmentations.
+/test/ contains the test set images, named according to imageNum.tif. You must predict the BP segmentation for these 
+images and are not provided a subject number. There is no overlap between the subjects in the training and test sets.
+train_masks.csv gives the training image masks in run-length encoded format. This is provided as a convenience to 
+demonstrate how to turn image masks into encoded text values for submission.
+sample_submission.csv shows the correct submission file format.
+</pre>
+
+<b>8. <a href="./Retinal-Vessel">Retinal-Vessel</a></b></br>
+<pre>
+Retinal Image Analysis
+</pre>
+<pre>
+https://blogs.kingston.ac.uk/retinal/chasedb1/
+</pre>
