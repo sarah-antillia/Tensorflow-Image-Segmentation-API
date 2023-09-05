@@ -1,0 +1,2 @@
+epoch,binary_accuracy,val_binary_accuracy,
+0, 0.8701, 0.8601
