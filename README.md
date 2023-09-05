@@ -147,7 +147,7 @@ Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder
 <h2>
 5.4 Tiled-Image-Inference 
 </h2>
-Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma/b> folder<br>
+Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowMultiResUNet model for MultipleMyeloma.<br>
 <pre>
 ./4.tiled_infer.bat
