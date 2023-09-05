@@ -170,7 +170,7 @@ and run the following bat file to train TensorflowAttentionUNet model for Multip
 6.2 Evaluation
 </h2>
 Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder,<br>
-and run the following bat file to evalute TTensorflowAttentionUNet model for MultipleMyeloma.<br>
+and run the following bat file to evalute TensorflowAttentionUNet model for MultipleMyeloma.<br>
 <pre>
 ./2.evaluate.bat
 </pre>
@@ -179,7 +179,7 @@ and run the following bat file to evalute TTensorflowAttentionUNet model for Mul
 <h2>
 6.3 Inference
 </h2>
-Please move to a <b>./projects/TTensorflowAttentionUNet/MultipleMyeloma</b> folder<br>
+Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowAttentionUNet model for MultipleMyeloma.<br>
 <pre>
 ./3.infer.bat
@@ -201,3 +201,49 @@ On detail of Image Segmentation by TensorflowAttentionUNet, please see also.<br>
 <!--
 https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet
 -->
+
+<h2>
+7 TensorflowUNet3Plus
+</h2>
+<h2>
+7.1 Training
+</h2>
+For example, please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder,<br>
+and run the following bat file to train TensorflowUNet3Plus model for MultipleMyeloma.<br>
+<pre>
+./1.train.bat
+</pre>
+
+
+<h2>
+7.2 Evaluation
+</h2>
+Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evalute TensorflowUNet3Plus model for MultipleMyeloma.<br>
+<pre>
+./2.evaluate.bat
+</pre>
+
+
+<h2>
+7.3 Inference
+</h2>
+Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br>
+,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowUNet3Plus model for MultipleMyeloma.<br>
+<pre>
+./3.infer.bat
+</pre>
+
+<h2>
+7.4 Tiled-Image-Inference 
+</h2>
+Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br>
+,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowUNet3Plus model for MultipleMyeloma.<br>
+<pre>
+./4.tiled_infer.bat
+</pre>
+
+On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
+<a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma">TensorflowUNet3Plus-Segmentation-MultipleMyeloma</a>
+
+
