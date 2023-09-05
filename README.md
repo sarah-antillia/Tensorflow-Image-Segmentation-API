@@ -4,11 +4,11 @@
 </h2>
 In this repository, we have Image Segmentation API corresponding to the following Tensorflow UNet models. <br>
 
-<li>TensorflowSlightlyFlexibleUNet</li>
-<li>TensorflowSwinUNet</li>
-<li>TensorflowMultiResUNet</li>
-<li>TensorflowAttentionUNet</li>
-<li>TensorflowUNet3Plus</li>
+<li><a href="./projects/TensorflowSlightlyFlexibleUNet">TensorflowSlightlyFlexibleUNet</a></li>
+<li><a href="./projects/TensorflowSwinUNet">TensorflowSwinUNet</a></li>
+<li><a href="./projects/TensorflowMultiResUNet">TensorflowMultiResUNet</a></li>
+<li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
+<li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
 
 <h2>
 2 Dataset
