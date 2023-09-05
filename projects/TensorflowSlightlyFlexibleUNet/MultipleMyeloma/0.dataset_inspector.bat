@@ -1,2 +1,2 @@
-python ../../ImageMaskDataset.py ./train_eval_infer.config
+python ../../../src/ImageMaskDataset.py ./train_eval_infer.config
 
