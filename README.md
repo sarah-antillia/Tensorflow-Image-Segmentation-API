@@ -1,6 +1,6 @@
 # Tensorflow-Image-Segmentation-API (Updated: 2023/09/05)
 <h2>
-1 Image Segmentaion API 
+1 Image Segmentation API 
 </h2>
 In this repository, we have Image Segmentation API corresponding to the following Tensorflow UNet models. <br>
 
