@@ -1,4 +1,4 @@
-# Tensorflow-Image-Segmentation-API (Updated: 2023/09/05)
+# Tensorflow-Image-Segmentation-API (Updated: 2023/09/07)
 <h2>
 1 Image Segmentation API 
 </h2>
@@ -10,6 +10,13 @@ In this repository, we have Image Segmentation API corresponding to the followin
 <li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
 <li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
 
+<b> Class Hierarchy </b><br>
+<a href="./src/TensorflowUNet.py">TensorflowUNet</a><br>
+  ├─ <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a><br>
+  ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
+  ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a><br>
+  └─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
+<br>  
 <h2>
 2 Dataset
 </h2>
