@@ -9,7 +9,7 @@ In this repository, we have Image Segmentation API corresponding to the followin
 <li><a href="./projects/TensorflowMultiResUNet">TensorflowMultiResUNet</a></li>
 <li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
 <li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
-
+<br>
 <b> Class Hierarchy </b><br>
 <a href="./src/TensorflowUNet.py">TensorflowUNet</a><br>
   ├─ <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a><br>
