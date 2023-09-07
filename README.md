@@ -1,16 +1,16 @@
-# Tensorflow-Image-Segmentation-API (Updated: 2023/09/07)
+# Tensorflow-Image-Segmentation-API (Updated: 2023/09/08)
 <h3>Contens</h3>
-<li><a href="#1">1 Image Segmentation API </a></li><br>
-<li><a href="#2">2 Dataset </a></li><br>
-<li><a href="#3">3 TensorflowSlightlyFlexibleUNet</a></li><br>
-<li><a href="#4">4 TensorflowSwinUNet</a></li><br>
-<li><a href="#5">5 TensorflowMultiResUNet</a></li><br>
-<li><a href="#6">6 TensorflowAttentionUNet</a></li><br>
-<li><a href="#7">7 TensorflowUNet3Plust</a></li><br>
-<li><a href="#100">Dataset citations</a></li><br>
+<li><a href="#1">1 Image Segmentation API </a></li>
+<li><a href="#2">2 Dataset </a></li>
+<li><a href="#3">3 TensorflowSlightlyFlexibleUNet</a></li>
+<li><a href="#4">4 TensorflowSwinUNet</a></li>
+<li><a href="#5">5 TensorflowMultiResUNet</a></li>
+<li><a href="#6">6 TensorflowAttentionUNet</a></li>
+<li><a href="#7">7 TensorflowUNet3Plust</a></li>
+<li><a href="#100">Dataset citations</a></li>
 
 <h2>
-<a href="1">
+<a id="1">
 1 Image Segmentation API 
 </a>
 </h2>
@@ -30,7 +30,7 @@ In this repository, we have Image Segmentation API corresponding to the followin
   └─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
 <br>  
 <h2>
-<a href="3">
+<a id="2">
 2 Dataset
 </a>
 </h2>
@@ -53,7 +53,7 @@ We have the following dataset.<br>
 Please note that each dataset file has been archived in 7z format.
 
 <h2>
-<a href="3">
+<a id="3">
 3 TensorflowSlightlyFlexibleUNet
 </a>
 </h2>
