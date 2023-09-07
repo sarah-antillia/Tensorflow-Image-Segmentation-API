@@ -35,7 +35,7 @@ We have the following dataset.<br>
 <li><a href="./dataset/Retinal-Vessel">Retinal-Vessel</a></li>
 
 <br>
-<b>2023/09/07: Added Lung, Ovarina-Tumor and Pap-Smear dataset</b><br>
+<b>2023/09/07: Added Lung, Ovarian-Tumor and Pap-Smear dataset</b><br>
 Please note that each dataset file has been archived in 7z format.
 
 <h2>
