@@ -103,7 +103,9 @@ On detail of TensorflowSlightlyFlexibleUNet/MultipleMyeloma, please see also.<br
 
 
 <h2>
+<a id="4">
 4 TensorflowSwinUNet
+</a>
 </h2>
 This <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a> model can be slightly flexibly customizable by a configuration file.<br>
 For example, <b>TensorflowSwinUNet/GastrointestinalPolyp</b> model will be customizable
@@ -145,7 +147,9 @@ On detail of Image Segmentation by TensorflowSwinUNet-GastrointestinalPolyp, ple
 
 
 <h2>
+<a id="5">
 5 TensorflowMultiResUNet
+</a>
 </h2>
 This <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a> model can be 
 slightly flexibly customizable by a configuration file.<br>
@@ -196,7 +200,9 @@ On detail of Image Segmentation by TensorflowMultiResUNet-MultipleMyeloma, pleas
 
 
 <h2>
+<a id="6">
 6 TensorflowAttentionUNet
+</a>
 </h2>
 This <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a> model can be 
 slightly flexibly customizable by a configuration file.<br>
@@ -247,7 +253,9 @@ On detail of Image Segmentation by TensorflowAttentionUNet, please see also.<br>
 
 
 <h2>
+<a id="7">
 7 TensorflowUNet3Plus
+</a>
 </h2>
 This <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a> model can be 
 slightly flexibly customizable by a configuration file.<br>
@@ -298,7 +306,9 @@ On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 
 <br>
 <h2>
+<a id="100">
 Dataset citations
+</a>
 </h2>
 <h3></h3>
 
