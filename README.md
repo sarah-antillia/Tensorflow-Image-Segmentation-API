@@ -29,10 +29,12 @@ We have the following dataset.<br>
 <li><a href="./dataset/Mammogram">Mammogram</a></li>
 <li><a href="./dataset/MultipleMyeloma">MultipleMyeloma</a></li>
 <li><a href="./dataset/Nerve">Nerve</a></li>
-<li><a href="./dataset/Retinal-Vessel">Retinal-Vessel</a></li>
+<li><a href="./dataset/Ovarian-Tumor">Ovarian-Tumor</a></li>
 <li><a href="./dataset/Pap-Smear">Pap-Smear</a></li>
+<li><a href="./dataset/Retinal-Vessel">Retinal-Vessel</a></li>
+
 <br>
-<b>2023/09/07: Added Pap-Smear dataset</b><br>
+<b>2023/09/07: Added Ovarina-Tumor and Pap-Smear dataset</b><br>
 Please note that each dataset file has been archived in 7z format.
 
 <h2>
@@ -479,4 +481,20 @@ University of the Aegean, Dept. of Financial and Management Engineering (FME) as
 Postgraduate Program of the FME-Dept. and as research associate of the MDE-Lab. The site will be continuously 
 updated with new papers, studies, theses and citations related to the hosted pap-smear databases.
 </pre>
+
+<b>10. <a href="./dataset/Ovarina-Tumor">Ovarian-Tumor</a></b></br>
+The original image dataset OTU_2d used here has been taken from the following google drive.<br>
+<a href="https://drive.google.com/drive/folders/1c5n0fVKrM9-SZE1kacTXPt1pt844iAs1">MMOTU</a><br>
+
+<pre>
+MMOTU_DS2Net
+https://github.com/cv516Buaa/MMOTU_DS2Net
+Dataset
+Multi-Modality Ovarian Tumor Ultrasound (MMOTU) image dataset consists of two sub-sets with two modalities, 
+which are OTU_2d and OTU_CEUS respectively including 1469 2d ultrasound images and 170 CEUS images. 
+On both of these two sub-sets, we provide pixel-wise semantic annotations and global-wise category annotations. 
+Many thanks to Department of Gynecology and Obstetrics, Beijing Shijitan Hospital, 
+Capital Medical University and their excellent works on collecting and annotating the data.
+</pre>
+
 
