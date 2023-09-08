@@ -310,17 +310,14 @@ On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 </h2>
 We have a lot of experimetal Image-Segmentation projects based on this Tensorflow Image Segmentation API.
 <br><br>
+
+
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Acute-Lymphoblastic-Leukemia">
 Image-Segmentation-Acute-Lymphoblastic-Leukemia
 </a>
 <br>
 <br>
 
-<a href="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">
-Tensorflow-Slightly-Flexible-Attention-UNet
-</a>
-<br>
-<br>
 
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Brain-Tumor">
 Image-Segmentation-Brain-Tumor
@@ -411,6 +408,32 @@ Image-Segmentation-Retinal-Vessel
 </a>
 <br>
 <br>
+
+<!--
+ Attention UNet
+-->
+<br>
+<a href="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">
+Tensorflow-Slightly-Flexible-Attention-UNet
+</a>
+<br>
+<br>
+<br>
+<!--
+  MultiRes
+ -->
+<a href="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-Gastrointestinal-Polyp">
+TensorflowMultiResUNet-Segmentation-Gastrointestinal-Polyp
+</a>
+<br>
+<br>
+<a href="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma">
+TensorflowMultiResUNet-Segmentation-MultipleMyeloma
+</a>
+<br>
+<br>
+
+
 <!--
  SWinUNet  
  -->
@@ -436,6 +459,20 @@ TensorflowSwinUNet-Segmentation-Skin-Lesion
 <br>
 <br>
 
+<!--
+ UNet3Plus  
+ -->
+<br>
+<a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-Gastrointestinal-Polyp">
+TensorflowUNet3Plus-Segmentation-Gastrointestinal-Polyp
+</a>
+<br>
+<br>
+<a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma">
+TensorflowUNet3Plus-Segmentation-MultipleMyeloma
+</a>
+<br>
+<br>
 
 <br>
 <h2>
