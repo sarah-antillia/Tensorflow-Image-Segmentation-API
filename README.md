@@ -311,7 +311,9 @@ On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 We have a lot of experimetal Image-Segmentation projects based on this Tensorflow Image Segmentation API.
 <br><br>
 
-
+<h3>
+10.1 TensorflowSlightlyFlexibleUNet
+</h3>
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Acute-Lymphoblastic-Leukemia">
 Image-Segmentation-Acute-Lymphoblastic-Leukemia
 </a>
@@ -412,16 +414,22 @@ Image-Segmentation-Retinal-Vessel
 <!--
  Attention UNet
 -->
-<br>
+<h3>
+10.2 TensorflowSlightlyFlexibleAttentionUNet
+</h3>
 <a href="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">
 Tensorflow-Slightly-Flexible-Attention-UNet
 </a>
 <br>
 <br>
-<br>
+
 <!--
   MultiRes
  -->
+<h3>
+10.3 TensorflowMultiResUNet
+</h3>
+
 <a href="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-Gastrointestinal-Polyp">
 TensorflowMultiResUNet-Segmentation-Gastrointestinal-Polyp
 </a>
@@ -433,11 +441,13 @@ TensorflowMultiResUNet-Segmentation-MultipleMyeloma
 <br>
 <br>
 
-
 <!--
  SWinUNet  
  -->
-<br>
+<h3>
+10.4 TensorflowSwinUNet
+</h3>
+
 <a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-CDD-CESM-Mammogram">
 TensorflowSwinUNet-Segmentation-CDD-CESM-Mammogram
 </a>
@@ -462,7 +472,9 @@ TensorflowSwinUNet-Segmentation-Skin-Lesion
 <!--
  UNet3Plus  
  -->
-<br>
+<h3>
+10.5 TensorflowUNet3Plus
+</h3>
 <a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-Gastrointestinal-Polyp">
 TensorflowUNet3Plus-Segmentation-Gastrointestinal-Polyp
 </a>
