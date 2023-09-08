@@ -309,8 +309,7 @@ On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 <a id="10">10 Image Segmentation Experimental projects</a>
 </h2>
 We have a lot of experimetal Image-Segmentation projects based on this Tensorflow Image Segmentation API.
-<br><br>
-
+<br>
 <h3>
 10.1 TensorflowSlightlyFlexibleUNet
 </h3>
@@ -319,7 +318,6 @@ Image-Segmentation-Acute-Lymphoblastic-Leukemia
 </a>
 <br>
 <br>
-
 
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Brain-Tumor">
 Image-Segmentation-Brain-Tumor
