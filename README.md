@@ -309,110 +309,111 @@ On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 <a id="10">10 Image Segmentation Experimental projects</a>
 </h2>
 We have a lot of experimetal Image-Segmentation projects based on this Tensorflow Image Segmentation API.
-<h3>
+
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Acute-Lymphoblastic-Leukemia">
 Image-Segmentation-Acute-Lymphoblastic-Leukemia
 </a>
-</h3>
-<h3>
-<a href="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">
+<br>
+<br>
+
+"https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">
 Tensorflow-Slightly-Flexible-Attention-UNet
 </a>
-</h3>
-<h3>
+<br>
+<br>
+
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Brain-Tumor">
 Image-Segmentation-Brain-Tumor
 </a>
-</h3>
+<br>
+<br>
 
-<h3>
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Gastrointestinal-Polyp">
 Image-Segmentation-Gastrointestinal-Polyp
 </a>
-</h3>
+<br>
+<br>
 
-
-<h3>
 <a href="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma">
 Tiled-Image-Segmentation-Multiple-Myeloma
 </a>
-</h3>
+<br>
+<br>
 
-
-<h3>
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Cervical-Cancer">
 Image-Segmentation-Cervical-Cancer
 </a>
-</h3>
+<br>
+<br>
 
-
-<h3>
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Multiple-Myeloma">
 Image-Segmentation-Multiple-Myeloma
 </a>
-</h3>
+<br>
+<br>
 
-<h3>
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Breast-Cancer">
 Image-Segmentation-Breast-Cancer
 </a>
-</h3>
+<br>
+<br>
 
-<h3>
 <a href="https://github.com/sarah-antillia/Image-Segmentation-ImageMaskDataGenerator">
 Image-Segmentation-ImageMaskDataGenerator
 </a>
-</h3>
+<br>
+<br>
 
 
-<h3>
 <a href="https://github.com/sarah-antillia/Image-Segmentation-Neuroblastoma">
 Image-Segmentation-Neuroblastoma
 </a>
-</h3>
+<br>
+<br>
 
 
-<h3>
 <a href="https://github.com/sarah-antillia/Image-Segmentation-Blood-Cell">
 Image-Segmentation-Blood-Cell
 </a>
-</h3>
+<br>
+<br>
 
 
-<h3>
 <a href="https://github.com/sarah-antillia/Image-Segmentation-Kidney-Tumor">
 Image-Segmentation-Kidney-Tumor
 </a>
-</h3>
+<br>
+<br>
 
-<h3>
+
 <a href="https://github.com/sarah-antillia/Image-Segmentation-Liver-Tumor">
-Image-Segmentation-Liver-Tumor</a>
-</h3>
+Image-Segmentation-Liver-Tumor
+</a>
+<br>
+<br>
 
-<h3>
 <a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-Skin-Lesion">
 TensorflowSwinUNet-Segmentation-Skin-Lesion
 </a>
-</h3>
+<br>
+<br>
 
-<h3>
 <a href="https://github.com/sarah-antillia/Image-Segmentation-Neoplastic-Cell">
 Image-Segmentation-Neoplastic-Cell
 </a>
-</h3>
+<br>
+<br>
 
-<h3>
 <a href="https://github.com/sarah-antillia/Image-Segmentation-CDD-CESM-Mammogram">
 Image-Segmentation-CDD-CESM-Mammogram
 </a>
-</h3>
+<br>
+<br>
 
-<h3>
 <a href="https://github.com/sarah-antillia/Image-Segmentation-Retinal-Vessel">
 Image-Segmentation-Retinal-Vessel
 </a>
-</h3>
+<br>
 
 
 
