@@ -21,11 +21,14 @@ In this repository, we have Image Segmentation API corresponding to the followin
 <li><a href="./projects/TensorflowSwinUNet">TensorflowSwinUNet</a></li>
 <li><a href="./projects/TensorflowMultiResUNet">TensorflowMultiResUNet</a></li>
 <li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
+<li><a href="./projects/TensorflowEfficientUNet">TensorflowEfficientUNet</a></li>
 <li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
+
 <br>
 <b> Class Hierarchy </b><br>
 <a href="./src/TensorflowUNet.py">TensorflowUNet</a><br>
   ├─ <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a><br>
+    ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a><br>
   ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
   ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a><br>
   └─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
