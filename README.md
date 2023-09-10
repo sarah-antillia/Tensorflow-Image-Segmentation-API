@@ -23,6 +23,8 @@ In this repository, we have Image Segmentation API corresponding to the followin
 <li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
 <li><a href="./projects/TensorflowEfficientUNet">TensorflowEfficientUNet</a></li>
 <li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
+<br>
+<b>2023/09/: Added TensorflowEfficientUNe model/b><br>
 
 <br>
 <b> Class Hierarchy </b><br>
@@ -33,7 +35,7 @@ In this repository, we have Image Segmentation API corresponding to the followin
   ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a><br>
   └─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
 <br>
-<b>2023/09/11: Added TensorflowEfficientUNet</b>
+<b>2023/09/: Added Lung, Ovarian-Tumor and Pap-Smear dataset</b><br>
 
 <br>  
 <h2>
