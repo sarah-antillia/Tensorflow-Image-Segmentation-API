@@ -110,7 +110,7 @@ Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b
 On detail of TensorflowSlightlyFlexibleUNet/MultipleMyeloma, please see also.<br>
 <a href="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma">Tiled-Image-Segmentation-Multiple-Myeloma</a>
 
-<b>Tiled-Image-Segmentation for 4K-Images</b>
+<b>Tiled-Image-Segmentation for 4K-Images:MultipleMyelom</b>
 <img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/asset/4k_mini_test_output_512x512.png">
 <br>
 
@@ -155,7 +155,8 @@ Please move to a <b>./projects/TensorflowSwinUNet/GastrointestinalPolyp</b> fold
 On detail of Image Segmentation by TensorflowSwinUNet-GastrointestinalPolyp, please see also.<br>
 <a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-Gastrointestinal-Polyp">TensorflowSwinUNet-Segmentation-Gastrointestinal-Polyp</a>
 
-
+<b>Tiled-Image-Inference for 4K-images: MultipleMyelom</b><br>
+<img src="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma/blob/main/asset/4k_mini_test_image_output_tiled.png"></br>
 
 
 <h2>
@@ -210,7 +211,7 @@ Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder
 On detail of Image Segmentation by TensorflowMultiResUNet-MultipleMyeloma, please see also.<br>
 <a href="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma">TensorflowMultiResUNet-Segmentation-MultipleMyeloma</a>
 
-<b>Tiled-Image-Segmentation for 4K-Images</b><br>
+<b>Tiled-Image-Segmentation for 4K-Images:MultipleMyelom</b><br>
 <img src="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma/blob/main/asset/4k_tiled_mini_test_output_overlapped.png"><br>
 
 
@@ -319,7 +320,7 @@ Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br
 On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 <a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma">TensorflowUNet3Plus-Segmentation-MultipleMyeloma</a>
 <br>
-<b>Overlapped-Tiled-Image-Segmentation for 4K-Image</b><br>
+<b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
 
 <img src="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma/blob/main/asset/4k_tiled_mini_test_output_overlapped.png">
 <br>
