@@ -312,6 +312,11 @@ Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br
 
 On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 <a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma">TensorflowUNet3Plus-Segmentation-MultipleMyeloma</a>
+<br>
+<b>Overlapped-Tiled-Image-Segmentation for 4K-Image</b><br>
+
+<img src="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma/blob/main/asset/4k_tiled_mini_test_output_overlapped.png">
+<br>
 
 <h2>
 <a id="10">10 Image Segmentation Experimental projects</a>
