@@ -447,6 +447,9 @@ Image-Segmentation-Blood-Cell
 Image-Segmentation-Kidney-Tumor
 </a>
 <br>
+<img src="https://github.com/sarah-antillia/Image-Segmentation-Kidney-Tumor/blob/main/asset/mini_test_output_merged.png">
+<br>
+<br>
 <br>
 
 
