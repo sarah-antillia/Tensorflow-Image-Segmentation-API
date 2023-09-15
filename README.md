@@ -264,6 +264,11 @@ Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folde
 ./4.tiled_infer.bat
 </pre>
 
+<b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
+<img src="./projects/TensorflowAttentionUNet\MultipleMyeloma/4k_tiled_mini_test_output/4k_tiled_mini_test_output.png">
+<br>
+
+<h2>
 On detail of Image Segmentation by TensorflowAttentionUNet, please see also.<br>
 <a href="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">Tensorflow-Slightly-Flexible-Attention-UNet</a>
 
