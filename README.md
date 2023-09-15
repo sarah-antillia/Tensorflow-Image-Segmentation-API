@@ -52,8 +52,6 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 </a>
 </h2>
 We have the following dataset.<br>
-We appreciate all contributions of these dataset providers.<br>
-The better the dataset, the better the result in Deep Learning. This is why we believe that "Data First" is the best principle for all in data science.<br>
 
 <li><a href="./dataset/ALL">ALL</a></li>
 <li><a href="./dataset/BrainTumor">BrainTumor</a></li>
@@ -67,10 +65,9 @@ The better the dataset, the better the result in Deep Learning. This is why we b
 <li><a href="./dataset/Ovarian-Tumor">Ovarian-Tumor</a></li>
 <li><a href="./dataset/Pap-Smear">Pap-Smear</a></li>
 <li><a href="./dataset/Retinal-Vessel">Retinal-Vessel</a></li>
-
 <br>
-<b>2023/09/07: Added Lung, Ovarian-Tumor and Pap-Smear dataset</b><br>
-Please note that each dataset file has been archived in 7z format.
+We appreciate all contributions of these dataset providers.<br>
+The better the dataset, the better the result in Deep Learning. This is why we believe that "Data First" is the best principle for all in data science.<br>
 
 <h2>
 <a id="3">
