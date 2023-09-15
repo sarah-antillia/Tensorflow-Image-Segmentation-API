@@ -16,8 +16,8 @@
 </a>
 </h2>
 In this repository, we have Image Segmentation API corresponding to the following Tensorflow UNet models. <br>
-We have tried <b>Tiled-Image-Segmentation for 4K-images</b> of <b>MultipleMyeloma</b> dataset by using these 
-Tensorflow UNet models<br>
+As a typical example of image segmentation in the medical science region, we have tried 
+<b>Tiled-Image-Segmentation for 4K-images</b> of <a href="./dataset/MultipleMyeloma">MultipleMyeloma</a> dataset by using these Tensorflow UNet models.<br>
 <li><a href="./projects/TensorflowSlightlyFlexibleUNet">TensorflowSlightlyFlexibleUNet</a></li>
 <li><a href="./projects/TensorflowSwinUNet">TensorflowSwinUNet</a></li>
 <li><a href="./projects/TensorflowMultiResUNet">TensorflowMultiResUNet</a></li>
