@@ -165,7 +165,7 @@ class TensorflowSwinUNet(TensorflowUNet) :
     self.model.compile(optimizer= self.optimizer, loss =   self.loss, metrics= self.metrics)
 
   # The following some methods have been taken from
-  # keras-unet-collection/keras_unet_collection/_model_swin_unet_2d.py
+  # https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py
   def swin_transformer_stack(self, X, stack_num, embed_dim, num_patch, num_heads, window_size, num_mlp, shift_window=True, name=''):
     '''
     Stacked Swin Transformers that share the same token size.

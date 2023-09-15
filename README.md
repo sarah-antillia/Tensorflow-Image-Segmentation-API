@@ -45,21 +45,11 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 <br>
 We appreciate all contributions of these UNet model.<br>
 
-<a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/attention-unet.py">
-Attention-UNet</a><br>
-<a href="
-https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/multiresunet.py">
-MultiResUNet</a><br>
-
-<a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/efficientnetb0_unet.py
-
-">EfficientNetUNet</a><br>
-
-<a href="keras-unet-collection/keras_unet_collection/_model_swin_unet_2d.py">
-SWinUNet2D</a><br>
-
-<a href="https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py">
-UNet3Plus</a><br>
+<a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/attention-unet.py">Attention-UNet</a><br>
+<a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/multiresunet.py">MultiResUNet</a><br>
+<a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/efficientnetb0_unet.py">EfficientNetUNet</a><br>
+<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">SWinUNet2D</a><br>
+<a href="https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py">UNet3Plus</a><br>
 
 <br>  
 <h2>
