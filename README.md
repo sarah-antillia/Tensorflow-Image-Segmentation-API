@@ -352,11 +352,17 @@ We have a lot of experimetal Image-Segmentation projects based on this Tensorflo
 Image-Segmentation-Acute-Lymphoblastic-Leukemia
 </a>
 <br>
+<img src="https://github.com/atlan-antillia/Image-Segmentation-Acute-Lymphoblastic-Leukemia/blob/main/asset/mini_test_output_merged.png">
+<br>
+<br>
 <br>
 
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Brain-Tumor">
 Image-Segmentation-Brain-Tumor
 </a>
+<br>
+<img src="https://github.com/atlan-antillia/Image-Segmentation-Brain-Tumor/blob/main/asset/mini_test_output_merged.png">
+<br>
 <br>
 <br>
 
@@ -365,12 +371,18 @@ Image-Segmentation-Brain-Tumor
 Image-Segmentation-Gastrointestinal-Polyp
 </a>
 <br>
+<img src="https://github.com/atlan-antillia/Image-Segmentation-Gastrointestinal-Polyp/blob/main/asset/mini_test_output_merged.png">
+<br>
+<br>
 <br>
 
 
 <a href="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma">
 Tiled-Image-Segmentation-Multiple-Myeloma
 </a>
+<br>
+<img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/asset/4k_mini_test_output_512x512.png">
+<br>
 <br>
 <br>
 
@@ -379,6 +391,9 @@ Tiled-Image-Segmentation-Multiple-Myeloma
 Image-Segmentation-Cervical-Cancer
 </a>
 <br>
+<img src="https://github.com/atlan-antillia/Image-Segmentation-Cervical-Cancer/blob/main/asset/mini_test_inference_output.png">
+<br>
+<br>
 <br>
 
 
@@ -386,11 +401,17 @@ Image-Segmentation-Cervical-Cancer
 Image-Segmentation-Multiple-Myeloma
 </a>
 <br>
+<img src="https://github.com/atlan-antillia/Image-Segmentation-Multiple-Myeloma/blob/main/asset/mini_test_output.png">
+<br>
+<br>
 <br>
 
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Breast-Cancer">
 Image-Segmentation-Breast-Cancer
 </a>
+<br>
+<img src="https://github.com/atlan-antillia/Image-Segmentation-Breast-Cancer/blob/main/asset/mini_test_output_merged.png">
+<br>
 <br>
 <br>
 
@@ -398,11 +419,17 @@ Image-Segmentation-Breast-Cancer
 Image-Segmentation-ImageMaskDataGenerator
 </a>
 <br>
+<img src="https://github.com/sarah-antillia/Image-Segmentation-ImageMaskDataGenerator/blob/main/asset/test_output.png">
+<br>
+<br>
 <br>
 
 <a href="https://github.com/sarah-antillia/Image-Segmentation-Neuroblastoma">
 Image-Segmentation-Neuroblastoma
 </a>
+<br>
+<img src="https://github.com/sarah-antillia/Image-Segmentation-Neuroblastoma/blob/main/asset/test_output_merged.png">
+<br>
 <br>
 <br>
 
@@ -410,6 +437,9 @@ Image-Segmentation-Neuroblastoma
 <a href="https://github.com/sarah-antillia/Image-Segmentation-Blood-Cell">
 Image-Segmentation-Blood-Cell
 </a>
+<br>
+<img src="https://github.com/sarah-antillia/Image-Segmentation-Blood-Cell/blob/main/asset/mini_test_output_merged.png">
+<br>
 <br>
 <br>
 
@@ -424,11 +454,17 @@ Image-Segmentation-Kidney-Tumor
 Image-Segmentation-Liver-Tumor
 </a>
 <br>
+<img src="https://github.com/sarah-antillia/Image-Segmentation-Liver-Tumor/blob/main/asset/test_output_merged.png">
+<br>
+<br>
 <br>
 
 <a href="https://github.com/sarah-antillia/Image-Segmentation-Neoplastic-Cell">
 Image-Segmentation-Neoplastic-Cell
 </a>
+<br>
+<img src="https://github.com/sarah-antillia/Image-Segmentation-Neoplastic-Cell/blob/main/asset/test_output_merged.png">
+<br>
 <br>
 <br>
 
@@ -436,17 +472,26 @@ Image-Segmentation-Neoplastic-Cell
 Image-Segmentation-CDD-CESM-Mammogram
 </a>
 <br>
+<img src="https://github.com/sarah-antillia/Image-Segmentation-CDD-CESM-Mammogram/blob/main/asset/inferred_test_output_merged.png">
+<br>
+<br>
 <br>
 
 <a href="https://github.com/sarah-antillia/Image-Segmentation-Retinal-Vessel">
 Image-Segmentation-Retinal-Vessel
 </a>
 <br>
+<img src="https://github.com/sarah-antillia/Image-Segmentation-Retinal-Vessel/blob/main/asset/mini_test_output.png">
+<br>
+<br>
 <br>
 <b>ImageMaskDataGenerator</b><br>
 <a href="https://github.com/sarah-antillia/Image-Segmentation-ImageMaskDataGenerator">
 Image-Segmentation-ImageMaskDataGenerator
 </a>
+<br>
+<img src="https://github.com/sarah-antillia/Image-Segmentation-ImageMaskDataGenerator/blob/main/asset/ImageMaskAugmentor_elastic_images_samples.png">
+<br>
 <br>
 <br>
 
@@ -459,6 +504,9 @@ Image-Segmentation-ImageMaskDataGenerator
 <a href="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">
 Tensorflow-Slightly-Flexible-Attention-UNet
 </a>
+<br>
+<img src="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet/blob/main/asset/mini_test_inference_output_merged.png">
+<br>
 <br>
 <br>
 
@@ -473,10 +521,16 @@ Tensorflow-Slightly-Flexible-Attention-UNet
 TensorflowMultiResUNet-Segmentation-Gastrointestinal-Polyp
 </a>
 <br>
+<img src="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-Gastrointestinal-Polyp/blob/main/asset/mini_test_output_merged.png">
+<br>
+<br>
 <br>
 <a href="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma">
 TensorflowMultiResUNet-Segmentation-MultipleMyeloma
 </a>
+<br>
+<img src="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma/blob/main/asset/4k_tiled_mini_test_output_overlapped.png">
+<br>
 <br>
 <br>
 
@@ -491,20 +545,32 @@ TensorflowMultiResUNet-Segmentation-MultipleMyeloma
 TensorflowSwinUNet-Segmentation-CDD-CESM-Mammogram
 </a>
 <br>
+<img src="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-CDD-CESM-Mammogram/blob/main/asset/inferred_test_output_merged.png">
+<br>
+<br>
 <br>
 <a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-Gastrointestinal-Polyp">
 TensorflowSwinUNet-Segmentation-Gastrointestinal-Polyp
 </a>
+<br>
+<img src="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-Gastrointestinal-Polyp/blob/main/asset/mini_test_output_merged.png">
+<br>
 <br>
 <br>
 <a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma">
 TensorflowSwinUNet-Segmentation-MultipleMyeloma
 </a>
 <br>
+<img src="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma/blob/main/asset/4k_mini_test_image_output_tiled.png">
+<br>
+<br>
 <br>
 <a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-Skin-Lesion">
 TensorflowSwinUNet-Segmentation-Skin-Lesion
 </a>
+<br>
+<img src="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-Skin-Lesion/blob/main/asset/mini_test_output_merged.png">
+<br>
 <br>
 <br>
 
@@ -518,10 +584,14 @@ TensorflowSwinUNet-Segmentation-Skin-Lesion
 TensorflowUNet3Plus-Segmentation-Gastrointestinal-Polyp
 </a>
 <br>
+<img src="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-Gastrointestinal-Polyp/blob/main/asset/mini_test_output_merged.png">
+<br>
+<br>
 <br>
 <a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma">
 TensorflowUNet3Plus-Segmentation-MultipleMyeloma
 </a>
+<img src="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma/blob/main/asset/4k_tiled_mini_test_output_overlapped.png">
 <br>
 <br>
 <!--
@@ -533,6 +603,9 @@ TensorflowUNet3Plus-Segmentation-MultipleMyeloma
 <a href="https://github.com/sarah-antillia/TensorflowEfficientUNet-Segmentation-CDD-CESM-Mammogram">
 TensorflowEfficientUNet-Segmentation-CDD-CESM-Mammogram
 </a>
+<br>
+<img src="https://github.com/sarah-antillia/TensorflowEfficientUNet-Segmentation-CDD-CESM-Mammogram/blob/main/asset/enlarged_test_output_merged.png">
+<br>
 <br>
 <br>
 
