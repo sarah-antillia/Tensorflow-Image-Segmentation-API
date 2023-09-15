@@ -52,6 +52,9 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 </a>
 </h2>
 We have the following dataset.<br>
+We appreciate all contributions of these dataset providers.<br>
+The better the dataset, the better the result in Deep Learning. This is why we believe that "Data First" is the best principle for all in data science.<br>
+
 <li><a href="./dataset/ALL">ALL</a></li>
 <li><a href="./dataset/BrainTumor">BrainTumor</a></li>
 <li><a href="./dataset/Breast-Cancer">Brest-Cancer</a></li>
