@@ -24,7 +24,7 @@ In this repository, we have Image Segmentation API corresponding to the followin
 <li><a href="./projects/TensorflowEfficientUNet">TensorflowEfficientUNet</a></li>
 <li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
 <br>
-As a typical example of image segmentation in the medical science region, we have tried 
+As a typical example of image segmentation in the medical science region, we have applied 
 <b>Tiled-Image-Segmentation to 4K-images</b> of <a href="./dataset/MultipleMyeloma">MultipleMyeloma</a> dataset by using these Tensorflow UNet models.<br>
 We believe that this 4K-Image line is a first step towards the real-world applications of Image-Segmentation technology.
 <br><br>
