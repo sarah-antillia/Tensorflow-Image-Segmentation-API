@@ -28,6 +28,8 @@ As a typical example of image segmentation in the medical science region, we hav
 <b>Tiled-Image-Segmentation to 4K-images</b> of <a href="./dataset/MultipleMyeloma">MultipleMyeloma</a> dataset by using these Tensorflow UNet models.<br>
 We believe that this 4K-Image line is a promising step towards the real-world applications of Image-Segmentation technology.
 <br><br>
+This is not a competition, so we did not compare the accuracy of segmentation using those models.<br>
+<br>
 <b>4K Image Sample of MultipleMyeloma</b><br>
 <img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/projects/MultipleMyeloma/4k_mini_test/2405.jpg" width="720" height="auto"><br>
 <pre>
