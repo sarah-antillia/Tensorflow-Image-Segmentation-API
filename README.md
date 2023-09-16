@@ -93,18 +93,18 @@ Please note that these are archived in 7z format.<br>
 
  <table>
   <tr>
+    <td><a href="./4k_mini_test/405.jpg"><img src="./4k_mini_test/405.jpg" width="256" height="auto"></a></td>
+    <td><a href="./4k_mini_test/605.jpg"><img src="./4k_mini_test/605.jpg" width="256" height="auto"></a></td>
     <td><a href="./4k_mini_test/1735.jpg"><img src="./4k_mini_test/1735.jpg" width="256" height="auto"></a></td>
     <td><a href="./4k_mini_test/1884.jpg"><img src="./4k_mini_test/1884.jpg" width="256" height="auto"></a></td>
     <td><a href="./4k_mini_test/1923.jpg"><img src="./4k_mini_test/1923.jpg" width="256" height="auto"></a></td>
-    <td><a href="./4k_mini_test/2028.jpg"><img src="./4k_mini_test/2028.jpg" width="256" height="auto"></a></td>
-  
   </tr>
 
   <tr>
+    <td><a href="./4k_mini_test/2028.jpg"><img src="./4k_mini_test/2028.jpg" width="256" height="auto"></a></td>
     <td><a href="./4k_mini_test/2123.jpg"><img src="./4k_mini_test/2123.jpg" width="256" height="auto"></a></td>
-    <td><a href="./4k_mini_test/2219.jpg"><img src="./4k_mini_test/2219.jpg" width="256" height="auto"></a></td>
+    <td><a href="./4k_mini_test/2235.jpg"><img src="./4k_mini_test/2235.jpg" width="256" height="auto"></a></td>
     <td><a href="./4k_mini_test/2405.jpg"><img src="./4k_mini_test/2405.jpg" width="256" height="auto"></a></td>
-    <td><a href="./4k_mini_test/605.jpg"> <img src="./4k_mini_test/605.jpg" width="256" height="auto"></a></td>
   </tr>
  </table>
  
@@ -158,9 +158,6 @@ Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b
 
 On detail of TensorflowSlightlyFlexibleUNet/MultipleMyeloma, please see also.<br>
 <a href="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma">Tiled-Image-Segmentation-Multiple-Myeloma</a>
-
-<b>4K-Mini-Test-Images:MultipleMyelom</b><br>
-<img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/asset/4k_mini_test.png"><br>
 <br>
 <b>Tiled-Image-Segmentation for 4K-Images:MultipleMyelom</b>
 <img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/asset/4k_mini_test_output_512x512.png">
