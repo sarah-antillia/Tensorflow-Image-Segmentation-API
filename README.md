@@ -30,12 +30,24 @@ We believe that this 4K-Image line is a promising step towards the real-world ap
 <br><br>
 This is not a competition, so we did not compare the accuracy of segmentation using those models.<br>
 <br>
-<b>4K Image Sample of MultipleMyeloma</b><br>
-<img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/projects/MultipleMyeloma/4k_mini_test/2405.jpg" width="720" height="auto"><br>
+<b>4K Image Sample of MultipleMyeloma</b> taken from the following kaggle website<br>
 <pre>
 SegPC-2021: Segmentation of Multiple Myeloma Plasma Cells in Microscopic Images
 https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 </pre>
+
+<table>
+<tr>
+<td>
+<img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/projects/MultipleMyeloma/4k_mini_test/2405.jpg" width="512" height="auto">
+</td>
+<td>
+<img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/asset/master_splitted%20405.jpg"
+  width="512" height="auto"><br>
+</td>
+</tr>
+</table>
+
 <br>
 <b> Class Hierarchy </b><br>
 <a href="./src/TensorflowUNet.py">TensorflowUNet</a><br>
