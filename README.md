@@ -29,7 +29,7 @@ As a typical example of image segmentation in the medical science region, we hav
 <b>Tiled-Image-Segmentation to 4K-images</b> of <a href="./dataset/MultipleMyeloma">MultipleMyeloma</a> dataset 
 by using these Tensorflow UNet models.<br> 
 In some U-Net models, we had to use the <b>Overlapped-Tiled-Image-Segmentation</b> method, not 
-the simple <b>Non-Overlapping-Tiling</b> method, to obtain a clear result comparable to that of our base U-Net model.
+the simple <b>Non-Overlapping-Tiling</b> method, to obtain a clear result comparable to that of our base U-Net model
 <a href="./src/TensorflowUNet.py">TensorflowUNet</a>.<br><br>
 
 We believe that this 4K-Image line is a promising step towards the real-world applications of Image-Segmentation technology.
