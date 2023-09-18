@@ -193,14 +193,14 @@ On detail of TensorflowSlightlyFlexibleUNet/MultipleMyeloma, please see also.<br
 </a>
 </h2>
 This <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a> model can be slightly flexibly customizable by a configuration file.<br>
-For example, <b>TensorflowSwinUNet/GastrointestinalPolyp</b> model will be customizable
-by using <a href="./projects/TensorflowSwinUNet/GastrointestinalPolyp/train_eval_infer.config">
+For example, <b>TensorflowSwinUNet/MultipleMyeloma</b> model will be customizable
+by using <a href="./projects/TensorflowSwinUNet/MultipleMyeloma/train_eval_infer.config">
 train_eval_infer.config.</a>
 <h2>
 4.1 Training
 </h2>
-Please move to a <b>./projects/TensorflowSwinUNet/GastrointestinalPolyp</b> folder,<br>
-and run the following bat file to train TensorflowSwinUNet model for GastrointestinalPolyp.<br>
+Please move to a <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to train TensorflowSwinUNet model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
 </pre>
@@ -209,8 +209,8 @@ and run the following bat file to train TensorflowSwinUNet model for Gastrointes
 <h2>
 4.2 Evaluation
 </h2>
-Please move to a <b>./projects/TensorflowSwinUNet/GastrointestinalPolyp</b> folder,<br>
-and run the following bat file to evalute TensorflowSwinUNet model for GastrointestinalPolyp.<br>
+Please move to a <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evalute TensorflowSwinUNet model for MultipleMyeloma.<br>
 <pre>
 ./2.evaluate.bat
 </pre>
@@ -219,14 +219,15 @@ and run the following bat file to evalute TensorflowSwinUNet model for Gastroint
 <h2>
 4.3 Inference
 </h2>
-Please move to a <b>./projects/TensorflowSwinUNet/GastrointestinalPolyp</b> folder<br>
-,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowSwinUNet model for GastrointestinalPolyp.<br>
+Please move to a <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder<br>
+,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowSwinUNet model 
+for MultipleMyeloma.<br>
 <pre>
 ./3.infer.bat
 </pre>
 
-On detail of Image Segmentation by TensorflowSwinUNet-GastrointestinalPolyp, please see also.<br>
-<a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-Gastrointestinal-Polyp">TensorflowSwinUNet-Segmentation-Gastrointestinal-Polyp</a>
+On detail of Image Segmentation by TensorflowSwinUNet-MultipleMyeloma, please see also.<br>
+<a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma">TensorflowSwinUNet-Segmentation-MultipleMyeloma</a>
 
 <b>Tiled-Image-Inference for 4K-images: MultipleMyelom</b><br>
 <img src="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma/blob/main/asset/4k_mini_test_image_output_tiled.png"></br>
