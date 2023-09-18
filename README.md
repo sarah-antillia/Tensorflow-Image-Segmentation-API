@@ -49,7 +49,7 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 <table>
 <tr>
 <td>
-<b>Orinal 4K-Image</b><br>
+<b>Original 4K-Image</b><br>
 <img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/projects/MultipleMyeloma/4k_mini_test/2405.jpg" width="512" height="auto">
 </td>
 <td>
