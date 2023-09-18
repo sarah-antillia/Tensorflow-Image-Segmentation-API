@@ -32,11 +32,11 @@ In some U-Net models, we had to use the <b>Overlapped-Tiled-Image-Segmentation</
 the simple <b>Non-Overlapping-Tiling</b> method, to obtain a clear result comparable to that of our base U-Net model
 <a href="./src/TensorflowUNet.py">TensorflowUNet</a>.<br><br>
 
-We believe that this 4K-Image line is a promising step towards the real-world applications of Image-Segmentation technology.
+We believe that this approach to 4K-Image is a promising step towards the real-world applications of Image-Segmentation technology.
 <br><br>
 This is not a competition, so we did not compare the accuracy of segmentation using those models.<br>
 <br>
-From our experiment on <b>Tiled-Image-Segmentation</b>, we guess that the UNet model for 4K-Image line should be:<br>
+Based on our experiments on <b>Tiled-Image-Segmentation</b>, we think that the UNet model for 4K-Image should be:<br>
 <li>Input image size >= 512x512. </li>
 <li>BatchNormalization not needed. </li>
 <br>
@@ -49,9 +49,11 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 <table>
 <tr>
 <td>
+<b>Orinal 4K-Image</b><br>
 <img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/projects/MultipleMyeloma/4k_mini_test/2405.jpg" width="512" height="auto">
 </td>
 <td>
+<b>Tiled-4K-Image-256x256</b><br>
 <img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/asset/master_splitted%20405.jpg"
   width="512" height="auto"><br>
 </td>
