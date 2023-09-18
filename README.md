@@ -181,14 +181,13 @@ Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b
 <pre>
 ./4.tiled_infer.bat
 </pre>
-
-On detail of TensorflowSlightlyFlexibleUNet/MultipleMyeloma, please see also.<br>
-<a href="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma">Tiled-Image-Segmentation-Multiple-Myeloma</a>
-<br><br>
+<br>
 <b>Tiled-Image-Segmentation for 4K-Images:MultipleMyelom</b>
 <img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/asset/4k_mini_test_output_512x512.png">
+<br><br>
+On detail of TensorflowSlightlyFlexibleUNet/MultipleMyeloma, please see also.<br>
+<a href="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma">Tiled-Image-Segmentation-Multiple-Myeloma</a>
 <br>
-
 <h2>
 <a id="4">
 4 TensorflowSwinUNet
@@ -228,12 +227,23 @@ for MultipleMyeloma.<br>
 ./3.infer.bat
 </pre>
 
-On detail of Image Segmentation by TensorflowSwinUNet-MultipleMyeloma, please see also.<br>
-<a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma">TensorflowSwinUNet-Segmentation-MultipleMyeloma</a>
+<h2>
+4.4 Tiled-Image-Inference 
+</h2>
+Please move to a <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder<br>
+,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowSwinUNet 
+model for MultipleMyeloma.<br>
+<pre>
+./4.tiled_infer.bat
+</pre>
 
 <b>Tiled-Image-Inference for 4K-images: MultipleMyelom</b><br>
 <img src="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma/blob/main/asset/4k_mini_test_image_output_tiled.png"></br>
-
+<br>
+On detail of Image Segmentation by TensorflowSwinUNet-MultipleMyeloma, please see also.<br>
+<a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma">
+TensorflowSwinUNet-Segmentation-MultipleMyeloma</a>
+<br>
 
 <h2>
 <a id="5">
@@ -284,12 +294,14 @@ Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder
 ./4.tiled_infer.bat
 </pre>
 
-On detail of Image Segmentation by TensorflowMultiResUNet-MultipleMyeloma, please see also.<br>
-<a href="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma">TensorflowMultiResUNet-Segmentation-MultipleMyeloma</a>
 
 <b>Tiled-Image-Segmentation for 4K-Images:MultipleMyelom</b><br>
 <img src="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma/blob/main/asset/4k_tiled_mini_test_output_overlapped.png"><br>
-
+<br>
+On detail of Image Segmentation by TensorflowMultiResUNet-MultipleMyeloma, please see also.<br>
+<a href="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma">
+TensorflowMultiResUNet-Segmentation-MultipleMyeloma</a>
+<br>
 
 <h2>
 <a id="6">
@@ -346,7 +358,7 @@ Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folde
 
 On detail of Image Segmentation by TensorflowAttentionUNet, please see also.<br>
 <a href="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">Tensorflow-Slightly-Flexible-Attention-UNet</a>
-
+<br>
 
 <h2>
 <a id="7">
@@ -397,14 +409,14 @@ Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br
 ./4.tiled_infer.bat
 </pre>
 
-On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
-<a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma">TensorflowUNet3Plus-Segmentation-MultipleMyeloma</a>
 <br>
 <b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
 
 <img src="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma/blob/main/asset/4k_tiled_mini_test_output_overlapped.png">
 <br>
-
+On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
+<a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma">TensorflowUNet3Plus-Segmentation-MultipleMyeloma</a>
+<br>
 <h2>
 <a id="10">10 Image Segmentation Experimental projects</a>
 </h2>
@@ -413,32 +425,32 @@ We have a lot of experimetal Image-Segmentation projects based on this Tensorflo
 <h3>
 10.1 TensorflowSlightlyFlexibleUNet
 </h3>
-<h3>
+<h4>
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Acute-Lymphoblastic-Leukemia">
 Image-Segmentation-Acute-Lymphoblastic-Leukemia
 </a>
-</h3>
+</h4>
 <br>
 <img src="https://github.com/atlan-antillia/Image-Segmentation-Acute-Lymphoblastic-Leukemia/blob/main/asset/mini_test_output_merged.png">
 <br>
 <br>
 <br>
-<h3>
+<h4>
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Brain-Tumor">
 Image-Segmentation-Brain-Tumor
 </a>
-</h3>
+</h4>
 <br>
 <img src="https://github.com/atlan-antillia/Image-Segmentation-Brain-Tumor/blob/main/asset/mini_test_output_merged.png">
 <br>
 <br>
 <br>
 
-<h3>
+<h4>
 <a href="https://github.com/atlan-antillia/Image-Segmentation-Gastrointestinal-Polyp">
 Image-Segmentation-Gastrointestinal-Polyp
 </a>
-</h3>
+</h4>
 <br>
 <img src="https://github.com/atlan-antillia/Image-Segmentation-Gastrointestinal-Polyp/blob/main/asset/mini_test_output_merged.png">
 <br>
