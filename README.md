@@ -38,7 +38,7 @@ This is not a competition, so we did not compare the accuracy of segmentation us
 <br>
 From our experiment on <b>Tiled-Image-Segmentation</b>, we guess that the UNet model for 4K-Image line should be:<br>
 <li>Input image size >= 512x512. </li>
-<li>No BatchNormalization layer needed. </li>
+<li>BatchNormalization not needed. </li>
 <br>
 <b>4K Image Sample of MultipleMyeloma</b> taken from the following kaggle website<br>
 <pre>
