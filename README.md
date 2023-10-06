@@ -1,4 +1,4 @@
-# Tensorflow-Image-Segmentation-API (Updated: 2023/09/16)
+# Tensorflow-Image-Segmentation-API (Updated: 2023/10/07)
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -9,6 +9,14 @@
 <li><a href="#7">7 TensorflowUNet3Plust</a></li>
 <li><a href="#10">10 Image Segmentation Experimental projects</a></li>
 <li><a href="#100">Dataset citations</a></li>
+<br>
+<b>2023/10/07: Updated</b><br>
+<li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
+<li>Added datasetclass property to model section in train_eval_infer.config file.</li>
+<li>Modified TensorflowUNetTrainer.py to use datasetclass defined in the config file.</li>
+<li>Fixed bug infer_files method in TensorflowUNet class.</li>
+
+
 <br>
 <h2>
 <a id="1">

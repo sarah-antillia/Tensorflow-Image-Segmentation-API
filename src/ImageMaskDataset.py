@@ -15,6 +15,7 @@
 
 # ImageMaskDataset.py
 # 2023/05/31 to-arai Modified to use config_file
+# 2023/10/02 Updated to call self.read_image_file, and self.read_mask_file in create nethod.
 
 import os
 import numpy as np
@@ -25,97 +26,48 @@ from matplotlib import pyplot as plt
 from skimage.io import imread, imshow
 import traceback
 from ConfigParser import ConfigParser
+from BaseImageMaskDataset import BaseImageMaskDataset
 
-MODEL  = "model"
-TRAIN  = "train"
-EVAL   = "eval"
-TEST   = "test"
-MASK   = "mask"
+TRAIN = "train"
 
-class ImageMaskDataset:
+class ImageMaskDataset(BaseImageMaskDataset):
 
   def __init__(self, config_file):
-    self.config = ConfigParser(config_file)
-    self.image_width    = self.config.get(MODEL, "image_width")
-    self.image_height   = self.config.get(MODEL, "image_height")
-    self.image_channels = self.config.get(MODEL, "image_channels")
+    super().__init__(config_file)
+
+    print("=== ImageMaskDataset.constructor")
+
+
+  def read_image_file(self, image_file):
+    image = cv2.imread(image_file) 
     
-    self.binarize  = self.config.get(MASK, "binarize")
-    self.threshold = self.config.get(MASK, "threshold")
-    self.blur_mask = self.config.get(MASK, "blur")
+    image = cv2.resize(image, dsize= (self.image_height, self.image_width), 
+                       interpolation=cv2.INTER_NEAREST)
+                       #interpolation=cv2.INTER_LINEAR)
+                       #interpolation= cv2.INTER_AREA)
 
-    #Fixed blur_size
-    self.blur_size = (3, 3)
+    return image
 
+  def read_mask_file(self, mask_file):
+    mask = cv2.imread(mask_file) 
+    mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
 
-  # If needed, please override this method in a subclass derived from this class.
-  def create(self, dataset = TRAIN,  debug=False):
-    if not dataset in [TRAIN, EVAL, TEST]:
-      raise Exception("Invalid dataset")
-    print("=== ImagMaskDataset.create dataset {}".format(dataset))
-    image_datapath = self.config.get(dataset, "image_datapath")
-    mask_datapath  = self.config.get(dataset, "mask_datapath")
-    
-    image_files  = glob.glob(image_datapath + "/*.jpg")
-    image_files += glob.glob(image_datapath + "/*.png")
-    image_files += glob.glob(image_datapath + "/*.bmp")
-    image_files += glob.glob(image_datapath + "/*.tif")
-    image_files  = sorted(image_files)
+    mask = cv2.resize(mask, dsize= (self.image_height, self.image_width), 
+                       #interpolation=cv2.INTER_NEAREST)
+                       interpolation=cv2.INTER_LINEAR)
+                       #interpolation= cv2.INTER_AREA)
+ 
+    if self.binarize:
+      mask[mask< self.threshold] =   0
+      mask[mask>=self.threshold] = 255
 
-    mask_files   = None
-    if os.path.exists(mask_datapath):
-      mask_files  = glob.glob(mask_datapath + "/*.jpg")
-      mask_files += glob.glob(mask_datapath + "/*.png")
-      mask_files += glob.glob(mask_datapath + "/*.bmp")
-      mask_files += glob.glob(mask_datapath + "/*.tif")
-      mask_files  = sorted(mask_files)
-      
-      if len(image_files) != len(mask_files):
-        raise Exception("FATAL: Images and masks unmatched")
-      
-    num_images  = len(image_files)
-    if num_images == 0:
-      raise Exception("FATAL: Not found image files")
-    
-    X = np.zeros((num_images, self.image_height, self.image_width, self.image_channels), dtype=np.uint8)
-
-    Y = np.zeros((num_images, self.image_height, self.image_width, 1                ), dtype=np.bool)
-
-    for n, image_file in tqdm(enumerate(image_files), total=len(image_files)):
+    # Blur mask 
+    if self.blur_mask:
+      mask = cv2.blur(mask, self.blur_size)
   
-      image = cv2.imread(image_file)
-      
-      image = cv2.resize(image, dsize= (self.image_height, self.image_width), interpolation=cv2.INTER_NEAREST)
-      X[n]  = image
+    mask  = np.expand_dims(mask, axis=-1)
+    return mask
 
-      if mask_files != None:
-
-        mask  = cv2.imread(mask_files[n])
-        mask  = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
-        mask  = cv2.resize(mask, dsize= (self.image_height, self.image_width),   interpolation=cv2.INTER_NEAREST)
-
-        # Binarize mask
-        if self.binarize:
-          mask[mask< self.threshold] =   0  
-          mask[mask>=self.threshold] = 255
-
-        # Blur mask 
-        if self.blur_mask:
-          mask = cv2.blur(mask, self.blur_size)
-  
-        mask  = np.expand_dims(mask, axis=-1)
-        Y[n]  = mask
-
-        if debug:
-          cv2.imshow("---", mask)
-          #plt.show()
-          cv2.waitKey(27)
-          input("XX")   
-  
-    return X, Y
-
-
-    
 if __name__ == "__main__":
   try:
     config_file = "./train_eval_infer.config"

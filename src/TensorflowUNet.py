@@ -121,7 +121,7 @@ class TensorflowUNet:
     
     learning_rate  = self.config.get(MODEL, "learning_rate")
     clipvalue      = self.config.get(MODEL, "clipvalue", 0.2)
-
+    print("--- clipvalue {}".format(clipvalue))
     self.optimizer = Adam(learning_rate = learning_rate, 
          beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, 
          clipvalue=clipvalue,  #2023/0626
@@ -197,6 +197,7 @@ class TensorflowUNet:
         k = 3
     rkernel_sizes =  kernel_sizes[::-1]
     rkernel_sizes = rkernel_sizes[1:] 
+    
     # kernel_sizes will become a list [(7,7),(5,5), (3,3),(3,3)...] if base_kernels were (7,7)
     print("--- kernel_size   {}".format(kernel_sizes))
     print("--- rkernel_size  {}".format(rkernel_sizes))
@@ -472,7 +473,6 @@ class TensorflowUNet:
 
   # 2023/07/01
   # Added MARGIN to cropping 
-
   def infer_tiles(self, input_dir, output_dir, expand=True):
     
     image_files  = glob.glob(input_dir + "/*.png")
@@ -535,7 +535,14 @@ class TensorflowUNet:
             upper_margin = 0
           
           #cropped = image.crop((left-MARGIN, upper-MARGIN, right+MARGIN, lower+MARGIN ))
-          cropped = image.crop((left-left_margin, upper-upper_margin, right+MARGIN, lower+MARGIN ))
+          rm = right + MARGIN
+          lm = lower + MARGIN
+          if rm >= w:
+            rm = w
+          if lm >= h:
+            lm = h
+          #cropped = image.crop((left-left_margin, upper-upper_margin, right+MARGIN, lower+MARGIN ))
+          cropped = image.crop((left-left_margin, upper-upper_margin, rm, lm ))
 
           cw, ch  = cropped.size
           cropped = cropped.resize((split_size, split_size))
@@ -550,7 +557,12 @@ class TensorflowUNet:
           #2023/06/21
           ww, hh      = img.size
           #img         = img.crop((MARGIN, MARGIN, ww-MARGIN, hh-MARGIN))
-          img         = img.crop((left_margin, upper_margin, ww-left_margin, hh-upper_margin ))
+          wm = ww - left_margin
+          hm = hh - upper_margin
+          if hm < upper_margin:
+            hm = upper_margin
+
+          img         = img.crop((left_margin, upper_margin, wm, hm,)) # ww-left_margin, hh-upper_margin ))
           
           ww, hh      = img.size
           background.paste(img, (left, upper))
@@ -574,6 +586,7 @@ class TensorflowUNet:
         cv2.imwrite(merged_file, img)     
 
 
+
   def mask_to_image(self, data, factor=255.0):
     h = data.shape[0]
     w = data.shape[1]
@@ -581,7 +594,6 @@ class TensorflowUNet:
     data = data*factor
     data = data.reshape([w, h])
     image = Image.fromarray(data)
-   
     return image
 
 

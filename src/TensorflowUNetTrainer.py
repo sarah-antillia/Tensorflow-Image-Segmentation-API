@@ -22,6 +22,8 @@
 # https://www.kaggle.com/code/keegil/keras-u-net-starter-lb-0-277/notebook
 
 
+# 2023/10/03 Updated to get datasetclass from a config file.
+
 import os
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
@@ -33,6 +35,7 @@ import traceback
 
 from ConfigParser import ConfigParser
 from ImageMaskDataset import ImageMaskDataset
+from BaseImageMaskDataset import BaseImageMaskDataset
 
 from TensorflowUNet import TensorflowUNet
 
@@ -48,10 +51,15 @@ if __name__ == "__main__":
 
     config   = ConfigParser(config_file)
 
-    # Create a UNetMolde and compile
-    model   = TensorflowUNet(config_file)
-    
-    dataset = ImageMaskDataset(config_file)
+    # Create a UNetModel and compile
+    ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    model     = ModelClass(config_file)
+
+    # Create a DatasetClass
+    DatasetClass = eval(config.get(MODEL, "datasetclass", dvalue="ImageMaskDataset"))
+    dataset = DatasetClass(config_file)
+
+    # Create a TRAIN dataset
     x_train, y_train = dataset.create(dataset=TRAIN)
 
     model.train(x_train, y_train)
