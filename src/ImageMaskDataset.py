@@ -53,8 +53,8 @@ class ImageMaskDataset(BaseImageMaskDataset):
     mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
 
     mask = cv2.resize(mask, dsize= (self.image_height, self.image_width), 
-                       #interpolation=cv2.INTER_NEAREST)
-                       interpolation=cv2.INTER_LINEAR)
+                       interpolation=cv2.INTER_NEAREST)
+                       #interpolation=cv2.INTER_LINEAR)
                        #interpolation= cv2.INTER_AREA)
  
     if self.binarize:
