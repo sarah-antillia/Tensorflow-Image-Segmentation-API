@@ -31,6 +31,8 @@ import traceback
 
 from ConfigParser import ConfigParser
 from ImageMaskDataset import ImageMaskDataset
+from BaseImageMaskDataset import BaseImageMaskDataset
+
 from TensorflowUNet import TensorflowUNet
 
 MODEL  = "model"
@@ -49,7 +51,11 @@ if __name__ == "__main__":
     print("=== TensorflowUNetEvaluator")
     print("=== config generator {}".format(generator))
     model   = TensorflowUNet(config_file)
-    dataset = ImageMaskDataset(config_file)
+
+    # Create a DatasetClass
+    DatasetClass = eval(config.get(MODEL, "datasetclass", dvalue="ImageMaskDataset"))
+    dataset = DatasetClass(config_file)
+
     target = EVAL
     if generator:
       target = TEST
