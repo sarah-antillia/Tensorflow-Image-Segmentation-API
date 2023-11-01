@@ -29,22 +29,22 @@ from ConfigParser import ConfigParser
 from BaseImageMaskDataset import BaseImageMaskDataset
 
 TRAIN = "train"
+DATASET = "dataset"
 
 class ImageMaskDataset(BaseImageMaskDataset):
 
   def __init__(self, config_file):
     super().__init__(config_file)
-
     print("=== ImageMaskDataset.constructor")
 
+    self.resize_interpolation = eval(self.config.get(DATASET, "resize_interpolation", dvalue="cv2.INTER_NEAREST"))
+    print("--- self.resize_interpolation {}".format(self.resize_interpolation))
 
   def read_image_file(self, image_file):
     image = cv2.imread(image_file) 
     
     image = cv2.resize(image, dsize= (self.image_height, self.image_width), 
-                       interpolation=cv2.INTER_NEAREST)
-                       #interpolation=cv2.INTER_LINEAR)
-                       #interpolation= cv2.INTER_AREA)
+                       interpolation=self.resize_interpolation)
 
     return image
 
@@ -53,9 +53,7 @@ class ImageMaskDataset(BaseImageMaskDataset):
     mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
 
     mask = cv2.resize(mask, dsize= (self.image_height, self.image_width), 
-                       interpolation=cv2.INTER_NEAREST)
-                       #interpolation=cv2.INTER_LINEAR)
-                       #interpolation= cv2.INTER_AREA)
+                       interpolation=self.resize_interpolation)                       
  
     if self.binarize:
       mask[mask< self.threshold] =   0
