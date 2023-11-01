@@ -87,6 +87,7 @@ class TensorflowSwinUNet(TensorflowUNet) :
 
   def __init__(self, config_file):
     #super().__init__(config_file)
+  
     self.model_loaded = False
 
     self.config_file = config_file

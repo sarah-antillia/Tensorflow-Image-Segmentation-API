@@ -36,13 +36,63 @@
 #Specify a pixel size to overlap-tiling.
 #Specify 0 if you need no overlapping.
 
+# 2023/11/01
+# Remove set_seed method from TensorflowUNet class.
+
+# 2023/11/01
+# Added dropout_seed_fixing flag to [model] section
+""" 
+[model]
+; 2023/11/01 Fixing a random-seed in Dropout layer
+dropout_seed_fixing = True
+
+if dropout_seed_fixing:
+    u = Dropout(dropout_rate * f, seed=self.seed)(u)
+"""
+
+# 2023/11/01
+# Added seedreset_callbacck flag to [train] section.
+"""
+; Experimental: Enable the random-seed-reset-callback if Ture.
+; This will affect the behavior of Dropout layer of your CNN model.
+seedreset_callback = True
+"""
+
+# 2023/11/01
+# Added dataset_splitter flag to [train] section.
+#; Enable splitting dataset into train and valid if True.
+#dataset_splitter = True
+
+"""
+#; Enable splitting dataset into train and valid if True.
+[train]
+#dataset_splitter = True
+
+# 2023/10/27
+
+dataset_splitter = self.config.get(TRAIN, "dataset_splitter", dvalue=False) 
+
+"""
+
 import os
 import sys
 import datetime
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
-os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="false"
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
+# 2023/10/20 "false" -> "true"
+os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="true"
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+# 2023/10/13: Added the following lines.
+SEED = 137
+os.environ['PYTHONHASHSEED']         = "0"
+os.environ['TF_DETERMINISTIC_OPS']   = '1'
+#os.environ['TF_CUDNN_DETERMINISTIC'] = '1'
+#os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+
+print("=== os.environ['PYTHONHASHSEED']         {}".format(os.environ['PYTHONHASHSEED']))
+print("=== os.environ['TF_DETERMINISTIC_OPS']   {}".format(os.environ['TF_DETERMINISTIC_OPS']))
+#print("=== os.environ['TF_CUDNN_DETERMINISTIC'] {}".format(os.environ['TF_CUDNN_DETERMINISTIC']))
 
 import shutil
 
@@ -52,11 +102,14 @@ import traceback
 import random
 import numpy as np
 import cv2
+from ConfigParser import ConfigParser
+
 import tensorflow as tf
+
 tf.compat.v1.disable_eager_execution()
 
-import tensorflow.keras.backend as K
 from PIL import Image, ImageFilter, ImageOps
+
 from tensorflow.keras.layers import Lambda
 from tensorflow.keras.layers import Input
 
@@ -71,25 +124,55 @@ from tensorflow.keras.metrics import BinaryAccuracy
 #from tensorflow.keras.metrics import Mean
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
-
-from ConfigParser import ConfigParser
+# 2023/10/20
+from tensorflow.python.framework import random_seed
 
 from EpochChangeCallback import EpochChangeCallback
 from GrayScaleImageWriter import GrayScaleImageWriter
+
+#2023/10/26
+from SeedResetCallback       import SeedResetCallback
 
 from losses import dice_coef, basnet_hybrid_loss, sensitivity, specificity
 from losses import iou_coef, iou_loss, bce_iou_loss, dice_loss
 
 
-"""
-See: https://www.tensorflow.org/api_docs/python/tf/keras/metrics
-Module: tf.keras.metrics
-Functions
-"""
+gpus = tf.config.list_physical_devices('GPU')
+for gpu in gpus:
+    print("=== GPU Name:", gpu.name, "  Type:", gpu.device_type)
 
-"""
-See also: https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/keras/engine/training.py
-"""
+# 2023/10/31
+# See https://www.tensorflow.org/api_docs/python/tf/config/threading/set_intra_op_parallelism_threads
+tf.config.threading.set_inter_op_parallelism_threads(1)
+tf.config.threading.set_intra_op_parallelism_threads(1)
+
+# 2023/10/23
+random.seed    = SEED
+print("=== random.seed {}".format(SEED))
+
+np.random.seed = SEED
+print("=== numpy.random.seed {}".format(SEED))
+tf.random.set_seed(SEED)
+print("=== tf.random.set_seed({})".format(SEED))
+
+# 2023/10/24
+# See https://www.tensorflow.org/community/contribute/tests
+# Always seed any source of stochasticity
+random_seed.set_seed(SEED)
+print("=== tensorflow.python.framework random_seed({})".format(SEED))
+
+#2023/10/23
+# Disable OpenCL and disable multi-threading.
+#cv2.ocl.setUseOpenCL(False)
+#cv2.setNumThreads(1)
+
+cv2.setRNGSeed(SEED)
+print("=== cv2.setRNGSeed ({})".format(SEED))
+
+#See: https://www.tensorflow.org/api_docs/python/tf/keras/metrics
+#Module: tf.keras.metrics
+
+#See also: https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/keras/engine/training.py
 
 MODEL  = "model"
 TRAIN  = "train"
@@ -98,16 +181,17 @@ EVAL   = "eval"
 # 2023/06/10
 TILEDINFER = "tiledinfer"
 
-
 BEST_MODEL_FILE = "best_model.h5"
+
 
 class TensorflowUNet:
 
   def __init__(self, config_file):
-    self.set_seed()
+    #self.set_seed()
+    self.seed        = SEED
     self.config_file = config_file
     self.config    = ConfigParser(config_file)
-    
+     
     self.config.dump_all()
 
     image_height   = self.config.get(MODEL, "image_height")
@@ -159,12 +243,6 @@ class TensorflowUNet:
     if show_summary:
       self.model.summary()
 
-  def set_seed(self, seed=137):
-    print("=== set seed {}".format(seed))
-    random.seed    = seed
-    np.random.seed = seed
-    tf.random.set_seed(seed)
-
 
   def create(self, num_classes, image_height, image_width, image_channels,
             base_filters = 16, num_layers = 5):
@@ -176,6 +254,10 @@ class TensorflowUNet:
     # normalization is False on default.
     normalization = self.config.get(MODEL, "normalization", dvalue=False)
     print("--- normalization {}".format(normalization))
+    # fixing_dropout_seed is False on default.
+    dropout_seed_fixing = self.config.get(MODEL, "dropout_seed_fixing", dvalue=False)
+    print("--- dropout_seed_fixing {}".format(dropout_seed_fixing))
+
     # Encoder
     dropout_rate = self.config.get(MODEL, "dropout_rate")
     enc         = []
@@ -237,7 +319,13 @@ class TensorflowUNet:
       # 2023/06/20
       if normalization:
         c = BatchNormalization()(c) 
-      c = Dropout(dropout_rate * i)(c)
+
+      # 2023/10/31
+      if dropout_seed_fixing:
+        c = Dropout(dropout_rate * i, seed= self.seed)(c)
+      else:
+        c = Dropout(dropout_rate * i)(c)
+
       c = Conv2D(filters, kernel_size, strides=strides, activation=relu, 
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(c)
       # 2023/06/25
@@ -269,8 +357,13 @@ class TensorflowUNet:
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(u)
       # 2023/06/20
       if normalization:
-        u = BatchNormalization()(u) 
-      u = Dropout(dropout_rate * f)(u)
+        u = BatchNormalization()(u)
+      # 2023/10/31 
+      if dropout_seed_fixing:
+        u = Dropout(dropout_rate * f, seed=self.seed)(u)
+      else:
+        u = Dropout(dropout_rate * f)(u)
+
       u = Conv2D(filters, kernel_size, strides=strides, activation=relu, 
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(u)
       # 2023/06/25
@@ -308,7 +401,7 @@ class TensorflowUNet:
       if create_backup:
         moved_dir = model_dir +"_" + dt_now + "_bak"
         shutil.move(model_dir, moved_dir)
-        print("--- Mmoved to {}".format(moved_dir))      
+        print("--- Moved to {}".format(moved_dir))      
       else:
         shutil.rmtree(model_dir)
 
@@ -361,12 +454,47 @@ class TensorflowUNet:
     else:
     """
     callbacks = [early_stopping, check_point, epoch_change]
+   
+    #2023/10/25
+    seedreset_callback = self.config.get(TRAIN, "seedreset_callback", dvalue=False) 
+    if seedreset_callback:
+      print("=== Added SeedResetCallback")
+      seedercb = SeedResetCallback(seed=self.seed)
+      callbacks += [seedercb]
+ 
     if type(train_generator) == np.ndarray and type(valid_generator) == np.ndarray:
       x_train = train_generator
       y_train = valid_generator
-      # By the parameter setting : validation_split=0.2,
-      # x_train and y_train will be split into real_train (0.8) and 0.2 real_valid (0.2) 
-      history = self.model.fit(x_train, y_train, 
+ 
+      # 2023/10/27
+      dataset_splitter = self.config.get(TRAIN, "dataset_splitter", dvalue=False) 
+      print("=== Dataset_splitter {}".format(dataset_splitter))
+
+      if dataset_splitter:
+        """
+        Split master dataset (x_train, y_train) into (train_x, train_y) and (valid_x, valid_y)
+        This will help to improve the reproducibility of the model.
+        """
+        print("--- splitting the master dataset")
+        train_size = int(0.8 * len(x_train)) 
+        train_x = x_train[:train_size]
+        train_y = y_train[:train_size]
+        valid_x = x_train[train_size:]
+        valid_y = y_train[train_size:]
+
+        print("--- split the master into train(0.8) and valid(0.2)")
+        print("=== Start model.fit ")
+        history = self.model.fit(train_x, train_y, 
+                    batch_size=batch_size, 
+                    epochs=epochs, 
+                    validation_data= (valid_x, valid_y),
+                    shuffle=False,
+                    callbacks=callbacks,
+                    verbose=1)
+      else:
+        # By the parameter setting : validation_split=0.2,
+        # x_train and y_train will be split into real_train (0.8) and 0.2 real_valid (0.2) 
+        history = self.model.fit(x_train, y_train, 
                     validation_split=0.2, 
                     batch_size=batch_size, 
                     epochs=epochs, 
@@ -376,8 +504,9 @@ class TensorflowUNet:
       
     else:
       # train and valid dataset will be used by train_generator and valid_generator respectively
-      steps_per_epoch  = self.config.get(TRAIN, "steps_per_epoch",  dvalue= 400)
+      steps_per_epoch  = self.config.get(TRAIN, "steps_per_epoch",  dvalue=400)
       validation_steps = self.config.get(TRAIN, "validation_steps", dvalue=800)
+  
       history = self.model.fit(train_generator, 
                     steps_per_epoch=steps_per_epoch,
                     epochs=epochs, 
@@ -507,7 +636,7 @@ class TensorflowUNet:
         horiz_split_num += 1
 
       bgcolor = self.config.get(TILEDINFER, "background", dvalue=0)  
-      print("=== bgcolor {}".format(bgcolor))
+      #print("=== bgcolor {}".format(bgcolor))
       background = Image.new("L", (w, h), bgcolor)
       #print("=== width {} height {}".format(w, h))
       #print("=== horiz_split_num {}".format(horiz_split_num))
@@ -566,14 +695,14 @@ class TensorflowUNet:
           
           ww, hh      = img.size
           background.paste(img, (left, upper))
-          print("---paste j:{} i:{} ww:{} hh:{}".format(j, i, ww, hh))
+          #print("---paste j:{} i:{} ww:{} hh:{}".format(j, i, ww, hh))
           
       basename = os.path.basename(image_file)
       output_file = os.path.join(output_dir, basename)
       #input("----")
       #background = background.filter(filter=ImageFilter.BLUR)
       background.save(output_file)
-      
+      print("=== Saved outputfile {}".format(output_file))
       if merged_dir !=None:
         # Resize img to the original size (w, h)
         img   = np.array(image)
@@ -584,7 +713,6 @@ class TensorflowUNet:
 
         merged_file = os.path.join(merged_dir, basename)
         cv2.imwrite(merged_file, img)     
-
 
 
   def mask_to_image(self, data, factor=255.0):
