@@ -22,6 +22,9 @@
 <li>Updated create method of TensorflowUNet class to set random-seed for Dropout Layer.</li>
 <li>Updated train method of TensorflowUNet class to split the master dataset into train and validation sets before calling model.fit</li>
 <li>Updated callbacks in train method to be added SeedResetCallback.</li>
+<li>Updated ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</li>
+<li>Added <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer_image_mask_dataset_512x512.config">
+a sample train_eval_infer.config</a> to ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</li>
 
 <br>
 <h2>
