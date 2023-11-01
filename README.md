@@ -15,7 +15,13 @@
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
 <li>Modified TensorflowUNetTrainer.py to use datasetclass defined in the config file.</li>
 <li>Fixed bug infer_files method in TensorflowUNet class.</li>
-
+<b>2023/11/01: Updated</b><br>
+<li>Updated TensorflowUNet.py to set some random seeds and to force deterministic behavior for Tensorflow.</li>
+<li>Added experimental SeedResetCallback.py to src to reset some random seeds on_epoch_begin method of that callback.</li>
+<li>Updated ImageMaskDataset.py to read the interpolation parameter for cv2.resize from a train_eval_infer.config file.</li>
+<li>Updated create method of TensorflowUNet class to set random-seed for Dropout Layer.</li>
+<li>Updated train method of TensorflowUNet class to split the master dataset into train and validation sets before calling model.fit</li>
+<li>Updated callbacks in train method to be added SeedResetCallback.</li>
 
 <br>
 <h2>
