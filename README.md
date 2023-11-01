@@ -10,19 +10,21 @@
 <li><a href="#10">10 Image Segmentation Experimental projects</a></li>
 <li><a href="#100">Dataset citations</a></li>
 <br>
+
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
 <li>Modified TensorflowUNetTrainer.py to use datasetclass defined in the config file.</li>
 <li>Fixed bug infer_files method in TensorflowUNet class.</li>
+<br>
 <b>2023/11/01: Updated</b><br>
-<li>Updated TensorflowUNet.py to set some random seeds and to force deterministic behavior for Tensorflow.</li>
-<li>Added experimental SeedResetCallback.py to src to reset some random seeds on_epoch_begin method of that callback.</li>
-<li>Updated ImageMaskDataset.py to read the interpolation parameter for cv2.resize from a train_eval_infer.config file.</li>
+<li>Updated <a href="./src/TensorflowUNet.py">TensorflowUNet.py</a> to set some random seeds and to force deterministic behavior for Tensorflow.</li>
+<li>Added an experimental <a href="./src/SeedResetCallback.py">SeedResetCallback.py</a> to src to reset some random seeds on_epoch_begin method of that callback.</li>
+<li>Updated <a href="./src/ImageMaskDataset.py">ImageMaskDataset.py</a> to read the interpolation parameter for cv2.resize from a train_eval_infer.config file.</li>
 <li>Updated create method of TensorflowUNet class to set random-seed for Dropout Layer.</li>
-<li>Updated train method of TensorflowUNet class to split the master dataset into train and validation sets before calling model.fit</li>
-<li>Updated callbacks in train method to be added SeedResetCallback.</li>
-<li>Updated ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</li>
+<li>Updated train method of TensorflowUNet class to split a master dataset into train and validation sets before calling model.fit</li>
+<li>Updated callbacks in train method to be able to add SeedResetCallback.</li>
+<li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a></li>
 <li>Added <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer_image_mask_dataset_512x512.config">
 a sample train_eval_infer.config</a> to ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</li>
 
