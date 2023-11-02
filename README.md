@@ -1,4 +1,4 @@
-# Tensorflow-Image-Segmentation-API (Updated: 2023/10/07)
+# Tensorflow-Image-Segmentation-API (Updated: 2023/11/01)
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
