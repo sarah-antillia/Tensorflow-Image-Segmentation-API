@@ -35,8 +35,6 @@ a sample train_eval_infer.config</a> to ./projects/TensorflowSlightlyFlexibleUNe
 <li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a></li>
 
 <br>
-
-<br>
 <h2>
 <a id="1">
 1 Image Segmentation API 
