@@ -74,6 +74,7 @@ dataset_splitter = self.config.get(TRAIN, "dataset_splitter", dvalue=False)
 
 """
 
+from math import e
 import os
 import sys
 import datetime
@@ -106,7 +107,7 @@ from ConfigParser import ConfigParser
 
 import tensorflow as tf
 
-tf.compat.v1.disable_eager_execution()
+#tf.compat.v1.disable_eager_execution()
 
 from PIL import Image, ImageFilter, ImageOps
 
@@ -122,7 +123,7 @@ from tensorflow.keras import Model
 from tensorflow.keras.losses import  BinaryCrossentropy
 from tensorflow.keras.metrics import BinaryAccuracy
 #from tensorflow.keras.metrics import Mean
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam, AdamW
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
 # 2023/10/20
 from tensorflow.python.framework import random_seed
@@ -204,13 +205,28 @@ class TensorflowUNet:
                             base_filters = base_filters, num_layers = num_layers)
     
     learning_rate  = self.config.get(MODEL, "learning_rate")
+    
     clipvalue      = self.config.get(MODEL, "clipvalue", 0.2)
     print("--- clipvalue {}".format(clipvalue))
-    self.optimizer = Adam(learning_rate = learning_rate, 
-         beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, 
-         clipvalue=clipvalue,  #2023/0626
+    
+    # 2023/11/10
+    optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
+    if optimizer == "Adam":
+      self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
+         beta_1=0.9, 
+         beta_2=0.999, 
+         #epsilon=None,        #2023/11/10 epsion=None is not allowed
+         weight_decay=0.0,     #2023/11/10 decay -> weight_decay
+         clipvalue=clipvalue,  #2023/06/26
          amsgrad=False)
-    print("=== Optimizer Adam learning_rate {} clipvalue {}".format(learning_rate, clipvalue))
+      print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
+    
+    elif optimizer == "AdamW":
+      # 2023/11/10  Adam -> AdamW (tensorflow 2.14.0~)
+      self.optimizer = AdamW(learning_rate = learning_rate,
+         clipvalue=clipvalue,
+         )
+      print("=== Optimizer AdamW learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
     
     self.model_loaded = False
 

@@ -41,7 +41,7 @@ from TensorflowUNet import TensorflowUNet
 
 MODEL  = "model"
 TRAIN  = "train"
-
+DATASET = "dataset"
 
 if __name__ == "__main__":
   try:
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     model     = ModelClass(config_file)
 
     # Create a DatasetClass
-    DatasetClass = eval(config.get(MODEL, "datasetclass", dvalue="ImageMaskDataset"))
+    DatasetClass = eval(config.get(DATASET, "datasetclass", dvalue="ImageMaskDataset"))
     dataset = DatasetClass(config_file)
 
     # Create a TRAIN dataset

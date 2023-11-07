@@ -86,7 +86,7 @@ class BaseImageMaskDataset:
     
     X = np.zeros((num_images, self.image_height, self.image_width, self.image_channels), dtype=np.uint8)
 
-    Y = np.zeros((num_images, self.image_height, self.image_width, 1                ), dtype=np.bool)
+    Y = np.zeros((num_images, self.image_height, self.image_width, 1                ), dtype=bool)
 
     for n, image_file in tqdm(enumerate(image_files), total=len(image_files)):
       X[n]  = self.read_image_file(image_file)
