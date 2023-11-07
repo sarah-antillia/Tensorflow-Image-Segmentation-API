@@ -29,9 +29,8 @@
 a sample train_eval_infer.config</a> to ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</li>
 <br>
 <b>2023/11/07: Updated</b><br>
-<li>Moved Dev-Environment to WSL2/Ubuntu-22.04 and Tensorflow 2.14.0</li>
+<li>Moved Development-Environment to WSL2/Ubuntu-22.04 and Tensorflow 2.14.0.</li>
 <li>Updated <a href="./src/TensorflowUNet.py">TensorflowUNet.py</a> to be able to choose AdamW optimizer(Tensorflow 2.14.0) through a train_eval_infer.config.</li>
-
 <li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a></li>
 
 <br>
