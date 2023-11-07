@@ -32,7 +32,9 @@ a sample train_eval_infer.config</a> to ./projects/TensorflowSlightlyFlexibleUNe
 <li>Moved Development-Environment to WSL2/Ubuntu-22.04 and Tensorflow 2.14.0.</li>
 <li>Updated <a href="./src/TensorflowUNet.py">TensorflowUNet.py</a> to be able to choose AdamW optimizer(Tensorflow 2.14.0) through a train_eval_infer.config.</li>
 <li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a></li>
-
+<br>
+Please note that you have to install the proper version of libraries of cuDNN and CUDA listed in 
+<a href="https://www.tensorflow.org/install/source#gpu"></a> to your WSL2 in order to train a model of Tensorflow 2.14.0 on your GPU.<br>
 <br>
 <h2>
 <a id="1">
