@@ -34,7 +34,7 @@ a sample train_eval_infer.config</a> to ./projects/TensorflowSlightlyFlexibleUNe
 <li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a></li>
 <br>
 Please note that you have to install the proper version of libraries of cuDNN and CUDA listed in 
-<a href="https://www.tensorflow.org/install/source#gpu"></a> to your WSL2 in order to train a model of Tensorflow 2.14.0 on your GPU.<br>
+<a href="https://www.tensorflow.org/install/source#gpu">Tensorflow GPU</a> to your WSL2 in order to train a model of Tensorflow 2.14.0 on your GPU.<br>
 <br>
 <h2>
 <a id="1">
