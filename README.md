@@ -1,4 +1,4 @@
-# Tensorflow-Image-Segmentation-API (Updated: 2023/11/01)
+# Tensorflow-Image-Segmentation-API (Updated: 2023/11/07)
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -27,6 +27,14 @@
 <li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a></li>
 <li>Added <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer_image_mask_dataset_512x512.config">
 a sample train_eval_infer.config</a> to ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</li>
+<br>
+<b>2023/11/07: Updated</b><br>
+<li>Moved Dev-Environment to WSL2/Ubuntu-22.04 and Tensorflow 2.14.0</li>
+<li>Updated <a href="./src/TensorflowUNet.py">TensorflowUNet.py</a> to be able to choose AdamW optimizer(Tensorflow 2.14.0) through a train_eval_infer.config.</li>
+
+<li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a></li>
+
+<br>
 
 <br>
 <h2>
