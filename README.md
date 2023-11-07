@@ -230,6 +230,26 @@ Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b
 On detail of TensorflowSlightlyFlexibleUNet/MultipleMyeloma, please see also.<br>
 <a href="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma">Tiled-Image-Segmentation-Multiple-Myeloma</a>
 <br>
+
+<h2>
+3.5 Overlapped-Tiled-Image-Inference (2023/11/07)
+</h2>
+Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder<br>
+,and run the following bat file to do tiled-image-inference segmentation for <a href="./4k_mini_test">
+MultipleMyeloma 4k_mini_test_images</a> by the Trained-TensorflowUNet 512x512_model for MultipleMyeloma.<br>
+<pre>
+./204.tiled_infer_512x512.bat
+</pre>
+Inference result:<br>
+<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/asset/4k_mini_test_output_512x512.png" 
+ width="1024" height="auto"><br>
+<br>
+If your would like to train TensorflowSlightlyFlexibleUNet model by MultipleMyelomap dataset in <a href="./dataset">dataset</a> folder
+ by yourself, please run the following bat file.<br>
+<pre>
+./201.train_512x512.bat
+</pre>
+
 <h2>
 <a id="4">
 4 TensorflowSwinUNet
