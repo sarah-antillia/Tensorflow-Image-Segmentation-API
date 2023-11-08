@@ -110,7 +110,8 @@ class TensorflowUNet3Plus(TensorflowUNet):
   def __init__(self, config_file):
     super().__init__(config_file)
     
-    self.set_seed()
+    #self.set_seed()
+
     self.config_file = config_file
     self.config    = ConfigParser(config_file)
     image_height   = self.config.get(MODEL, "image_height")
@@ -125,12 +126,24 @@ class TensorflowUNet3Plus(TensorflowUNet):
     
     learning_rate  = self.config.get(MODEL, "learning_rate")
     clipvalue      = self.config.get(MODEL, "clipvalue", 0.2)
-
-    self.optimizer = Adam(learning_rate = learning_rate, 
-         beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, 
-         clipvalue=clipvalue,  #2023/06/30
+    # 2023/11/10
+    optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
+    if optimizer == "Adam":
+      self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
+         beta_1=0.9, 
+         beta_2=0.999, 
+         #epsilon=None,        #2023/11/10 epsion=None is not allowed
+         weight_decay=0.0,     #2023/11/10 decay -> weight_decay
+         clipvalue=clipvalue,  #2023/06/26
          amsgrad=False)
-    print("=== Optimizer Adam learning_rate {} clipvalue {}".format(learning_rate, clipvalue))
+      print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
+    
+    elif optimizer == "AdamW":
+      # 2023/11/10  Adam -> AdamW (tensorflow 2.14.0~)
+      self.optimizer = AdamW(learning_rate = learning_rate,
+         clipvalue=clipvalue,
+         )
+      print("=== Optimizer AdamW learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
     
     self.model_loaded = False
 
@@ -321,7 +334,14 @@ class TensorflowUNet3Plus(TensorflowUNet):
 
     # 2023/06/29 Modified activate function from softmax to sigmoid 
     #output = k.activations.softmax(d)
-    output = tf.keras.layers.Activation(activation='sigmoid')(d)
+    # 2023/11/10 
+    activation = 'sigmoid'
+    if num_classes == 1:
+      activation = 'sigmoid'
+    elif num_classes > 1:
+      activation = 'softmax'
+    output = tf.keras.layers.Activation(activation=activation)(d)
+    #output = tf.keras.layers.Activation(activation='sigmoid')(d)
 
     return tf.keras.Model(inputs=input_layer, outputs=[output], name='UNet_3Plus')
  

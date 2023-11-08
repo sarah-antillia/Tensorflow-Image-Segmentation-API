@@ -388,7 +388,13 @@ class TensorflowUNet:
       c  = u
 
     # outouts
-    outputs = Conv2D(num_classes, (1, 1), activation='sigmoid')(c)
+    # 2023/11/10 
+    activation = 'sigmoid'
+    if num_classes == 1:
+      activation = 'sigmoid'
+    elif num_classes > 1:
+      activation = 'softmax'
+    outputs = Conv2D(num_classes, (1, 1), activation= activation)(c)
 
     # create Model
     model = Model(inputs=[inputs], outputs=[outputs])

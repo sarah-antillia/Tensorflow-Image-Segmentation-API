@@ -149,8 +149,15 @@ class TensorflowAttentionUNet(TensorflowUNet):
       d = self.decoder_block(d, s, filters)
       n += 1
 
-    outputs = Conv2D(num_classes, (1, 1), activation='sigmoid')(d)
-
+    #outputs = Conv2D(num_classes, (1, 1), activation='sigmoid')(d)
+    # 2023/11/10 
+    activation = 'sigmoid'
+    if num_classes == 1:
+      activation = 'sigmoid'
+    elif num_classes > 1:
+      activation = 'softmax'
+    outputs = Conv2D(num_classes, (1, 1), activation= activation)(c)
+  
     model = Model(inputs=[inputs], outputs=[outputs], name="Attention-UNET")
 
     return model

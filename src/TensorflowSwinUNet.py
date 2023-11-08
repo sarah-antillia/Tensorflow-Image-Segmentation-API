@@ -133,14 +133,26 @@ class TensorflowSwinUNet(TensorflowUNet) :
     
     # Optimization
     # <---- !!! gradient clipping is important
-    
-    optimizer = keras.optimizers.Adam(learning_rate=learning_rate, clipvalue=clipvalue)
-    self.optimizer = Adam(learning_rate = learning_rate, 
-         beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, 
-         clipvalue=clipvalue,  
-         amsgrad=False)
-    print("=== Optimizer Adam learning_rate {} clipvalue {}".format(learning_rate, clipvalue))
 
+    # 2023/11/10
+    optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
+    if optimizer == "Adam":
+      self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
+         beta_1=0.9, 
+         beta_2=0.999, 
+         #epsilon=None,        #2023/11/10 epsion=None is not allowed
+         weight_decay=0.0,     #2023/11/10 decay -> weight_decay
+         clipvalue=clipvalue,  #2023/06/26
+         amsgrad=False)
+      print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
+    
+    elif optimizer == "AdamW":
+      # 2023/11/10  Adam -> AdamW (tensorflow 2.14.0~)
+      self.optimizer = AdamW(learning_rate = learning_rate,
+         clipvalue=clipvalue,
+         )
+      print("=== Optimizer AdamW learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
+  
     binary_crossentropy = tf.keras.metrics.binary_crossentropy
     binary_accuracy     = tf.keras.metrics.binary_accuracy
     
@@ -399,7 +411,14 @@ class TensorflowSwinUNet(TensorflowUNet) :
                       shift_window=self.shift_window, name='swin_unet')
     # output layer
     #OUT = CONV_output(X, n_labels, kernel_size=1, activation=output_activation, name='{}_output'.format(name))
-    OUT = Conv2D(num_classes, kernel_size=1, use_bias=False, activation='sigmoid')(X)
+    # 2023/11/10 
+    activation = 'sigmoid'
+    if num_classes == 1:
+      activation = 'sigmoid'
+    elif num_classes > 1:
+      activation = 'softmax'
+    OUT = Conv2D(num_classes, kernel_size=1, use_bias=False, activation=activation)(X)
+    #OUT = Conv2D(num_classes, kernel_size=1, use_bias=False, activation='sigmoid')(X)
 
     # functional API model
     model = Model(inputs=[IN,], outputs=[OUT,], name='SwinNet')
