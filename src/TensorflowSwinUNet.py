@@ -133,7 +133,6 @@ class TensorflowSwinUNet(TensorflowUNet) :
     
     # Optimization
     # <---- !!! gradient clipping is important
-
     # 2023/11/10
     optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
     if optimizer == "Adam":

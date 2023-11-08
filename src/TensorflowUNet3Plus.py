@@ -126,6 +126,7 @@ class TensorflowUNet3Plus(TensorflowUNet):
     
     learning_rate  = self.config.get(MODEL, "learning_rate")
     clipvalue      = self.config.get(MODEL, "clipvalue", 0.2)
+    
     # 2023/11/10
     optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
     if optimizer == "Adam":
@@ -137,7 +138,7 @@ class TensorflowUNet3Plus(TensorflowUNet):
          clipvalue=clipvalue,  #2023/06/26
          amsgrad=False)
       print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
-    
+
     elif optimizer == "AdamW":
       # 2023/11/10  Adam -> AdamW (tensorflow 2.14.0~)
       self.optimizer = AdamW(learning_rate = learning_rate,
