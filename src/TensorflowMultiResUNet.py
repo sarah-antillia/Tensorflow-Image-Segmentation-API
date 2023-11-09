@@ -158,8 +158,8 @@ class TensorflowMultiResUNet(TensorflowUNet):
       activation = 'sigmoid'
     elif num_classes > 1:
       activation = 'softmax'
-    outputs = Conv2D(num_classes, (1, 1), padding="same", activation=activation)(d) 
-    #outputs = Conv2D(num_classes, (1, 1), padding="same", activation="sigmoid")(d)
+    #outputs = Conv2D(num_classes, (1, 1), padding="same", activation=activation)(d) 
+    outputs = Conv2D(num_classes, (1, 1),  activation="sigmoid")(d)
 
     """ Model """
     model = Model(inputs=[inputs], outputs=[outputs], name="MultiResUNET")

@@ -78,6 +78,7 @@ from math import e
 import os
 import sys
 import datetime
+from tabnanny import verbose
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
 # 2023/10/20 "false" -> "true"
@@ -394,7 +395,10 @@ class TensorflowUNet:
       activation = 'sigmoid'
     elif num_classes > 1:
       activation = 'softmax'
-    outputs = Conv2D(num_classes, (1, 1), activation=activation)(c)
+    #2023/11/10  
+    padding = "same"
+    outputs = Conv2D(num_classes, (1, 1), padding=padding, activation=activation)(c)
+    #outputs = Conv2D(num_classes, (1, 1), activation=activation)(c)
 
     # create Model
     model = Model(inputs=[inputs], outputs=[outputs])
@@ -453,8 +457,15 @@ class TensorflowUNet:
     # Copy current config_file to model_dir
     shutil.copy2(self.config_file, model_dir)
     print("-- Copied {} to {}".format(self.config_file, model_dir))
-    
-    weight_filepath   = os.path.join(model_dir, BEST_MODEL_FILE)
+
+    # 2023/11/10
+    save_model_file = self.config.get(TRAIN, "save_model_file", dvalue=BEST_MODEL_FILE)
+    weight_filepath   = os.path.join(model_dir, save_model_file)
+    if save_model_file != "":
+      print("=== Save weight filepath {}".format(weight_filepath))
+    else:
+      print("=== Saved model_dir  {}".format(weight_filepath))
+
     """
     lr_reducer = self.config.get(TRAIN, "learning_rate_reducer", dvalue=False )
     if lr_reducer:
@@ -544,11 +555,26 @@ class TensorflowUNet:
     rc = False
     if  not self.model_loaded:    
       model_dir  = self.config.get(TRAIN, "model_dir")
-      weight_filepath = os.path.join(model_dir, BEST_MODEL_FILE)
+      # 2023/11/10
+      save_model_file = self.config.get(TRAIN, "save_model_file", dvalue=BEST_MODEL_FILE)
+      weight_filepath   = os.path.join(model_dir, save_model_file)
+      print("=== Save weight filepath {}".format(weight_filepath))
+
+      weight_filepath = os.path.join(model_dir, save_model_file)
       if os.path.exists(weight_filepath):
-        self.model.load_weights(weight_filepath)
+        # 2023/11/10
+        if save_model_file != "":
+          # This is the case of h5 weight file
+          self.model.load_weights(weight_filepath)
+          print("=== Loaded a weight_file {}".format(weight_filepath))
+
+        else:
+          # Load a saved_model.pb under the weight_filepath(saved_model_path)
+          # https://www.tensorflow.org/api_docs/python/tf/keras/saving/load_model
+          self.model= tf.keras.saving.load_model(weight_filepath, compile=False)
+          print("=== Loaded a saved_model {}".format(weight_filepath))
+
         self.model_loaded = True
-        print("=== Loaded a weight_file {}".format(weight_filepath))
         rc = True
       else:
         message = "Not found a weight_file " + weight_filepath
@@ -613,7 +639,8 @@ class TensorflowUNet:
       #print("=== Input image shape {}".format(image.shape))
       if expand:
         image = np.expand_dims(image, 0)
-      pred = self.model.predict(image)
+      # 2023/11/10 Added verbose=False parameter.
+      pred = self.model.predict(image, verbose=False)
       predictions.append(pred)
     return predictions    
 

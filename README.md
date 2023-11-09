@@ -36,6 +36,12 @@ a sample train_eval_infer.config</a> to ./projects/TensorflowSlightlyFlexibleUNe
 Please note that you have to install the proper version of libraries of cuDNN and CUDA listed in 
 <a href="https://www.tensorflow.org/install/source#gpu">Tensorflow GPU</a> to your WSL2 in order to train a model of Tensorflow 2.14.0 on your GPU.<br>
 <br>
+<br>
+<b>2023/11/10: Updated</b><br>
+<li>Updated <a href="./src/TensorflowUNet.py">TensorflowUNet.py</a> to be able to save and load a trained model as a saved_model not only a weight_file (.h5).</li>
+<li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a> to use a saved_model.</li>
+<br>
+<br>
 <h2>
 <a id="1">
 1 Image Segmentation API 
@@ -152,7 +158,26 @@ resize_interpolation = "cv2.INTER_CUBIC"
 </pre>
 <br>
 
-<h3>2.3 4K-Mini-Test</h3>
+<br>
+<h3>2.3 Saved model (Updated:2023/11/01)</h3>
+
+If your would like to save and load your trained model as a saved_model, please specify empty string for <b>save_model_file</b> in
+[train] section in your <b>train_eval_infer.config</b> file. as shown below, <br>
+
+<pre>
+[train]
+;2023/11/10
+;save_model_file = "best_model.h5"
+
+; To save your model as a saved_model by model.save(model_dir) method,
+; please specify empty string for save_model_file as shown below, 
+; because the save method never needs filename
+save_model_file = ""
+
+</pre>
+<br>
+
+<h3>2.4 4K-Mini-Test</h3>
 To apply <b>Tiled-Image-Segmentation to 4K-images</b>, we have created the following 4K-Mini-Test MultipleMyeloma from the original dataset
  <b>
 <a href="https://www.kaggle.com/datasets/sbilab/segpc2021dataset">SegPC-2021: Segmentation of Multiple Myeloma Plasma Cells in Microscopic Images</a></b>
