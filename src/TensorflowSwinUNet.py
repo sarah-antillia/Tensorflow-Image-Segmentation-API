@@ -134,13 +134,25 @@ class TensorflowSwinUNet(TensorflowUNet) :
     # Optimization
     # <---- !!! gradient clipping is important
     
-    optimizer = keras.optimizers.Adam(learning_rate=learning_rate, clipvalue=clipvalue)
-    self.optimizer = Adam(learning_rate = learning_rate, 
-         beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, 
-         clipvalue=clipvalue,  
+    # 2023/11/10
+    optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
+    if optimizer == "Adam":
+      self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
+         beta_1=0.9, 
+         beta_2=0.999, 
+         #epsilon=None,        #2023/11/10 epsion=None is not allowed
+         weight_decay=0.0,     #2023/11/10 decay -> weight_decay
+         clipvalue=clipvalue,  #2023/06/26
          amsgrad=False)
-    print("=== Optimizer Adam learning_rate {} clipvalue {}".format(learning_rate, clipvalue))
-
+      print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
+    
+    elif optimizer == "AdamW":
+      # 2023/11/10  Adam -> AdamW (tensorflow 2.14.0~)
+      self.optimizer = tf.keras.optimizers.AdamW(learning_rate = learning_rate,
+         clipvalue=clipvalue,
+         )
+      print("=== Optimizer AdamW learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
+        
     binary_crossentropy = tf.keras.metrics.binary_crossentropy
     binary_accuracy     = tf.keras.metrics.binary_accuracy
     

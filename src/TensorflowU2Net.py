@@ -556,11 +556,10 @@ class TensorflowU2Net(TensorflowUNet) :
     depth_backup = []
     depth_ = len(filter_num_down)
     
-    #IN = Input(shape=input_size) 
     input_size = (image_width, image_height, image_channels)
-    #IN = Lambda(lambda x: x / 255)(inputs)
-    IN = Input(shape=input_size) 
-
+    inputs = Input((image_height, image_width, image_channels))
+    IN = Lambda(lambda x: x / 255)(inputs)
+    
     # base (before conv + activation + upsample)
     X_out = self.u2net_2d_base(IN, 
                           filter_num_down, filter_num_up, 
