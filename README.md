@@ -42,6 +42,10 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a> to use a saved_model.</li>
 <br>
 <br>
+<b>2023/11/13: Updated</b><br>
+<li>Moved the dataset folder to a new repository <a href="https://github.com/sarah-antillia/Tensorflow-Image-Segmentation-Dataset">Tensorflow-Image-Segmentation-Dataset</a>.</li>
+<br>
+
 <h2>
 <a id="1">
 1 Image Segmentation API 
