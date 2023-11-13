@@ -116,20 +116,23 @@ We appreciate all contributions of these UNet model.<br>
 </a>
 </h2>
 <h3> 2.1 Data Collection</h3>
-We have the following dataset.<br>
+We have moved the dataset folder to a new repository <a href="https://github.com/sarah-antillia/Tensorflow-Image-Segmentation-Dataset">
+Tensorflow-Image-Segmentation-Dataset</a>.
+<br>
+Please clone that repository to your dev-environment in order to use the dataset, which contains the following dataset.<br>
 
-<li><a href="./dataset/ALL">ALL</a></li>
-<li><a href="./dataset/BrainTumor">BrainTumor</a></li>
-<li><a href="./dataset/Breast-Cancer">Brest-Cancer</a></li>
-<li><a href="./dataset/CervicalCancer">CervicalCancer</a></li>
-<li><a href="./dataset/GastrointestinalPolyp">GastrointestinalPolyp</a></li>
-<li><a href="./dataset/Lung">Lung</a></li>
-<li><a href="./dataset/Mammogram">Mammogram</a></li>
-<li><a href="./dataset/MultipleMyeloma">MultipleMyeloma</a></li>
-<li><a href="./dataset/Nerve">Nerve</a></li>
-<li><a href="./dataset/Ovarian-Tumor">Ovarian-Tumor</a></li>
-<li><a href="./dataset/Pap-Smear">Pap-Smear</a></li>
-<li><a href="./dataset/Retinal-Vessel">Retinal-Vessel</a></li>
+<li>ALL</li>
+<li>BrainTumor</li>
+<li>Brest-Cancer</li>
+<li>CervicalCancer</li>
+<li>GastrointestinalPolyp</li>
+<li>Lung</li>
+<li>Mammogram</li>
+<li>MultipleMyeloma</li>
+<li>Nerve</li>
+<li>Ovarian-Tumor</li>
+<li>Pap-Smear</li>
+<li>Retinal-Vessel</li>
 <br>
 
 We appreciate all contributions of these dataset providers.<a href="#100">Dataset citations</a><br>
