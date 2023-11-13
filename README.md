@@ -44,7 +44,7 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <br>
 <b>2023/11/13: Updated</b><br>
 <li>Moved the dataset folder to a new repository <a href="https://github.com/sarah-antillia/Tensorflow-Image-Segmentation-Dataset">Tensorflow-Image-Segmentation-Dataset</a>.</li>
-<li>Updated TensorflowTrainer, Evaluator, Inferencer and TiledInferencer to use the <b>model</b> property [model] section in config file.</li>
+<li>Updated TensorflowTrainer, Evaluator, Inferencer and TiledInferencer to use the <b>model</b> property of [model] section in a config file.</li>
 <li>Modified all bat files to use TensorflowTrainer, Evaluator, Inferencer, TiledInferencer and ModelInspector.</li>
 
 <br>
