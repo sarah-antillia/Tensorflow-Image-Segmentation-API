@@ -1,2 +1,2 @@
-python ../../src/TensorflowMultiResUNetEvaluator.py ./train_eval_infer.config
+python ../../src/TensorflowUNetEvaluator.py ./train_eval_infer.config
 

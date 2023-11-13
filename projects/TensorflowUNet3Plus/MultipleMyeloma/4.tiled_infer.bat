@@ -1,1 +1,1 @@
-python ../../../src/TensorflowUNet3PlusTiledInferencer.py ./train_eval_infer.config
+python ../../../src/TensorflowUNetTiledInferencer.py ./train_eval_infer.config

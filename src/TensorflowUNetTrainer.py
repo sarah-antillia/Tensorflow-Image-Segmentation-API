@@ -62,6 +62,7 @@ if __name__ == "__main__":
 
     # Create a UNetModel and compile
     ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    print("=== ModelClass {}".format(ModelClass))
     model     = ModelClass(config_file)
 
     # Create a DatasetClass

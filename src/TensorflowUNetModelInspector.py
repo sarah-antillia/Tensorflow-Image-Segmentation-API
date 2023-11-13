@@ -29,6 +29,13 @@ import traceback
 
 from ConfigParser import ConfigParser
 from TensorflowUNet import TensorflowUNet
+from TensorflowAttentionUNet import TensorflowAttentionUNet 
+from TensorflowEfficientUNet import TensorflowEfficientUNet
+from TensorflowMultiResUNet import TensorflowMultiResUNet
+from TensorflowSwinUNet import TensorflowSwinUNet
+
+from TensorflowUNet3Plus import TensorflowUNet3Plus
+from TensorflowU2Net import TensorflowU2Net
 
 MODEL   = "model"
 TRAIN   = "train"
@@ -44,8 +51,12 @@ if __name__ == "__main__":
     config   = ConfigParser(config_file)
 
     # Create a UNetMolde and compile
-    model   = TensorflowUNet(config_file)
-    
+    #model   = TensorflowUNet(config_file)
+    ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    print("=== ModelClass {}".format(ModelClass))
+
+    model     = ModelClass(config_file)
+        
     model_graph = config.get(INSPECT, "model_graph", dvalue= "./model.png") 
     summary     = config.get(INSPECT, "summary",     dvalue="./summary.txt")
     # Inspect the model.

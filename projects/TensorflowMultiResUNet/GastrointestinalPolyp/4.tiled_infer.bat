@@ -1,1 +1,1 @@
-python ../../TensorflowMultiResUNetTiledInferencer.py ./train_eval_infer.config
+python ../../TensorflowUNetTiledInferencer.py ./train_eval_infer.config

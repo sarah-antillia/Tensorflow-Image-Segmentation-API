@@ -55,6 +55,8 @@ if __name__ == "__main__":
     # Create a UNetMolde and compile
     #model          = TensorflowUNet(config_file)
     ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    print("=== ModelClass {}".format(ModelClass))
+
     model     = ModelClass(config_file)
 
     if not os.path.exists(images_dir):
