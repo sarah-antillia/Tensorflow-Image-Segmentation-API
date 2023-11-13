@@ -31,6 +31,14 @@ from ImageMaskDataset import ImageMaskDataset
 
 from TensorflowUNet import TensorflowUNet
 
+from TensorflowAttentionUNet import TensorflowAttentionUNet 
+from TensorflowEfficientUNet import TensorflowEfficientUNet
+from TensorflowMultiResUNet import TensorflowMultiResUNet
+from TensorflowSwinUNet import TensorflowSwinUNet
+
+from TensorflowUNet3Plus import TensorflowUNet3Plus
+from TensorflowU2Net import TensorflowU2Net
+
 MODEL  = "model"
 TRAIN  = "train"
 INFER  = "infer"
@@ -49,8 +57,10 @@ if __name__ == "__main__":
     output_dir = config.get(TILEDINFER, "output_dir")
  
     # Create a UNetMolde and compile
-    model          = TensorflowUNet(config_file)
-    
+    #model          = TensorflowUNet(config_file)
+    ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    model     = ModelClass(config_file)
+      
     if not os.path.exists(images_dir):
       raise Exception("Not found " + images_dir)
     

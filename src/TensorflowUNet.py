@@ -74,7 +74,6 @@ dataset_splitter = self.config.get(TRAIN, "dataset_splitter", dvalue=False)
 
 """
 
-from math import e
 import os
 import sys
 import datetime
@@ -124,7 +123,7 @@ from tensorflow.keras import Model
 from tensorflow.keras.losses import  BinaryCrossentropy
 from tensorflow.keras.metrics import BinaryAccuracy
 #from tensorflow.keras.metrics import Mean
-from tensorflow.keras.optimizers import Adam, AdamW
+from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
 # 2023/10/20
 from tensorflow.python.framework import random_seed
@@ -206,10 +205,8 @@ class TensorflowUNet:
                             base_filters = base_filters, num_layers = num_layers)
     
     learning_rate  = self.config.get(MODEL, "learning_rate")
-    
     clipvalue      = self.config.get(MODEL, "clipvalue", 0.2)
     print("--- clipvalue {}".format(clipvalue))
-    
     # 2023/11/10
     optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
     if optimizer == "Adam":
@@ -224,11 +221,11 @@ class TensorflowUNet:
     
     elif optimizer == "AdamW":
       # 2023/11/10  Adam -> AdamW (tensorflow 2.14.0~)
-      self.optimizer = AdamW(learning_rate = learning_rate,
+      self.optimizer = tf.keras.optimizers.AdamW(learning_rate = learning_rate,
          clipvalue=clipvalue,
          )
       print("=== Optimizer AdamW learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
-    
+        
     self.model_loaded = False
 
     # 2023/05/20 Modified to read loss and metrics from train_eval_infer.config file.
@@ -389,16 +386,7 @@ class TensorflowUNet:
       c  = u
 
     # outouts
-    # 2023/11/10 
-    activation = 'sigmoid'
-    if num_classes == 1:
-      activation = 'sigmoid'
-    elif num_classes > 1:
-      activation = 'softmax'
-    #2023/11/10  
-    padding = "same"
-    outputs = Conv2D(num_classes, (1, 1), padding=padding, activation=activation)(c)
-    #outputs = Conv2D(num_classes, (1, 1), activation=activation)(c)
+    outputs = Conv2D(num_classes, (1, 1), activation='sigmoid')(c)
 
     # create Model
     model = Model(inputs=[inputs], outputs=[outputs])
@@ -457,15 +445,8 @@ class TensorflowUNet:
     # Copy current config_file to model_dir
     shutil.copy2(self.config_file, model_dir)
     print("-- Copied {} to {}".format(self.config_file, model_dir))
-
-    # 2023/11/10
-    save_model_file = self.config.get(TRAIN, "save_model_file", dvalue=BEST_MODEL_FILE)
-    weight_filepath   = os.path.join(model_dir, save_model_file)
-    if save_model_file != "":
-      print("=== Save weight filepath {}".format(weight_filepath))
-    else:
-      print("=== Saved model_dir  {}".format(weight_filepath))
-
+    
+    weight_filepath   = os.path.join(model_dir, BEST_MODEL_FILE)
     """
     lr_reducer = self.config.get(TRAIN, "learning_rate_reducer", dvalue=False )
     if lr_reducer:
@@ -555,26 +536,11 @@ class TensorflowUNet:
     rc = False
     if  not self.model_loaded:    
       model_dir  = self.config.get(TRAIN, "model_dir")
-      # 2023/11/10
-      save_model_file = self.config.get(TRAIN, "save_model_file", dvalue=BEST_MODEL_FILE)
-      weight_filepath   = os.path.join(model_dir, save_model_file)
-      print("=== Save weight filepath {}".format(weight_filepath))
-
-      weight_filepath = os.path.join(model_dir, save_model_file)
+      weight_filepath = os.path.join(model_dir, BEST_MODEL_FILE)
       if os.path.exists(weight_filepath):
-        # 2023/11/10
-        if save_model_file != "":
-          # This is the case of h5 weight file
-          self.model.load_weights(weight_filepath)
-          print("=== Loaded a weight_file {}".format(weight_filepath))
-
-        else:
-          # Load a saved_model.pb under the weight_filepath(saved_model_path)
-          # https://www.tensorflow.org/api_docs/python/tf/keras/saving/load_model
-          self.model= tf.keras.saving.load_model(weight_filepath, compile=False)
-          print("=== Loaded a saved_model {}".format(weight_filepath))
-
+        self.model.load_weights(weight_filepath)
         self.model_loaded = True
+        print("=== Loaded a weight_file {}".format(weight_filepath))
         rc = True
       else:
         message = "Not found a weight_file " + weight_filepath
@@ -639,7 +605,6 @@ class TensorflowUNet:
       #print("=== Input image shape {}".format(image.shape))
       if expand:
         image = np.expand_dims(image, 0)
-      # 2023/11/10 Added verbose=False parameter.
       pred = self.model.predict(image, verbose=False)
       predictions.append(pred)
     return predictions    

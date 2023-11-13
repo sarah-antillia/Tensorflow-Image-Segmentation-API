@@ -111,7 +111,6 @@ class TensorflowUNet3Plus(TensorflowUNet):
     super().__init__(config_file)
     
     #self.set_seed()
-
     self.config_file = config_file
     self.config    = ConfigParser(config_file)
     image_height   = self.config.get(MODEL, "image_height")
@@ -126,7 +125,7 @@ class TensorflowUNet3Plus(TensorflowUNet):
     
     learning_rate  = self.config.get(MODEL, "learning_rate")
     clipvalue      = self.config.get(MODEL, "clipvalue", 0.2)
-    
+
     # 2023/11/10
     optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
     if optimizer == "Adam":
@@ -138,14 +137,14 @@ class TensorflowUNet3Plus(TensorflowUNet):
          clipvalue=clipvalue,  #2023/06/26
          amsgrad=False)
       print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
-
+    
     elif optimizer == "AdamW":
       # 2023/11/10  Adam -> AdamW (tensorflow 2.14.0~)
-      self.optimizer = AdamW(learning_rate = learning_rate,
+      self.optimizer = tf.keras.optimizers.AdamW(learning_rate = learning_rate,
          clipvalue=clipvalue,
          )
       print("=== Optimizer AdamW learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
-    
+        
     self.model_loaded = False
 
     # 2023/05/20 Modified to read loss and metrics from train_eval_infer.config file.
@@ -335,14 +334,7 @@ class TensorflowUNet3Plus(TensorflowUNet):
 
     # 2023/06/29 Modified activate function from softmax to sigmoid 
     #output = k.activations.softmax(d)
-    # 2023/11/10 
-    activation = 'sigmoid'
-    if num_classes == 1:
-      activation = 'sigmoid'
-    elif num_classes > 1:
-      activation = 'softmax'
-    output = tf.keras.layers.Activation(activation=activation)(d)
-    #output = tf.keras.layers.Activation(activation='sigmoid')(d)
+    output = tf.keras.layers.Activation(activation='sigmoid')(d)
 
     return tf.keras.Model(inputs=input_layer, outputs=[output], name='UNet_3Plus')
  

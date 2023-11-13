@@ -27,7 +27,7 @@
 import os
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
-os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="false"
+os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="true"
 
 import shutil
 import sys
@@ -39,9 +39,18 @@ from BaseImageMaskDataset import BaseImageMaskDataset
 
 from TensorflowUNet import TensorflowUNet
 
+from TensorflowAttentionUNet import TensorflowAttentionUNet 
+from TensorflowEfficientUNet import TensorflowEfficientUNet
+from TensorflowMultiResUNet import TensorflowMultiResUNet
+from TensorflowSwinUNet import TensorflowSwinUNet
+
+from TensorflowUNet3Plus import TensorflowUNet3Plus
+from TensorflowU2Net import TensorflowU2Net
+
+
 MODEL  = "model"
 TRAIN  = "train"
-DATASET = "dataset"
+
 
 if __name__ == "__main__":
   try:
@@ -56,7 +65,7 @@ if __name__ == "__main__":
     model     = ModelClass(config_file)
 
     # Create a DatasetClass
-    DatasetClass = eval(config.get(DATASET, "datasetclass", dvalue="ImageMaskDataset"))
+    DatasetClass = eval(config.get(MODEL, "datasetclass", dvalue="ImageMaskDataset"))
     dataset = DatasetClass(config_file)
 
     # Create a TRAIN dataset

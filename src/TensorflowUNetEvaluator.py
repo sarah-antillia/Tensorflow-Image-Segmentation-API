@@ -34,6 +34,13 @@ from ImageMaskDataset import ImageMaskDataset
 from BaseImageMaskDataset import BaseImageMaskDataset
 
 from TensorflowUNet import TensorflowUNet
+from TensorflowAttentionUNet import TensorflowAttentionUNet 
+from TensorflowEfficientUNet import TensorflowEfficientUNet
+from TensorflowMultiResUNet import TensorflowMultiResUNet
+from TensorflowSwinUNet import TensorflowSwinUNet
+
+from TensorflowUNet3Plus import TensorflowUNet3Plus
+from TensorflowU2Net import TensorflowU2Net
 
 MODEL  = "model"
 TRAIN  = "train"
@@ -50,7 +57,10 @@ if __name__ == "__main__":
     generator  = config.get(MODEL, "generator")
     print("=== TensorflowUNetEvaluator")
     print("=== config generator {}".format(generator))
-    model   = TensorflowUNet(config_file)
+    #model   = TensorflowUNet(config_file)
+
+    ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    model     = ModelClass(config_file)
 
     # Create a DatasetClass
     DatasetClass = eval(config.get(MODEL, "datasetclass", dvalue="ImageMaskDataset"))
