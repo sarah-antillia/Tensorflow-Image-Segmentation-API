@@ -532,15 +532,39 @@ class TensorflowUNet:
       
 
   # 2023/05/09
+  # 2023/11/17 Fixed bug.
   def load_model(self) :
     rc = False
     if  not self.model_loaded:    
       model_dir  = self.config.get(TRAIN, "model_dir")
-      weight_filepath = os.path.join(model_dir, BEST_MODEL_FILE)
+      # 2023/11/10
+      save_model_file = self.config.get(TRAIN, "save_model_file", dvalue=BEST_MODEL_FILE)
+      weight_filepath   = ""
+      print("--- save_model_file {}".format(save_model_file))
+      
+      if save_model_file != "":
+        weight_filepath = os.path.join(model_dir, save_model_file)
+        print("=== Save weight filepath {}".format(weight_filepath))
+      else:
+        weight_filepath = model_dir
+        print("=== Saved model filepath {}".format(weight_filepath))
+
       if os.path.exists(weight_filepath):
-        self.model.load_weights(weight_filepath)
+        # 2023/11/10
+        if save_model_file != "":
+          # This is the case of h5 weight file
+          self.model.load_weights(weight_filepath)
+          print("=== Loaded a weight_file {}".format(weight_filepath))
+
+        else:
+          # Load a saved_model.pb under the weight_filepath(saved_model_path)
+          # https://www.tensorflow.org/api_docs/python/tf/keras/saving/load_model
+          # 2023/11/17 Added the following line.
+          model_compile = self.config.get(MODEL, "model_compile", dvalue=True) 
+          self.model= tf.keras.saving.load_model(weight_filepath, compile=model_compile)
+          print("=== Loaded a saved_model {}".format(weight_filepath))
+
         self.model_loaded = True
-        print("=== Loaded a weight_file {}".format(weight_filepath))
         rc = True
       else:
         message = "Not found a weight_file " + weight_filepath
