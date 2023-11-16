@@ -446,7 +446,11 @@ class TensorflowUNet:
     shutil.copy2(self.config_file, model_dir)
     print("-- Copied {} to {}".format(self.config_file, model_dir))
     
-    weight_filepath   = os.path.join(model_dir, BEST_MODEL_FILE)
+    # 2023/11/17 Fixed bug
+    save_model_file = self.config.get(TRAIN, "save_model_file", dvalue=BEST_MODEL_FILE)
+    weight_filepath   = os.path.join(model_dir, save_model_file)
+    print("--- weight_filepath = {}".format(weight_filepath))
+    
     """
     lr_reducer = self.config.get(TRAIN, "learning_rate_reducer", dvalue=False )
     if lr_reducer:
