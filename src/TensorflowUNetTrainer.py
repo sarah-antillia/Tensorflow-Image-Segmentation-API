@@ -47,7 +47,6 @@ from TensorflowSwinUNet import TensorflowSwinUNet
 from TensorflowUNet3Plus import TensorflowUNet3Plus
 from TensorflowU2Net import TensorflowU2Net
 
-
 MODEL  = "model"
 TRAIN  = "train"
 
