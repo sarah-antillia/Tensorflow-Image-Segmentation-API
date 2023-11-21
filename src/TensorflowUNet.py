@@ -450,8 +450,6 @@ class TensorflowUNet:
     weight_filepath   = os.path.join(model_dir, save_model_file)
     print("--- weight_filepath = {}".format(weight_filepath))
     
-<<<<<<< HEAD
-
     early_stopping = EarlyStopping(patience=patience, verbose=1)
     check_point    = ModelCheckpoint(weight_filepath, verbose=1, 
                                      save_best_only=True,
@@ -459,14 +457,11 @@ class TensorflowUNet:
     epoch_change   = EpochChangeCallback(eval_dir, metrics)
     callbacks = [early_stopping, check_point, epoch_change]
 
-=======
     # 2023/11/17 Fixed bug
     save_model_file = self.config.get(TRAIN, "save_model_file", dvalue=BEST_MODEL_FILE)
     weight_filepath   = os.path.join(model_dir, save_model_file)
     print("--- weight_filepath = {}".format(weight_filepath))
     
-    """
->>>>>>> refs/remotes/origin/main
     lr_reducer = self.config.get(TRAIN, "learning_rate_reducer", dvalue=False )
     print("=== Learningrate_reduce_callback {}".format(lr_reducer))
     if lr_reducer:
