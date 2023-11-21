@@ -1,4 +1,4 @@
-# Tensorflow-Image-Segmentation-API (Updated: 2023/11/17)
+# Tensorflow-Image-Segmentation-API (Updated: 2023/11/21)
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -54,8 +54,9 @@ Please note that you have to install the proper version of libraries of cuDNN an
 
 <br>
 <br>
-<b>2023/11/20: Updated</b><br>
+<b>2023/11/21: Updated</b><br>
 <li>Updated projects/Tensorflow* model folders to support various datasets.</li>
+<li>Added ReduceLROnPlateau callback to callbacks parameter of model.fit.</li>
 
 <br>
 
