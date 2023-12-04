@@ -552,7 +552,7 @@ For example, <b>TensorflowTransUNet/MultipleMyeloma</b> model will be customizab
 by using <a href="./projects/TensorflowTransUNet/MultipleMyeloma/train_eval_infer.config">
 train_eval_infer.config.</a>
 
-
+<h2>
 8.1 Training
 </h2>
 Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder,<br>
