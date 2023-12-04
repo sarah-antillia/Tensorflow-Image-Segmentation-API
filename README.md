@@ -1,4 +1,4 @@
-# Tensorflow-Image-Segmentation-API (Updated: 2023/11/21)
+# Tensorflow-Image-Segmentation-API (Updated: 2023/12/04)
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -57,7 +57,11 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <b>2023/11/21: Updated</b><br>
 <li>Updated projects/Tensorflow* model folders to support various datasets.</li>
 <li>Added ReduceLROnPlateau callback to callbacks parameter of model.fit.</li>
-
+<br>
+<br>
+<b>2023/12/04: Updated</b><br>
+<li>Fixed a bug TensorflowUNetGeneratorTrainer.py.</li>
+<li>Added TensorflowTransUNet to ./projects.</li>
 <br>
 
 <h2>
@@ -74,6 +78,8 @@ In this repository, we provide <b>Image Segmentation API</b> that supports the f
 <li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
 <li><a href="./projects/TensorflowEfficientUNet">TensorflowEfficientUNet</a></li>
 <li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
+<li><a href="./projects/TensorflowTransUNet">TensorflowUNetTransUNet</a></li>
+
 <br>
 As a typical example of image segmentation in the medical science region, we have applied 
 <b>Tiled-Image-Segmentation to 4K-images</b> of <a href="./dataset/MultipleMyeloma">MultipleMyeloma</a> dataset 
@@ -117,6 +123,7 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
   ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a><br>
   ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
   ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a><br>
+  ├─ <a href="./src/TensorflowTransUNet.py">TensorflowTransUNet</a><br>
   └─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
 <br>
 We appreciate all contributions of these UNet model.<br>
@@ -126,6 +133,8 @@ We appreciate all contributions of these UNet model.<br>
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/efficientnetb0_unet.py">EfficientNetUNet</a><br>
 <a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">SWinUNet2D</a><br>
 <a href="https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py">UNet3Plus</a><br>
+<a href="https://github.com/awsaf49/TransUNet-tf/blob/main/transunet/model.py">TransUNet-tf</a><br>
+
 
 <br>  
 <h2>
