@@ -1,0 +1,103 @@
+Model: "SwinNet"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ input_2 (InputLayer)           [(None, 384, 384, 3  0           []                               
+                                )]                                                                
+                                                                                                  
+ patch_extract (patch_extract)  (None, 9216, 48)     0           ['input_2[0][0]']                
+                                                                                                  
+ patch_embedding (patch_embeddi  (None, 9216, 128)   1185920     ['patch_extract[0][0]']          
+ ng)                                                                                              
+                                                                                                  
+ swin_transformer_block (SwinTr  (None, 9216, 128)   198724      ['patch_embedding[0][0]']        
+ ansformerBlock)                                                                                  
+                                                                                                  
+ swin_transformer_block_1 (Swin  (None, 9216, 128)   346180      ['swin_transformer_block[0][0]'] 
+ TransformerBlock)                                                                                
+                                                                                                  
+ patch_merging (patch_merging)  (None, 2304, 256)    131072      ['swin_transformer_block_1[0][0]'
+                                                                 ]                                
+                                                                                                  
+ swin_transformer_block_2 (Swin  (None, 2304, 256)   527192      ['patch_merging[0][0]']          
+ TransformerBlock)                                                                                
+                                                                                                  
+ swin_transformer_block_3 (Swin  (None, 2304, 256)   536408      ['swin_transformer_block_2[0][0]'
+ TransformerBlock)                                               ]                                
+                                                                                                  
+ patch_merging_1 (patch_merging  (None, 576, 512)    524288      ['swin_transformer_block_3[0][0]'
+ )                                                               ]                                
+                                                                                                  
+ swin_transformer_block_4 (Swin  (None, 576, 512)    1578072     ['patch_merging_1[0][0]']        
+ TransformerBlock)                                                                                
+                                                                                                  
+ swin_transformer_block_5 (Swin  (None, 576, 512)    1580376     ['swin_transformer_block_4[0][0]'
+ TransformerBlock)                                               ]                                
+                                                                                                  
+ patch_merging_2 (patch_merging  (None, 144, 1024)   2097152     ['swin_transformer_block_5[0][0]'
+ )                                                               ]                                
+                                                                                                  
+ swin_transformer_block_6 (Swin  (None, 144, 1024)   5252696     ['patch_merging_2[0][0]']        
+ TransformerBlock)                                                                                
+                                                                                                  
+ swin_transformer_block_7 (Swin  (None, 144, 1024)   5253272     ['swin_transformer_block_6[0][0]'
+ TransformerBlock)                                               ]                                
+                                                                                                  
+ patch_expanding (patch_expandi  (None, 576, 512)    2097152     ['swin_transformer_block_7[0][0]'
+ ng)                                                             ]                                
+                                                                                                  
+ swin_unet_concat_0 (Concatenat  (None, 576, 1024)   0           ['patch_expanding[0][0]',        
+ e)                                                               'swin_transformer_block_5[0][0]'
+                                                                 ]                                
+                                                                                                  
+ swin_unet_concat_linear_proj_0  (None, 576, 512)    524288      ['swin_unet_concat_0[0][0]']     
+  (Dense)                                                                                         
+                                                                                                  
+ swin_transformer_block_8 (Swin  (None, 576, 512)    1578072     ['swin_unet_concat_linear_proj_0[
+ TransformerBlock)                                               0][0]']                          
+                                                                                                  
+ swin_transformer_block_9 (Swin  (None, 576, 512)    1580376     ['swin_transformer_block_8[0][0]'
+ TransformerBlock)                                               ]                                
+                                                                                                  
+ patch_expanding_1 (patch_expan  (None, 2304, 256)   524288      ['swin_transformer_block_9[0][0]'
+ ding)                                                           ]                                
+                                                                                                  
+ swin_unet_concat_1 (Concatenat  (None, 2304, 512)   0           ['patch_expanding_1[0][0]',      
+ e)                                                               'swin_transformer_block_3[0][0]'
+                                                                 ]                                
+                                                                                                  
+ swin_unet_concat_linear_proj_1  (None, 2304, 256)   131072      ['swin_unet_concat_1[0][0]']     
+  (Dense)                                                                                         
+                                                                                                  
+ swin_transformer_block_10 (Swi  (None, 2304, 256)   527192      ['swin_unet_concat_linear_proj_1[
+ nTransformerBlock)                                              0][0]']                          
+                                                                                                  
+ swin_transformer_block_11 (Swi  (None, 2304, 256)   536408      ['swin_transformer_block_10[0][0]
+ nTransformerBlock)                                              ']                               
+                                                                                                  
+ patch_expanding_2 (patch_expan  (None, 9216, 128)   131072      ['swin_transformer_block_11[0][0]
+ ding)                                                           ']                               
+                                                                                                  
+ swin_unet_concat_2 (Concatenat  (None, 9216, 256)   0           ['patch_expanding_2[0][0]',      
+ e)                                                               'swin_transformer_block_1[0][0]'
+                                                                 ]                                
+                                                                                                  
+ swin_unet_concat_linear_proj_2  (None, 9216, 128)   32768       ['swin_unet_concat_2[0][0]']     
+  (Dense)                                                                                         
+                                                                                                  
+ swin_transformer_block_12 (Swi  (None, 9216, 128)   198360      ['swin_unet_concat_linear_proj_2[
+ nTransformerBlock)                                              0][0]']                          
+                                                                                                  
+ swin_transformer_block_13 (Swi  (None, 9216, 128)   235224      ['swin_transformer_block_12[0][0]
+ nTransformerBlock)                                              ']                               
+                                                                                                  
+ patch_expanding_3 (patch_expan  (None, 384, 384, 32  65536      ['swin_transformer_block_13[0][0]
+ ding)                          )                                ']                               
+                                                                                                  
+ conv2d (Conv2D)                (None, 384, 384, 1)  32          ['patch_expanding_3[0][0]']      
+                                                                                                  
+==================================================================================================
+Total params: 27,373,192
+Trainable params: 27,164,552
+Non-trainable params: 208,640
+__________________________________________________________________________________________________
