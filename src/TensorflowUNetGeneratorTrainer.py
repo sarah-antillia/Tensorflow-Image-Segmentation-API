@@ -15,7 +15,7 @@
 
 # TensorflowUNetGeneratorTrainer.py
 # 2023/08/20 to-arai
-
+# 2023/12/10 Updated
 
 import os
 
@@ -33,6 +33,17 @@ from TensorflowUNet import TensorflowUNet
 
 from ImageMaskDatasetGenerator import ImageMaskDatasetGenerator
 
+from TensorflowAttentionUNet import TensorflowAttentionUNet 
+from TensorflowEfficientUNet import TensorflowEfficientUNet
+from TensorflowMultiResUNet import TensorflowMultiResUNet
+from TensorflowSwinUNet import TensorflowSwinUNet
+
+# 2023/12/10 Added the follwoing line
+from TensorflowTransUNet import TensorflowTransUNet
+
+from TensorflowUNet3Plus import TensorflowUNet3Plus
+from TensorflowU2Net import TensorflowU2Net
+
 MODEL  = "model"
 TRAIN  = "train"
 EVAL   = "eval"
@@ -42,9 +53,12 @@ if __name__ == "__main__":
     config_file    = "./train_eval_infer.config"
     if len(sys.argv) == 2:
       config_file = sys.argv[1]
+    config   = ConfigParser(config_file)
 
-    # Create a UNetMolde and compile
-    model   = TensorflowUNet(config_file)
+    # Create a UNetModel and compile
+    ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    print("=== ModelClass {}".format(ModelClass))
+    model     = ModelClass(config_file)
         
     train_gen = ImageMaskDatasetGenerator(config_file, dataset=TRAIN)
     train_generator = train_gen.generate()
