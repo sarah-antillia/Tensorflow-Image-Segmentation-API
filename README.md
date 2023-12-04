@@ -60,7 +60,7 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <br>
 <br>
 <b>2023/12/04: Updated</b><br>
-<li>Fixed a bug TensorflowUNetGeneratorTrainer.py.</li>
+<li>Fixed a bug in TensorflowUNetGeneratorTrainer.py.</li>
 <li>Added TensorflowTransUNet to ./projects.</li>
 <br>
 
