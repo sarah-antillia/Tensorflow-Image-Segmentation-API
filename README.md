@@ -7,6 +7,7 @@
 <li><a href="#5">5 TensorflowMultiResUNet</a></li>
 <li><a href="#6">6 TensorflowAttentionUNet</a></li>
 <li><a href="#7">7 TensorflowUNet3Plust</a></li>
+<li><a href="#8">8 TensorflowTransUNet</a></li>
 <li><a href="#10">10 Image Segmentation Experimental projects</a></li>
 <li><a href="#100">Dataset citations</a></li>
 <br>
@@ -472,7 +473,7 @@ Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folde
 </pre>
 
 <b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
-<img src="./projects/TensorflowAttentionUNet\MultipleMyeloma/4k_tiled_mini_test_output/4k_tiled_mini_test_output.png">
+<img src="./projects/TensorflowAttentionUNet/MultipleMyeloma/asset/4k_min_test_output.png">
 <br>
 
 On detail of Image Segmentation by TensorflowAttentionUNet, please see also.<br>
@@ -531,11 +532,71 @@ Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br
 <br>
 <b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
 
-<img src="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma/blob/main/asset/4k_tiled_mini_test_output_overlapped.png">
+<img src="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma/blob/main/asset/4k_tiled_mini_test_output_overlapped.png"
+>
 <br>
 On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 <a href="https://github.com/sarah-antillia/TensorflowUNet3Plus-Segmentation-MultipleMyeloma">TensorflowUNet3Plus-Segmentation-MultipleMyeloma</a>
 <br>
+
+<!--
+ -->
+
+<h2>
+<a id="8">
+8 TensorflowTransUNet
+</a>
+</h2>
+This <a href="./src/TensorflowTransUNet.py">TensorflowTransUNet</a> model can be 
+slightly flexibly customizable by a configuration file.<br>
+For example, <b>TensorflowTransUNet/MultipleMyeloma</b> model will be customizable
+by using <a href="./projects/TensorflowTransUNet/MultipleMyeloma/train_eval_infer.config">
+train_eval_infer.config.</a>
+
+
+8.1 Training
+</h2>
+Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to train TensorflowTransUNet model for MultipleMyeloma.<br>
+<pre>
+./1.train.bat
+</pre>
+
+
+<h2>
+8.2 Evaluation
+</h2>
+Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evalute TensorflowTransUNet model for MultipleMyeloma.<br>
+<pre>
+./2.evaluate.bat
+</pre>
+
+
+<h2>
+8.3 Inference
+</h2>
+Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br>
+,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowTransUNet model for MultipleMyeloma.<br>
+<pre>
+./3.infer.bat
+</pre>
+
+<h2>
+8.4 Tiled-Image-Inference 
+</h2>
+Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br>
+,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowTransUNet model for MultipleMyeloma.<br>
+<pre>
+./4.tiled_infer.bat
+</pre>
+
+<br>
+<b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
+<img src="./projects/TensorflowTransUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output_overlapped.png">
+<br>
+<br>
+
 <h2>
 <a id="10">10 Image Segmentation Experimental projects</a>
 </h2>
