@@ -592,7 +592,7 @@ Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br
 
 <br>
 <b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
-<img src="./projects/TensorflowTransUNet/MultipleMyeloma/asset/4k_mini_test_output.png" width="1024" height="auto">
+<img src="./projects/TensorflowTransUNet/MultipleMyeloma/asset/4k_min_test_output.png" width="1024" height="auto">
 <br>
 <br>
 
