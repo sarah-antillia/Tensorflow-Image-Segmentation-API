@@ -68,7 +68,7 @@ if __name__ == "__main__":
     model     = ModelClass(config_file)
 
     # Create a DatasetClass
-    DatasetClass = eval(config.get(DATASET), "datasetclass", dvalue="ImageMaskDataset"))
+    DatasetClass = eval(config.get(DATASET, "datasetclass", dvalue="ImageMaskDataset"))
     dataset = DatasetClass(config_file)
 
     # Create a TRAIN dataset
