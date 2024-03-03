@@ -78,7 +78,7 @@ window_size = [4, 2, 2, 2] # the size of attention window per down/upsampling le
 num_mlp = 512              # number of MLP nodes within the Transformer
 shift_window=True          # Apply window shifting, i.e., Swin-MSA
 """
-
+TRAIN = "train"
 MODEL = "model"
 EVAL  = "eval"
 INFER = "infer"
@@ -92,7 +92,7 @@ class TensorflowSwinUNet(TensorflowUNet) :
 
     self.config_file = config_file
     self.config = ConfigParser(config_file)
-    self.show_history = self.conig.get(MODEL, "show_history", dvalue=False)
+    self.show_history = self.config.get(TRAIN, "show_history", dvalue=False)
 
     self.filter_num_begin = self.config.get(MODEL, "filter_num_begin", dvalue=128)
     # number of channels in the first downsampling block; it is also the number of embedded dimensions
