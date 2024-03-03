@@ -61,7 +61,7 @@ from ConfigParser import ConfigParser
 from TensorflowUNet import TensorflowUNet
 
 from losses import dice_coef, basnet_hybrid_loss, sensitivity, specificity
-from losses import iou_coef, iou_loss, bce_iou_loss
+from losses import iou_coef, iou_loss, bce_iou_loss, bce_dice_loss
 
 """
 #https://github.com/yingkaisha/keras-vision-transformer/blob/main/examples/Swin_UNET_oxford_iiit.ipynb
@@ -92,6 +92,8 @@ class TensorflowSwinUNet(TensorflowUNet) :
 
     self.config_file = config_file
     self.config = ConfigParser(config_file)
+    self.show_history = self.conig.get(MODEL, "show_history", dvalue=False)
+
     self.filter_num_begin = self.config.get(MODEL, "filter_num_begin", dvalue=128)
     # number of channels in the first downsampling block; it is also the number of embedded dimensions
     
@@ -140,8 +142,6 @@ class TensorflowSwinUNet(TensorflowUNet) :
       self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
          beta_1=0.9, 
          beta_2=0.999, 
-         #epsilon=None,        #2023/11/10 epsion=None is not allowed
-         weight_decay=0.0,     #2023/11/10 decay -> weight_decay
          clipvalue=clipvalue,  #2023/06/26
          amsgrad=False)
       print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
