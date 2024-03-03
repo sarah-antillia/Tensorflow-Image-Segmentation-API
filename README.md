@@ -144,6 +144,10 @@ Please expand the downloaded ImageMaskDataset and place them under <b>./dataset<
  
 Please note that the pixel size of the new image/mask is 512x512, which is twice as large as that of the image/mask of previous ImageMask Dataset.
 <br>
+<b>MultipleMyelomaDataset Statistics</b><br>
+<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/MultipleMyeloma_Statistics.png" width="540" height="auto"><br>
+As shown above, the number of images of train and valid dataset is not necessarily large.
+<br>
 <h3>2.2 Dataset class (Updated:2023/11/01)</h3>
 <b> Dataset Class Hierarchy </b><br>
 <a href="./src/BaseImageMaskDataset.py">BaseImageMaskDataet</a><br>
