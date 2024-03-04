@@ -315,7 +315,7 @@ model for MultipleMyeloma.<br>
 </pre>
 
 <b>Tiled-Image-Inference for 4K-images: MultipleMyelom</b><br>
-<img src="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma/blob/main/asset/4k_mini_test_image_output_tiled.png"></br>
+<img src="./projects/TensorflowSwinUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png"></br>
 <br>
 On detail of Image Segmentation by TensorflowSwinUNet-MultipleMyeloma, please see also.<br>
 <a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma">
