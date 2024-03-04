@@ -31,7 +31,9 @@ In this repository, we provide <b>Image Segmentation API</b> that supports the f
 <li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
 <li><a href="./projects/TensorflowEfficientUNet">TensorflowEfficientUNet</a></li>
 <li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
+<!--
 <li><a href="./projects/TensorflowTransUNet">TensorflowUNetTransUNet</a></li>
+ -->
 
 <br>
 As a typical example of image segmentation in the medical science region, we have applied 
