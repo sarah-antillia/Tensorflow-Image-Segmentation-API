@@ -57,12 +57,12 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 <tr>
 <td>
 <b>Original 4K-Image</b><br>
-<img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/projects/MultipleMyeloma/4k_mini_test/2405.jpg" width="512" height="auto">
+<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/405.jpg" width="500" height="auto">
 </td>
 <td>
-<b>Tiled-4K-Image-256x256</b><br>
-<img src="https://github.com/atlan-antillia/Tiled-Image-Segmentation-Multiple-Myeloma/blob/main/asset/master_splitted%20405.jpg"
-  width="512" height="auto"><br>
+<b>Tiled-4K-Image-512x512</b><br>
+<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/405_splitted_to_512x512.jpg"
+  width="524" height="auto"><br>
 </td>
 </tr>
 </table>

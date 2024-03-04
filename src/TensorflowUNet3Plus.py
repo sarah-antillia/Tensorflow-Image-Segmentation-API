@@ -77,7 +77,7 @@ from EpochChangeCallback import EpochChangeCallback
 from GrayScaleImageWriter import GrayScaleImageWriter
 
 from losses import dice_coef, basnet_hybrid_loss, sensitivity, specificity
-from losses import iou_coef, iou_loss, bce_iou_loss
+from losses import iou_coef, iou_loss, bce_iou_loss, bce_dice_loss
 
 import tensorflow as tf
 import tensorflow.keras as k
@@ -113,6 +113,8 @@ class TensorflowUNet3Plus(TensorflowUNet):
     #self.set_seed()
     self.config_file = config_file
     self.config    = ConfigParser(config_file)
+    self.show_history = self.config.get(TRAIN, "show_history", dvalue=False)
+
     image_height   = self.config.get(MODEL, "image_height")
     image_width    = self.config.get(MODEL, "image_width")
     image_channels = self.config.get(MODEL, "image_channels")
@@ -127,13 +129,11 @@ class TensorflowUNet3Plus(TensorflowUNet):
     clipvalue      = self.config.get(MODEL, "clipvalue", 0.2)
 
     # 2023/11/10
-    optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
+    optimizer = self.config.get(MODEL, "optimizer", dvalue="Adam")
     if optimizer == "Adam":
       self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
          beta_1=0.9, 
          beta_2=0.999, 
-         #epsilon=None,        #2023/11/10 epsion=None is not allowed
-         weight_decay=0.0,     #2023/11/10 decay -> weight_decay
          clipvalue=clipvalue,  #2023/06/26
          amsgrad=False)
       print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))

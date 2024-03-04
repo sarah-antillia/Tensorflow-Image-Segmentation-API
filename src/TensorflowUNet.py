@@ -223,12 +223,23 @@ class TensorflowUNet:
     learning_rate  = self.config.get(MODEL, "learning_rate")
     clipvalue      = self.config.get(MODEL, "clipvalue", 0.2)
     print("--- clipvalue {}".format(clipvalue))
-    self.optimizer = Adam(learning_rate = learning_rate, 
-         beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, 
-         clipvalue=clipvalue,  #2023/0626
+  # 2023/11/10
+    optimizer = self.config.get(MODEL, "optimizer", dvalue="Adam")
+    if optimizer == "Adam":
+      self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
+         beta_1=0.9, 
+         beta_2=0.999, 
+         clipvalue=clipvalue,  #2023/06/26
          amsgrad=False)
-    print("=== Optimizer Adam learning_rate {} clipvalue {}".format(learning_rate, clipvalue))
+      print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
     
+    elif optimizer == "AdamW":
+      # 2023/11/10  Adam -> AdamW (tensorflow 2.14.0~)
+      self.optimizer = tf.keras.optimizers.AdamW(learning_rate = learning_rate,
+         clipvalue=clipvalue,
+         )
+      print("=== Optimizer AdamW learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
+            
     self.model_loaded = False
 
     # 2023/05/20 Modified to read loss and metrics from train_eval_infer.config file.
