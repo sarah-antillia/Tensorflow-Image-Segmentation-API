@@ -315,7 +315,7 @@ model for MultipleMyeloma.<br>
 </pre>
 
 <b>Tiled-Image-Inference for 4K-images: MultipleMyelom</b><br>
-<img src="./projects/TensorflowSwinUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png"></br>
+<img src="./projects/TensorflowSwinUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png" width="1024" height="auto"></br>
 <br>
 On detail of Image Segmentation by TensorflowSwinUNet-MultipleMyeloma, please see also.<br>
 <a href="https://github.com/sarah-antillia/TensorflowSwinUNet-Segmentation-MultipleMyeloma">
@@ -373,7 +373,7 @@ Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder
 
 
 <b>Tiled-Image-Segmentation for 4K-Images:MultipleMyelom</b><br>
-<img src="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma/blob/main/asset/4k_tiled_mini_test_output_overlapped.png"><br>
+<img src="./projects/TensorflowMultiResUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png" width="1024" height="auto"><br>
 <br>
 On detail of Image Segmentation by TensorflowMultiResUNet-MultipleMyeloma, please see also.<br>
 <a href="https://github.com/sarah-antillia/TensorflowMultiResUNet-Segmentation-MultipleMyeloma">
