@@ -7,7 +7,9 @@
 <li><a href="#5">5 TensorflowMultiResUNet</a></li>
 <li><a href="#6">6 TensorflowAttentionUNet</a></li>
 <li><a href="#7">7 TensorflowUNet3Plust</a></li>
+<!--
 <li><a href="#8">8 TensorflowTransUNet</a></li>
+ -->
 <li><a href="#10">10 Image Segmentation Experimental projects</a></li>
 <li><a href="#100">Dataset citations</a></li>
 <br>
@@ -74,7 +76,6 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
   ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a><br>
   ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
   ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a><br>
-  ├─ <a href="./src/TensorflowTransUNet.py">TensorflowTransUNet</a><br>
   └─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
 <br>
 We appreciate all contributions of these UNet model.<br>
@@ -84,7 +85,6 @@ We appreciate all contributions of these UNet model.<br>
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/efficientnetb0_unet.py">EfficientNetUNet</a><br>
 <a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">SWinUNet2D</a><br>
 <a href="https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py">UNet3Plus</a><br>
-<a href="https://github.com/awsaf49/TransUNet-tf/blob/main/transunet/model.py">TransUNet-tf</a><br>
 
 
 <br>  
@@ -437,6 +437,7 @@ On detail of Image Segmentation by TensorflowAttentionUNet, please see also.<br>
 <a href="https://github.com/atlan-antillia/Tensorflow-Slightly-Flexible-Attention-UNet">Tensorflow-Slightly-Flexible-Attention-UNet</a>
 <br>
 
+
 <h2>
 <a id="7">
 7 TensorflowUNet3Plus
@@ -497,7 +498,7 @@ On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 
 <!--
  -->
-
+<!--
 <h2>
 <a id="8">
 8 TensorflowTransUNet
@@ -552,6 +553,7 @@ Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br
 <img src="./projects/TensorflowTransUNet/MultipleMyeloma/asset/4k_min_test_output.png" width="1024" height="auto">
 <br>
 <br>
+-->
 
 <h2>
 <a id="10">10 Image Segmentation Experimental projects</a>

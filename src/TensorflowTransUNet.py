@@ -35,10 +35,6 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.layers import Lambda
 from tensorflow.keras.optimizers import Adam
-try:
-  from tensorflow.keras.optimizers import AdamW
-except:
-  traceback.print_exc()
 
 from tensorflow.keras.layers import Input
 
@@ -57,8 +53,8 @@ from losses import iou_coef, iou_loss, bce_iou_loss, bce_dice_loss
 import transunet.encoder_layers as encoder_layers
 import transunet.decoder_layers as decoder_layers
 from transunet.resnet_v2 import  resnet_embeddings
-import tensorflow_addons as tfa
-import matplotlib.pyplot as plt
+#import tensorflow_addons as tfa
+#import matplotlib.pyplot as plt
 import transunet.utils as utils
 
 import math

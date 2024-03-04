@@ -48,7 +48,7 @@ from TensorflowSwinUNet import TensorflowSwinUNet
 from TensorflowTransUNet import TensorflowTransUNet
 
 from TensorflowUNet3Plus import TensorflowUNet3Plus
-from TensorflowU2Net import TensorflowU2Net
+#from TensorflowU2Net import TensorflowU2Net
 
 MODEL   = "model"
 TRAIN   = "train"
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     # Create a DatasetClass
     DatasetClass = eval(config.get(DATASET, "datasetclass", dvalue="ImageMaskDataset"))
     dataset = DatasetClass(config_file)
-
+    print("=== DatasetClass {}".format(dataset))
     # Create a TRAIN dataset
     x_train, y_train = dataset.create(dataset=TRAIN)
 
