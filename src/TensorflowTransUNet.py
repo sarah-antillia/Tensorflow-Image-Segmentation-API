@@ -114,14 +114,12 @@ class TensorflowTransUNet(TensorflowUNet) :
     # Optimization
     # <---- !!! gradient clipping is important
     
-    # 2023/11/10
-    optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
+    # 2024/03/05
+    optimizer = self.config.get(MODEL, "optimizer", dvalue="Adam")
     if optimizer == "Adam":
       self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
          beta_1=0.9, 
          beta_2=0.999, 
-         #epsilon=None,        #2023/11/10 epsion=None is not allowed
-         weight_decay=0.0,     #2023/11/10 decay -> weight_decay
          clipvalue=clipvalue,  #2023/06/26
          amsgrad=False)
       print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))

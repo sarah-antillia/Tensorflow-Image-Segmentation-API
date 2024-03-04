@@ -38,16 +38,18 @@ from TensorflowAttentionUNet import TensorflowAttentionUNet
 from TensorflowEfficientUNet import TensorflowEfficientUNet
 from TensorflowMultiResUNet import TensorflowMultiResUNet
 from TensorflowSwinUNet import TensorflowSwinUNet
-# 2023/12/10 Added the follwoing line
+# 2023/12/10 Added the following line
 from TensorflowTransUNet import TensorflowTransUNet
 
 from TensorflowUNet3Plus import TensorflowUNet3Plus
-from TensorflowU2Net import TensorflowU2Net
+#from TensorflowU2Net import TensorflowU2Net
 
 MODEL  = "model"
 TRAIN  = "train"
 EVAL   = "eval"
 TEST   = "test"
+# 2024/03/05 Added
+DATASETCLASS ="datasetclass"
 
 if __name__ == "__main__":
   try:
@@ -56,18 +58,18 @@ if __name__ == "__main__":
       config_file = sys.argv[1]
 
     config = ConfigParser(config_file)
-    generator  = config.get(MODEL, "generator")
+    generator  = config.get(MODEL, "generator", dvalue=False)
     print("=== TensorflowUNetEvaluator")
     print("=== config generator {}".format(generator))
-    #model   = TensorflowUNet(config_file)
 
     ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
     print("=== ModelClass {}".format(ModelClass))
-
     model     = ModelClass(config_file)
 
     # Create a DatasetClass
-    DatasetClass = eval(config.get(MODEL, "datasetclass", dvalue="ImageMaskDataset"))
+    # 2024/03/05 MODEL -> DATASETCLASS
+    DatasetClass = eval(config.get(DATASETCLASS, "datasetclass", dvalue="ImageMaskDataset"))
+    print("=== DatasetClass {}".format(DatasetClass))
     dataset = DatasetClass(config_file)
 
     target = EVAL
