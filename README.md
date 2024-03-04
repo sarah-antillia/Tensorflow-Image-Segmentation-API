@@ -144,7 +144,11 @@ Please expand the downloaded ImageMaskDataset and place them under <b>./dataset<
         └─masks
 </pre>
  
-Please note that the pixel size of the new image/mask is 512x512, which is twice as large as that of the image/mask of previous ImageMask Dataset.
+Please note that the pixel size of the new image/mask is 512x512, which is twice as large as that of the image/mask of 
+the previous MultipleMyeloma Dataset in 
+<a href="https://github.com/sarah-antillia/Tensorflow-Image-Segmentation-Dataset/tree/main/dataset/MultipleMyeloma">
+Tensorflow-Image-Segmentation-Dataset</a>.
+
 <br>
 <b>MultipleMyelomaDataset Statistics</b><br>
 <img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/MultipleMyeloma_Statistics.png" width="540" height="auto"><br>
