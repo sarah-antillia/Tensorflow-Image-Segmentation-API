@@ -430,7 +430,7 @@ Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folde
 </pre>
 
 <b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
-<img src="./projects/TensorflowAttentionUNet/MultipleMyeloma/asset/4k_min_test_output.png">
+<img src="./projects/TensorflowAttentionUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png" width="1024" height="auto">
 <br>
 
 On detail of Image Segmentation by TensorflowAttentionUNet, please see also.<br>
