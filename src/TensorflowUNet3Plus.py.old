@@ -69,6 +69,10 @@ from tensorflow.keras.losses import  BinaryCrossentropy
 from tensorflow.keras.metrics import BinaryAccuracy
 #from tensorflow.keras.metrics import Mean
 from tensorflow.keras.optimizers import Adam
+try:
+  from tensorflow.keras.optimizers import AdamW
+except:
+  traceback.print_exc()
 
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
@@ -114,7 +118,8 @@ class TensorflowUNet3Plus(TensorflowUNet):
     #self.set_seed()
     self.config_file = config_file
     self.config    = ConfigParser(config_file)
-    self.show_history = self.config.get(MODEL, "show_history", dvalue=False)
+    self.show_history = self.config.get(TRAIN, "show_history", dvalue=False)
+
     image_height   = self.config.get(MODEL, "image_height")
     image_width    = self.config.get(MODEL, "image_width")
     image_channels = self.config.get(MODEL, "image_channels")
@@ -127,7 +132,9 @@ class TensorflowUNet3Plus(TensorflowUNet):
     
     learning_rate  = self.config.get(MODEL, "learning_rate")
     clipvalue      = self.config.get(MODEL, "clipvalue", 0.2)
-    optimizer      = self.config.get(MODEL, "optimizer", dvalue="Adam")
+
+    # 2023/11/10
+    optimizer = self.config.get(MODEL, "optimizer", dvalue="Adam")
     if optimizer == "Adam":
       self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
          beta_1=0.9, 
@@ -142,7 +149,7 @@ class TensorflowUNet3Plus(TensorflowUNet):
          clipvalue=clipvalue,
          )
       print("=== Optimizer AdamW learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
-          
+        
     self.model_loaded = False
 
     # 2023/05/20 Modified to read loss and metrics from train_eval_infer.config file.
@@ -182,7 +189,7 @@ class TensorflowUNet3Plus(TensorflowUNet):
     """ Custom function for conv2d:
         Apply  3*3 convolutions with BN and relu.
     """
-    normalization = False
+
     for i in range(1, n + 1):
         x = k.layers.Conv2D(filters=kernels, kernel_size=kernel_size,
                             padding=padding, strides=strides,

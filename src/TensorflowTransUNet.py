@@ -35,6 +35,10 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.layers import Lambda
 from tensorflow.keras.optimizers import Adam
+try:
+  from tensorflow.keras.optimizers import AdamW
+except:
+  traceback.print_exc()
 
 from tensorflow.keras.layers import Input
 
@@ -48,7 +52,7 @@ from ConfigParser import ConfigParser
 from TensorflowUNet import TensorflowUNet
 
 from losses import dice_coef, basnet_hybrid_loss, sensitivity, specificity
-from losses import iou_coef, iou_loss, bce_iou_loss
+from losses import iou_coef, iou_loss, bce_iou_loss, bce_dice_loss
 
 import transunet.encoder_layers as encoder_layers
 import transunet.decoder_layers as decoder_layers
@@ -79,6 +83,8 @@ class TensorflowTransUNet(TensorflowUNet) :
 
     self.config_file = config_file
     self.config = ConfigParser(config_file)
+    self.show_history = self.config.get(MODEL, "show_history", dvalue=False)
+
     self.config.dump_all()
   
     num_classes     = self.config.get(MODEL, "num_classes")

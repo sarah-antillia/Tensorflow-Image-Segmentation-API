@@ -22,9 +22,7 @@
 
 import os
 import sys
-
 import traceback
-
 
 import numpy as np
 from glob import glob

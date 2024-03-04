@@ -43,7 +43,11 @@ from tensorflow import keras
 from tensorflow.keras.layers import Lambda
 
 from tensorflow.keras.optimizers import Adam
-#, AdamW
+
+try:
+  from tensorflow.keras.optimizers import AdamW
+except:
+  traceback.print_exc()
 
 from tensorflow.keras.layers import Input
 
@@ -80,6 +84,8 @@ class TensorflowU2Net(TensorflowUNet) :
 
     self.config_file = config_file
     self.config = ConfigParser(config_file)
+    self.show_history = self.config.get(MODEL, "show_hitory", dvalue=False)
+
     self.filter_num_begin = self.config.get(MODEL, "filter_num_begin", dvalue=128)
     # number of channels in the first downsampling block; it is also the number of embedded dimensions
     
@@ -123,7 +129,7 @@ class TensorflowU2Net(TensorflowUNet) :
     # <---- !!! gradient clipping is important
     
      # 2023/11/10
-    optimizer = self.config.get(MODEL, "optimizer", dvalue="AdamW")
+    optimizer = self.config.get(MODEL, "optimizer", dvalue="Adam")
     if optimizer == "Adam":
       self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
          beta_1=0.9, 

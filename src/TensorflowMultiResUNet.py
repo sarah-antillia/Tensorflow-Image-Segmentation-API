@@ -51,13 +51,19 @@ from tensorflow.keras.layers import concatenate
 from tensorflow.keras.activations import elu, relu
 from tensorflow.keras import Model
 from tensorflow.keras.optimizers import Adam
+try:
+  from tensorflow.keras.optimizers import AdamW
+except:
+  traceback.print_exc()
+  
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 from ConfigParser import ConfigParser
 
 from EpochChangeCallback import EpochChangeCallback
 from GrayScaleImageWriter import GrayScaleImageWriter
-from losses import dice_coef, basnet_hybrid_loss, jacard_loss, sensitivity, specificity
+from losses import dice_coef, basnet_hybrid_loss, jacard_loss, sensitivity, specificity, bce_dice_loss
+
 from TensorflowUNet import TensorflowUNet
 
 MODEL  = "model"
@@ -124,7 +130,7 @@ class TensorflowMultiResUNet(TensorflowUNet):
   def create(self, num_classes, image_height, image_width, image_channels,
             base_filters = 16, num_layers = 5):
     # inputs
-    print("=== TensorflowAttentionUNet.create ")
+    print("=== TensorflowMultiResUNet.create ")
     print("Input image_height {} image_width {} image_channels {}".format(image_height, image_width, image_channels))
     inputs = Input((image_height, image_width, image_channels))
     p = Lambda(lambda x: x / 255)(inputs)
