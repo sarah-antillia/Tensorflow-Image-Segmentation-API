@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/03/02)</h2>
+<h2>ChangeLog (Updated: 2024/03/04)</h2>
 
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
@@ -70,4 +70,11 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <li>Updated save and save_reisze methods in GrayScaleImageWriter.py to call mask_to_image method.</li>
 
 <br>
+<br>
+<b>2024/03/04: Updated</b><br>
+ <li>Removed mini_test and 4k_mini_test under projects folder.</li>
+<li>Updated TensorflowSwinUNet Tiled-image-segmentation.</li>
+<li>Updated TensorflowMultiResUNet Tiled-image-segmentation.</li>
+<li>Updated TensorflowAttentionUNet Tiled-image-segmentation.</li>
+<li>Updated TensorflowUNet3Plus Tiled-image-segmentation.</li>
 
