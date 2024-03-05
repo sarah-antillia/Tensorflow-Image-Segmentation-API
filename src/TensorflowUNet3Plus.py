@@ -42,7 +42,7 @@ import sys
 import datetime
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
-os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="false"
+os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="true"
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 import shutil

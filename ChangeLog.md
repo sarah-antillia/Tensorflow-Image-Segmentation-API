@@ -77,4 +77,9 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <li>Updated TensorflowMultiResUNet Tiled-image-segmentation.</li>
 <li>Updated TensorflowAttentionUNet Tiled-image-segmentation.</li>
 <li>Updated TensorflowUNet3Plus Tiled-image-segmentation.</li>
+<br>
+<br>
+
+<b>2024/03/05: Updated</b><br>
+<li>2024/03/05: Modified TensorflowUNet.py to support biwise_blending in infer_tiles method.</li>
 

@@ -14,8 +14,9 @@
 <li><a href="#100">Dataset citations</a></li>
 <br>
 <li>2024/02/25: Fixed a git-clone error. </li>
-<li>2024/03/02: Fixed a bug in infer_tiles method in TensorflowUNet.py.
-See also <a href="./ChangeLog.md"> (Updated: 2024/03/02)</a>
+<li>2024/03/02: Fixed a bug in infer_tiles method in TensorflowUNet.py.</li>
+<li>2024/03/05: Modified TensorflowUNet.py to support biwise_blending in infer_tiles method.</li>
+See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/05)</a>
 <br>
 <h2>
 <a id="1">
@@ -255,6 +256,10 @@ Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b
 <pre>
 ./3.infer.bat
 </pre>
+<b>Image-Segmentation for 4K-Images:MultipleMyelom</b>
+<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/asset/4k_mini_test_output.png"
+width="1024" height="auto">
+<br><br>
 
 <h2>
 3.4 Tiled-Image-Inference 
@@ -265,7 +270,7 @@ Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b
 ./4.tiled_infer.bat
 </pre>
 <br>
-<b>Tiled-Image-Segmentation for 4K-Images:MultipleMyelom</b>
+<b>Overlapped-Tiled-Image-Segmentation for 4K-Images:MultipleMyelom</b>
 <img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png"
 width="1024" height="auto">
 <br><br>
@@ -309,6 +314,9 @@ for MultipleMyeloma.<br>
 <pre>
 ./3.infer.bat
 </pre>
+<b>Overlapped-Image-Segmentation for 4K-images: MultipleMyelom</b><br>
+<img src="./projects/TensorflowSwinUNet/MultipleMyeloma/asset/4k_mini_test_output.png" width="1024" height="auto"></br>
+<br>
 
 <h2>
 4.4 Tiled-Image-Inference 
@@ -320,7 +328,7 @@ model for MultipleMyeloma.<br>
 ./4.tiled_infer.bat
 </pre>
 
-<b>Tiled-Image-Inference for 4K-images: MultipleMyelom</b><br>
+<b>Overlapped-Tiled-Image-Segmentation for 4K-images: MultipleMyelom</b><br>
 <img src="./projects/TensorflowSwinUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png" width="1024" height="auto"></br>
 <br>
 On detail of Image Segmentation by TensorflowSwinUNet-MultipleMyeloma, please see also.<br>
@@ -367,7 +375,9 @@ Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder
 <pre>
 ./3.infer.bat
 </pre>
-
+<b>Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
+<img src="./projects/TensorflowMultiResUNet/MultipleMyeloma/asset/4k_mini_test_output.png" width="1024" height="auto">
+<br>
 <h2>
 5.4 Tiled-Image-Inference 
 </h2>
@@ -378,7 +388,7 @@ Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder
 </pre>
 
 
-<b>Tiled-Image-Segmentation for 4K-Images:MultipleMyelom</b><br>
+<b>Overlapped-Tiled-Image-Segmentation for 4K-Images:MultipleMyelom</b><br>
 <img src="./projects/TensorflowMultiResUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png" width="1024" height="auto"><br>
 <br>
 On detail of Image Segmentation by TensorflowMultiResUNet-MultipleMyeloma, please see also.<br>
@@ -425,7 +435,9 @@ Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folde
 <pre>
 ./3.infer.bat
 </pre>
-
+<b>Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
+<img src="./projects/TensorflowAttentionUNet/MultipleMyeloma/asset/4k_min_test_output.png" width="1024" height="auto">
+<br>
 <h2>
 6.4 Tiled-Image-Inference 
 </h2>
@@ -436,7 +448,7 @@ Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folde
 </pre>
 
 <b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
-<img src="./projects/TensorflowAttentionUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png" width="1024" height="auto">
+<img src="./projects/TensorflowAttentionUNet/MultipleMyeloma/asset/4k_tiled_min_test_output.png" width="1024" height="auto">
 <br>
 
 On detail of Image Segmentation by TensorflowAttentionUNet, please see also.<br>

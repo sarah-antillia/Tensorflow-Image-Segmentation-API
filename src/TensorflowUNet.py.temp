@@ -582,6 +582,19 @@ class TensorflowUNet:
       pass
       #print("== Already loaded a weight file.")
     return rc
+
+  def infer_one(self, image_file, width, height, expand=True):
+    img      = cv2.imread(image_file)
+    # img = BGR format 
+    # Any way, we have to resize input image to match the input size of our TensorflowUNet model.
+    img         = cv2.resize(img, (width, height))
+    predictions = self.predict([img], expand=expand)
+    prediction  = predictions[0]
+    image       = prediction[0]    
+    # Resize the predicted image to be the original image size (w, h), and save it as a grayscale image.
+    # Probably, this is a natural way for all humans. 
+    
+    return image
   
   # 2023/05/05 Added newly.    
   def infer(self, input_dir, output_dir, expand=True):
@@ -664,6 +677,7 @@ class TensorflowUNet:
   # 1 Split the original image to some tiled-images
   # 2 Infer segmentation regions on those images 
   # 3 Merge detected regions into one image
+
   # 2023/07/01
   # Added MARGIN to cropping 
   def infer_tiles(self, input_dir, output_dir, expand=True):
@@ -691,12 +705,17 @@ class TensorflowUNet:
     # 2024/03/01
     split_size  = self.config.get(TILEDINFER, "split_size", dvalue=width)
     print("---split_size {}".format(split_size))
-    # 2024/04/05 Added bitwise_blending
+    # <added date="2024/03/05">
+    tiledinfer_debug = self.config.get(TILEDINFER, "debug", dvalue=False)
+    tiledinfer_debug_dir = "./tiledinfer_debug_dir"
+    # </added>
     bitwise_blending  = self.config.get(TILEDINFER, "biwise_blending", dvalue=True)
-    bgcolor = self.config.get(TILEDINFER, "background", dvalue=0)  
 
     for image_file in image_files:
+      #img = cv2.imread(image_file)
       image = Image.open(image_file)
+      #image = Image.fromarray(img)
+      #<added >
       w, h    = image.size
       resized = image.resize((width, height))
       cv_image = self.pil2cv(resized)
@@ -709,6 +728,18 @@ class TensorflowUNet:
       whole_mask   = cv2.resize(whole_mask, (w, h))
                 
       basename = os.path.basename(image_file)
+      if tiledinfer_debug !=None:
+        tiled_images_output_dir = os.path.join(tiledinfer_debug_dir, basename + "/images")
+        tiled_masks_output_dir  = os.path.join(tiledinfer_debug_dir, basename + "/masks")
+        if os.path.exists(tiled_images_output_dir):
+          shutil.rmtree(tiled_images_output_dir)
+        if not os.path.exists(tiled_images_output_dir):
+          os.makedirs(tiled_images_output_dir)
+        if os.path.exists(tiled_masks_output_dir):
+          shutil.rmtree(tiled_masks_output_dir)
+        if not os.path.exists(tiled_masks_output_dir):
+          os.makedirs(tiled_masks_output_dir)
+      # </added>
         
       w, h  = image.size
 
@@ -720,6 +751,7 @@ class TensorflowUNet:
       if w % split_size != 0:
         horiz_split_num += 1
 
+      bgcolor = self.config.get(TILEDINFER, "background", dvalue=0)  
       #print("=== bgcolor {}".format(bgcolor))
       background = Image.new("L", (w, h), bgcolor)
  
@@ -733,6 +765,7 @@ class TensorflowUNet:
           if left >=w or upper >=h:
             continue 
       
+          #cropped = image.crop((left, upper, right, lower))
           #2023/06/21
           left_margin  = MARGIN
           upper_margin = MARGIN
@@ -741,6 +774,7 @@ class TensorflowUNet:
           if upper-MARGIN <0:
             upper_margin = 0
           
+          #cropped = image.crop((left-MARGIN, upper-MARGIN, right+MARGIN, lower+MARGIN ))
           rm = right + MARGIN
           lm = lower + MARGIN
 
@@ -752,29 +786,50 @@ class TensorflowUNet:
 
           cw, ch  = cropped.size
           cropped = cropped.resize((width, height))
-          # 2024/03/01
+          if tiledinfer_debug:
+            cropped_image_filename = str(j) + "x" + str(i) + ".jpg"
+            cropped.save(os.path.join(tiled_images_output_dir, cropped_image_filename))
+
+          # 2024/0301
           cvimage  = self.pil2cv(cropped)
           predictions = self.predict([cvimage], expand=expand)
           
           prediction  = predictions[0]
           mask        = prediction[0]    
+
           img         = self.mask_to_image(mask)
           img         = img.resize((cw, ch))
           
-          img         = img.crop((left_margin, upper_margin, rm, lm)) 
-          background.paste(img, (left, upper))
+          #2023/06/21
+          ww, hh      = img.size
+          #img         = img.crop((MARGIN, MARGIN, ww-MARGIN, hh-MARGIN))
+          wm = ww - left_margin
+          hm = hh - upper_margin
+          if hm < upper_margin:
+            hm = upper_margin
+          if wm < left_margin:
+            wm = left_margin
 
+          #img         = img.crop((left_margin, upper_margin, wm, hm,)) # ww-left_margin, hh-upper_margin ))
+          img         = img.crop((left_margin, upper_margin, rm, lm))
+ 
+          ww, hh      = img.size
+          background.paste(img, (left, upper))
+          #print("---paste j:{} i:{} ww:{} hh:{}".format(j, i, ww, hh))
+          if tiledinfer_debug:
+            cropped_mask_filename = str(j) + "x" + str(i) + ".jpg"
+            img.save(os.path.join(tiled_masks_output_dir , cropped_mask_filename))
+          
       basename = os.path.basename(image_file)
       output_file = os.path.join(output_dir, basename)
 
       cv_background = self.pil2cv(background)
-      if bitwise_blending:
+      if bitwise_blending !=True:
+        background.save(output_file)
+      else:
         bitwised = cv2.bitwise_and(whole_mask, cv_background)
         bitwized_output_file =  os.path.join(output_dir, basename)
         cv2.imwrite(bitwized_output_file, bitwised)
-      else:
-        background.save(output_file)
-
       print("=== Saved outputfile {}".format(output_file))
 
       if merged_dir !=None:
@@ -788,9 +843,11 @@ class TensorflowUNet:
         merged_file = os.path.join(merged_dir, basename)
         cv2.imwrite(merged_file, img)     
 
+
   def mask_to_image(self, data, factor=255.0):
     h = data.shape[0]
     w = data.shape[1]
+
     data = data*factor
     data = data.reshape([w, h])
     data = data.astype(np.uint8)
@@ -801,9 +858,11 @@ class TensorflowUNet:
   def normalize_mask(self, data, factor=255.0):
     h = data.shape[0]
     w = data.shape[1]
+
     data = data*factor
     data = data.reshape([w, h])
     data = data.astype(np.uint8)
+
     return data
 
   def evaluate(self, x_test, y_test): 

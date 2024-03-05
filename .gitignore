@@ -169,3 +169,5 @@ projects/*/*/mini_test_output_merged/
 projects/*/*/test_output/
 projects/*/*/test_output_merged/
 
+projects/*/*/tiledinfer_debug_dir/
+projects/*/*/4k_tiled_single_test_output/
