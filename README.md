@@ -495,7 +495,11 @@ Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br
 <pre>
 ./3.infer.bat
 </pre>
+b>Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
 
+<img src="./projects/TensorflowUNet3Plus/MultipleMyeloma/asset/4k_mini_test_output.png" width="1024" height="auto">
+<br>
+<br>
 <h2>
 7.4 Tiled-Image-Inference 
 </h2>
