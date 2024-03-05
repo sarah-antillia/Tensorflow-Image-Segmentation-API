@@ -15,7 +15,7 @@
 <br>
 <li>2024/02/25: Fixed a git-clone error. </li>
 <li>2024/03/02: Fixed a bug in infer_tiles method in TensorflowUNet.py.</li>
-<li>2024/03/05: Modified TensorflowUNet.py to support biwise_blending in infer_tiles method.</li>
+<li>2024/03/05: Modified TensorflowUNet.py to support bitwise_blending in infer_tiles method.</li>
 See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/05)</a>
 <br>
 <h2>

@@ -81,5 +81,5 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <br>
 
 <b>2024/03/05: Updated</b><br>
-<li>2024/03/05: Modified TensorflowUNet.py to support biwise_blending in infer_tiles method.</li>
+<li>2024/03/05: Modified TensorflowUNet.py to support bitwise_blending in infer_tiles method.</li>
 
