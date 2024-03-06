@@ -16,7 +16,8 @@
 <li>2024/02/25: Fixed a git-clone error. </li>
 <li>2024/03/02: Fixed a bug in infer_tiles method in TensorflowUNet.py.</li>
 <li>2024/03/05: Modified TensorflowUNet.py to support bitwise_blending in infer_tiles method.</li>
-See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/05)</a>
+<li>2024/03/07: Updated 1.train_by_augmentor.bat and train_eval_infer_augmentor.config.</li>
+See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/07)</a>
 <br>
 On bitwise_blending, please see <a href="https://github.com/sarah-antillia/Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma">Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma</a>.
 <br>
