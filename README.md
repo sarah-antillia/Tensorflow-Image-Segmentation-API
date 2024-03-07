@@ -16,7 +16,7 @@
 <li>2024/03/02: Fixed a bug in infer_tiles method in TensorflowUNet.py.</li>
 <li>2024/03/05: Modified TensorflowUNet.py to support bitwise_blending in infer_tiles method.</li>
 <li>2024/03/07: Updated 1.train_by_augmentor.bat and train_eval_infer_augmentor.config.</li>
-<li>2024/03/08: Updated <a href="./src/TensorflowTransUNet.py">TensorflowTransUnet.py to 
+<li>2024/03/08: Updated <a href="./src/TensorflowTransUNet.py">TensorflowTransUnet.py</a> to 
 use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection">keras-unet-collection</a>.</li>
 
 See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/07)</a>
