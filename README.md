@@ -128,7 +128,7 @@ Please clone that repository to your dev-environment in order to use the dataset
 <li>Retinal-Vessel</li>
 <br>
 
-We appreciate great contributions of these dataset providers. <a href="#100">Dataset citations</a><br>
+We appreciate the great contributions of these dataset providers. <a href="#100">Dataset citations</a><br>
 
 The better the dataset, the better the result in Deep Learning, we guess. This is why we believe that "Data First" is the best principle for all in data science.<br>
 <br>
