@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/03/07)</h2>
+<h2>ChangeLog (Updated: 2024/03/08)</h2>
 
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
@@ -82,3 +82,8 @@ Please note that you have to install the proper version of libraries of cuDNN an
 
 <b>2024/03/07: Updated</b><br>
 <li>2024/03/07: Updated 1.train_by_augmentor.bat and train_eval_infer_augmentor.config.</li>
+
+<b>2024/03/08: Updated</b><br>
+<li>2024/03/08: Updated <a href="./src/TensorflowTransUNet.py">TensorflowTransUnet.py to 
+use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection">keras-unet-collection</a>.</li>
+

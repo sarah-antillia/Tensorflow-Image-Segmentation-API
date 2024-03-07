@@ -1,4 +1,4 @@
-# Tensorflow-Image-Segmentation-API (Updated: 2024/03/07)
+<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/03/08)</h2>
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -7,9 +7,8 @@
 <li><a href="#5">5 TensorflowMultiResUNet</a></li>
 <li><a href="#6">6 TensorflowAttentionUNet</a></li>
 <li><a href="#7">7 TensorflowUNet3Plust</a></li>
-<!--
 <li><a href="#8">8 TensorflowTransUNet</a></li>
- -->
+
 <li><a href="#10">10 Image Segmentation Experimental projects</a></li>
 <li><a href="#100">Dataset citations</a></li>
 <br>
@@ -17,7 +16,11 @@
 <li>2024/03/02: Fixed a bug in infer_tiles method in TensorflowUNet.py.</li>
 <li>2024/03/05: Modified TensorflowUNet.py to support bitwise_blending in infer_tiles method.</li>
 <li>2024/03/07: Updated 1.train_by_augmentor.bat and train_eval_infer_augmentor.config.</li>
+<li>2024/03/08: Updated <a href="./src/TensorflowTransUNet.py">TensorflowTransUnet.py to 
+use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection">keras-unet-collection</a>.</li>
+
 See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/07)</a>
+
 <br>
 On bitwise_blending, please see <a href="https://github.com/sarah-antillia/Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma">Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma</a>.
 <br>
@@ -29,18 +32,15 @@ On bitwise_blending, please see <a href="https://github.com/sarah-antillia/Tenso
 </h2>
 In this repository, we provide <b>Image Segmentation API</b> that supports the following <b>Tensorflow UNet Models</b>.
 <br>
-<br>
 <li><a href="./projects/TensorflowSlightlyFlexibleUNet">TensorflowSlightlyFlexibleUNet</a></li>
 <li><a href="./projects/TensorflowSwinUNet">TensorflowSwinUNet</a></li>
 <li><a href="./projects/TensorflowMultiResUNet">TensorflowMultiResUNet</a></li>
 <li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
 <li><a href="./projects/TensorflowEfficientUNet">TensorflowEfficientUNet</a></li>
 <li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
-<!--
-<li><a href="./projects/TensorflowTransUNet">TensorflowUNetTransUNet</a></li>
- -->
-
+<li><a href="./projects/TensorflowTransUNet">TensorflowTransUNet</a></li>
 <br>
+
 As a typical example of image segmentation in the medical science region, we have applied 
 <b>Tiled-Image-Segmentation to 4K-images</b> of <a href="./dataset/MultipleMyeloma">MultipleMyeloma</a> dataset 
 by using these Tensorflow UNet models.<br> 
@@ -83,14 +83,18 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
   ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a><br>
   ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
   ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a><br>
+  ├─ <a href="./src/TensorflowTransUNet.py">TensorflowTransUNet</a><br>
   └─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
+  
 <br>
-We appreciate all contributions of these UNet model.<br>
+We appreciate all contributors of these various UNet base implementations on the following github repositories.<br>
 
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/attention-unet.py">Attention-UNet</a><br>
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/multiresunet.py">MultiResUNet</a><br>
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/efficientnetb0_unet.py">EfficientNetUNet</a><br>
 <a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">SWinUNet2D</a><br>
+<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_transunet_2d.py">TransUNet2D</a><br>
+
 <a href="https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py">UNet3Plus</a><br>
 
 
@@ -120,7 +124,7 @@ Please clone that repository to your dev-environment in order to use the dataset
 <li>Retinal-Vessel</li>
 <br>
 
-We appreciate all contributions of these dataset providers. <a href="#100">Dataset citations</a><br>
+We appreciate great contributions of these dataset providers. <a href="#100">Dataset citations</a><br>
 
 The better the dataset, the better the result in Deep Learning, we guess. This is why we believe that "Data First" is the best principle for all in data science.<br>
 <br>
@@ -550,7 +554,7 @@ On detail of Image Segmentation by TensorflowUNet3Plus, please see also.<br>
 
 <!--
  -->
-<!--
+
 <h2>
 <a id="8">
 8 TensorflowTransUNet
@@ -570,6 +574,11 @@ and run the following bat file to train TensorflowTransUNet model for MultipleMy
 <pre>
 ./1.train.bat
 </pre>
+If you would like to use the online dataset augmentation based on <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a>,
+please run the following bat file.<br>
+<pre>
+./1.train_by_augmentor.bat
+</pre> 
 
 
 <h2>
@@ -590,6 +599,10 @@ Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br
 <pre>
 ./3.infer.bat
 </pre>
+<br>
+<b>Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
+<img src="./projects/TensorflowTransUNet/MultipleMyeloma/asset/4k_mini_test_output.png" width="1024" height="auto">
+<br>
 
 <h2>
 8.4 Tiled-Image-Inference 
@@ -602,10 +615,9 @@ Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br
 
 <br>
 <b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
-<img src="./projects/TensorflowTransUNet/MultipleMyeloma/asset/4k_min_test_output.png" width="1024" height="auto">
+<img src="./projects/TensorflowTransUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png" width="1024" height="auto">
 <br>
 <br>
--->
 
 <h2>
 <a id="10">10 Image Segmentation Experimental projects</a>
