@@ -1,1 +1,1 @@
-python ../../../src/TensorflowUNetGeneratorTrainer.py ./train_eval_infer_augumentor.config
+python ../../../src/TensorflowUNetGeneratorTrainer.py ./train_eval_infer_augmentor.config
