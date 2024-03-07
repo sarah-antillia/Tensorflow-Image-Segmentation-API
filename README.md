@@ -90,20 +90,19 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 We appreciate all contributors of these various UNet base implementations on the following github repositories.<br>
 
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/attention-unet.py">
-nikhilroxtomar/Semantic-Segmentation-Architecture: attention-unet.py</a><br>
+https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: attention-unet.py</a><br>
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/multiresunet.py">
-nikhilroxtomar/Semantic-Segmentation-Architecture: multiresunet.py</a><br>
+https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: multiresunet.py</a><br>
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/efficientnetb0_unet.py">
-nikhilroxtomar/Semantic-Segmentation-Architecture: efficientnetb0_unet.py</a><br>
+https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: efficientnetb0_unet.py</a><br>
 <a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">
-yingkaisha/keras-unet-collection: _model_swin_unet_2d.py </a><br>
+https://github.com/yingkaisha/keras-unet-collection: _model_swin_unet_2d.py </a><br>
 <a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_transunet_2d.py">
-yingkaisha/keras-unet-collection: _model_transunet_2d.py</a><br>
+https://github.com/yingkaisha/keras-unet-collection: _model_transunet_2d.py</a><br>
 <a href="https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py">
-hamidriasat/UNet-3-Plus: unet3plus_utils.py</a><br>
+https://github.com/hamidriasat/UNet-3-Plus: unet3plus_utils.py</a><br>
 
-
-<br>  
+<br>
 <h2>
 <a id="2">
 2 Dataset
