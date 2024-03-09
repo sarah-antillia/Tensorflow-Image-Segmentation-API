@@ -128,10 +128,11 @@ class TensorflowEfficientUNet(TensorflowUNet) :
     print("=== TensorflowEfficientNetUNet.create ")
     print("Input image_height {} image_width {} image_channels {}".format(image_height, image_width, image_channels))
     inputs  = Input((image_height, image_width, image_channels))
+
     weights = "imagenet"
     encoder = self.get_encoder(weights, inputs)
     
-    new_input =encoder.input
+    new_input = encoder.input
     # encoder output, we won't use the top_conv (which has 1280 filters)
     # let's just use 7a bn, which is 7 x 7 x 320
     encoder_output = encoder.get_layer(name='block7a_project_bn').output
