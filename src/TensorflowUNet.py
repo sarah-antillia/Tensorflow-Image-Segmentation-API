@@ -693,7 +693,12 @@ class TensorflowUNet:
     
     tiledinfer_debug = self.config.get(TILEDINFER, "debug", dvalue=False)
     tiledinfer_debug_dir = "./tiledinfer_debug_dir"
-
+    if tiledinfer_debug:
+      if os.path.exists(tiledinfer_debug_dir):
+        shutil.rmtree(tiledinfer_debug_dir)
+      if not os.path.exists(tiledinfer_debug_dir):
+        os.makedirs(tiledinfer_debug_dir)
+ 
     # Please note that the default setting is "True".
     bitwise_blending  = self.config.get(TILEDINFER, "bitwise_blending", dvalue=True)
     bgcolor = self.config.get(TILEDINFER, "background", dvalue=0)  
@@ -718,13 +723,7 @@ class TensorflowUNet:
       basename = os.path.basename(image_file)
       self.tiledinfer_log = None
       
-      if tiledinfer_debug !=None:
-        tiledinfer_debug_dir = os.path.join(tiledinfer_debug_dir, basename)
-        if os.path.exists(tiledinfer_debug_dir):
-          shutil.rmtree(tiledinfer_debug_dir)
-        if not os.path.exists(tiledinfer_debug_dir):
-          os.makedirs(tiledinfer_debug_dir)
- 
+      if tiledinfer_debug and os.path.exists(tiledinfer_debug_dir):
         tiled_images_output_dir = os.path.join(tiledinfer_debug_dir, basename + "/images")
         tiled_masks_output_dir  = os.path.join(tiledinfer_debug_dir, basename + "/masks")
         if os.path.exists(tiled_images_output_dir):
