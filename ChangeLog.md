@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/03/08)</h2>
+<h2>ChangeLog (Updated: 2024/03/10)</h2>
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -85,3 +85,7 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <b>2024/03/08: Updated</b><br>
 <li>2024/03/08: Updated <a href="./src/TensorflowTransUNet.py">TensorflowTransUnet.py to 
 use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection">keras-unet-collection</a>.</li>
+
+<b>2024/03/10: Updated</b><br>
+<li>2024/03/10: Fixed a bug in infer_tiles method of TensorflowUNet.py.</li>
+

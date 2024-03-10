@@ -1,4 +1,4 @@
-<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/03/08)</h2>
+<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/03/10)</h2>
 
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
@@ -18,9 +18,10 @@
 <li>2024/03/07: Updated 1.train_by_augmentor.bat and train_eval_infer_augmentor.config.</li>
 <li>2024/03/08: Updated <a href="./src/TensorflowTransUNet.py">TensorflowTransUnet.py</a> to 
 use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection">keras-unet-collection</a>.</li>
+<li>2024/03/10: Fixed a bug in infer_tiles method of TensorflowUNet.py.</li>
 
-See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/07)</a>
-
+See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/10)</a>
+<br>
 <br>
 On bitwise_blending, please see <a href="https://github.com/sarah-antillia/Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma">Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma</a>.
 <br>

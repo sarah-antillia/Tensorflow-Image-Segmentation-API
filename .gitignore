@@ -171,3 +171,6 @@ projects/*/*/test_output_merged/
 
 projects/*/*/tiledinfer_debug_dir/
 projects/*/*/4k_tiled_single_test_output/
+
+*.bak
+*.temp
