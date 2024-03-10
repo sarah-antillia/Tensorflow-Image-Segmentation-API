@@ -48,9 +48,14 @@ class BaseImageMaskDataset:
     self.image_height   = self.config.get(MODEL, "image_height")
     self.image_channels = self.config.get(MODEL, "image_channels")
     
-    self.binarize  = self.config.get(MASK, "binarize")
-    self.threshold = self.config.get(MASK, "threshold")
-    self.blur_mask = self.config.get(MASK, "blur")
+    self.binarize       = self.config.get(MASK, "binarize")
+    self.algorithm      = self.config.get(MASK, "algorithm", dvalue=None)
+    print("--- binarize algorithm {}".format(self.algorithm))
+    if self.algorithm !=None:
+      self.algorithm = eval(self.algorithm)
+
+    self.threshold      = self.config.get(MASK, "threshold")
+    self.blur_mask      = self.config.get(MASK, "blur")
   
     self.blur_size = self.config.get(MASK, "blur_size", dvalue=(3,3))
 
