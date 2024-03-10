@@ -811,7 +811,6 @@ class TensorflowUNet:
           mask         = mask.crop((left_margin, upper_margin, 
                                   right_position, bottom_position)) 
           iw, ih = mask.size
-          
           if tiledinfer_debug:
             #line = "mask  file {}x{} : x:{} y:{} width: {} height:{}\n".format(j, i,  left, upper, iw, ih)
             #print(line)
