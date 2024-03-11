@@ -250,7 +250,7 @@ train_eval_infer.config.</a>
 <h2>
 3.1 Training
 </h2>
-Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder,<br>
+Please move to the <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder,<br>
 and run the following bat file to train TensorflowUNet model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
@@ -264,8 +264,8 @@ please run the following bat file.<br>
 <h2>
 3.2 Evaluation
 </h2>
-Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder,<br>
-and run the following bat file to evalute TensorflowUNet model for MultipleMyeloma.<br>
+Please move to the <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evaluate TensorflowUNet model for MultipleMyeloma.<br>
 <pre>
 ./2.evaluate.bat
 </pre>
@@ -274,7 +274,7 @@ and run the following bat file to evalute TensorflowUNet model for MultipleMyelo
 <h2>
 3.3 Inference
 </h2>
-Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowUNet model for MultipleMyeloma.<br>
 <pre>
 ./3.infer.bat
@@ -287,7 +287,7 @@ width="1024" height="auto">
 <h2>
 3.4 Tiled-Image-Inference 
 </h2>
-Please move to a <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowUNet model for MultipleMyeloma.<br>
 <pre>
 ./4.tiled_infer.bat
@@ -311,7 +311,7 @@ train_eval_infer.config.</a>
 <h2>
 4.1 Training
 </h2>
-Please move to a <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder,<br>
+Please move to the <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder,<br>
 and run the following bat file to train TensorflowSwinUNet model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
@@ -325,8 +325,8 @@ please run the following bat file.<br>
 <h2>
 4.2 Evaluation
 </h2>
-Please move to a <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder,<br>
-and run the following bat file to evalute TensorflowSwinUNet model for MultipleMyeloma.<br>
+Please move to the <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evaluate TensorflowSwinUNet model for MultipleMyeloma.<br>
 <pre>
 ./2.evaluate.bat
 </pre>
@@ -335,7 +335,7 @@ and run the following bat file to evalute TensorflowSwinUNet model for MultipleM
 <h2>
 4.3 Inference
 </h2>
-Please move to a <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowSwinUNet model 
 for MultipleMyeloma.<br>
 <pre>
@@ -348,7 +348,7 @@ for MultipleMyeloma.<br>
 <h2>
 4.4 Tiled-Image-Inference 
 </h2>
-Please move to a <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowSwinUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowSwinUNet 
 model for MultipleMyeloma.<br>
 <pre>
@@ -377,7 +377,7 @@ train_eval_infer.config.</a>
 <h2>
 5.1 Training
 </h2>
-Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder,<br>
+Please move to the <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder,<br>
 and run the following bat file to train TensorflowMultiResUNet model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
@@ -391,8 +391,8 @@ please run the following bat file.<br>
 <h2>
 5.2 Evaluation
 </h2>
-Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder,<br>
-and run the following bat file to evalute TensorflowSwinUNet model for MultipleMyeloma.<br>
+Please move to the <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evaluate TensorflowSwinUNet model for MultipleMyeloma.<br>
 <pre>
 ./2.evaluate.bat
 </pre>
@@ -401,7 +401,7 @@ and run the following bat file to evalute TensorflowSwinUNet model for MultipleM
 <h2>
 5.3 Inference
 </h2>
-Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowMultiResUNet model for MultipleMyeloma.<br>
 <pre>
 ./3.infer.bat
@@ -412,7 +412,7 @@ Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder
 <h2>
 5.4 Tiled-Image-Inference 
 </h2>
-Please move to a <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowMultiResUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowMultiResUNet model for MultipleMyeloma.<br>
 <pre>
 ./4.tiled_infer.bat
@@ -441,7 +441,7 @@ train_eval_infer.config.</a>
 <h2>
 6.1 Training
 </h2>
-For example, please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder,<br>
+Please move to the <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder,<br>
 and run the following bat file to train TensorflowAttentionUNet model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
@@ -455,8 +455,8 @@ please run the following bat file.<br>
 <h2>
 6.2 Evaluation
 </h2>
-Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder,<br>
-and run the following bat file to evalute TensorflowAttentionUNet model for MultipleMyeloma.<br>
+Please move to the <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evaluate TensorflowAttentionUNet model for MultipleMyeloma.<br>
 <pre>
 ./2.evaluate.bat
 </pre>
@@ -465,7 +465,7 @@ and run the following bat file to evalute TensorflowAttentionUNet model for Mult
 <h2>
 6.3 Inference
 </h2>
-Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowAttentionUNet model for MultipleMyeloma.<br>
 <pre>
 ./3.infer.bat
@@ -476,7 +476,7 @@ Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folde
 <h2>
 6.4 Tiled-Image-Inference 
 </h2>
-Please move to a <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowAttentionUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowAttentionUNet model for MultipleMyeloma.<br>
 <pre>
 ./4.tiled_infer.bat
@@ -505,7 +505,7 @@ train_eval_infer.config.</a>
 
 7.1 Training
 </h2>
-Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder,<br>
+Please move to the <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder,<br>
 and run the following bat file to train TensorflowUNet3Plus model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
@@ -519,8 +519,8 @@ please run the following bat file.<br>
 <h2>
 7.2 Evaluation
 </h2>
-Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder,<br>
-and run the following bat file to evalute TensorflowUNet3Plus model for MultipleMyeloma.<br>
+Please move to the <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evaluate TensorflowUNet3Plus model for MultipleMyeloma.<br>
 <pre>
 ./2.evaluate.bat
 </pre>
@@ -529,7 +529,7 @@ and run the following bat file to evalute TensorflowUNet3Plus model for Multiple
 <h2>
 7.3 Inference
 </h2>
-Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowUNet3Plus model for MultipleMyeloma.<br>
 <pre>
 ./3.infer.bat
@@ -542,7 +542,7 @@ b>Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
 <h2>
 7.4 Tiled-Image-Inference 
 </h2>
-Please move to a <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowUNet3Plus/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowUNet3Plus model for MultipleMyeloma.<br>
 <pre>
 ./4.tiled_infer.bat
@@ -574,7 +574,7 @@ train_eval_infer.config.</a>
 <h2>
 8.1 Training
 </h2>
-Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder,<br>
+Please move to the <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder,<br>
 and run the following bat file to train TensorflowTransUNet model for MultipleMyeloma.<br>
 <pre>
 ./1.train.bat
@@ -589,8 +589,8 @@ please run the following bat file.<br>
 <h2>
 8.2 Evaluation
 </h2>
-Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder,<br>
-and run the following bat file to evalute TensorflowTransUNet model for MultipleMyeloma.<br>
+Please move to the <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evaluate TensorflowTransUNet model for MultipleMyeloma.<br>
 <pre>
 ./2.evaluate.bat
 </pre>
@@ -599,7 +599,7 @@ and run the following bat file to evalute TensorflowTransUNet model for Multiple
 <h2>
 8.3 Inference
 </h2>
-Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowTransUNet model for MultipleMyeloma.<br>
 <pre>
 ./3.infer.bat
@@ -612,7 +612,7 @@ Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br
 <h2>
 8.4 Tiled-Image-Inference 
 </h2>
-Please move to a <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br>
+Please move to the <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<br>
 ,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowTransUNet model for MultipleMyeloma.<br>
 <pre>
 ./4.tiled_infer.bat
