@@ -23,8 +23,8 @@
 use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection">keras-unet-collection</a>.</li>
 <li>2024/03/10: Fixed a bug in infer_tiles method of TensorflowUNet.py.</li>
 
-<li>2024/03/20: Added TensorflowSharpUNet.py.</li>
-<li>2024/03/20: Added TensorflowU2Net.py.</li>
+<li>2024/03/20: Added <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py</a>.</li>
+<li>2024/03/20: Added <a href="./src/TensorflowU2Net.py">TensorflowU2Net.py</a>.</li>
 
 See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/20)</a>
 <br>
