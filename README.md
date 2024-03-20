@@ -145,7 +145,7 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 </td>
 </tr>
 </table>
-As shown above, the Non-Tiled-Segmentation image appears to be slightly blurrier than the Tile-Segmentation image.<br>
+As shown above, the Non-Tiled-Segmentation image appears to be slightly blurrier than the Tiled-Segmentation image.<br>
 
 <br>
 <h2>
