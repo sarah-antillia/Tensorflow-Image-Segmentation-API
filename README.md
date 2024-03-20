@@ -72,10 +72,10 @@ SegPC-2021: Segmentation of Multiple Myeloma Plasma Cells in Microscopic Images
 https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 </pre>
 
+4K-Image-Sample: 405.jpg<br>
 <table>
 <tr>
 <td>
-4K-Image-Sample: 405.jpg
 <b>Original 4K-Image</b><br>
 <img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/405.jpg" width="500" height="auto">
 </td>
@@ -87,11 +87,11 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 </tr>
 </table>
 <br>
-4K-Image-Segmentation-Sample: 405.jpg<br>
+4K-Image-Segmentation: 405.jpg<br>
 <table>
 <tr>
 <td>
-<b>Non-Tiled-TensorflowUNet</b><br>
+<b>Non-Tiled-Segmentation</b><br>
 <img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/4k_mini_test_output/405.jpg" width="512" height="auto">
 </td>
 <td>
