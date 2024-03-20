@@ -125,8 +125,6 @@ https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: multiresun
 <a href="https://github.com/hasibzunair/sharp-unets/blob/master/demo.ipynb">
 https://github.com/hasibzunair/sharp-unets: demo.ipynb</a><br>
 
-<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">
-https://github.com/yingkaisha/keras-unet-collection: _model_swin_unet_2d.py </a><br>
 
 <a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">
 https://github.com/yingkaisha/keras-unet-collection: _model_swin_unet_2d.py </a><br>
