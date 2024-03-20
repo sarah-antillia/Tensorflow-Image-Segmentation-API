@@ -37,6 +37,10 @@ On bitwise_blending, please see <a href="https://github.com/sarah-antillia/Tenso
 1 Image Segmentation API 
 </a>
 </h2>
+<h3>
+1.1 TensorflowUNet classes
+</h3>
+
 In this repository, we provide <b>Image Segmentation API</b> that supports the following <b>Tensorflow UNet Models</b>.
 <br>
 <li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
@@ -50,6 +54,46 @@ In this repository, we provide <b>Image Segmentation API</b> that supports the f
 <li><a href="./projects/TensorflowU2Net">TensorflowU2Net</a></li>
 
 <br>
+
+<b> Tensorflow UNet Class Hierarchy </b><br>
+<a href="./src/TensorflowUNet.py">TensorflowUNet</a><br>
+  ├─ <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a><br>
+  ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a><br>
+  ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
+  ├─ <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet</a><br>
+  ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a><br>
+  ├─ <a href="./src/TensorflowTransUNet.py">TensorflowTransUNet</a><br>
+  ├─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
+  └─ <a href="./src/TensorflowU2Net.py">TensorflowU2Net</a><br>
+  
+<br>
+We appreciate all contributors of these various UNet base implementations on the following github repositories.<br>
+
+<a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/attention-unet.py">
+https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: attention-unet.py</a><br>
+
+<a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/multiresunet.py">
+https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: multiresunet.py</a><br>
+
+<a href="https://github.com/hasibzunair/sharp-unets/blob/master/demo.ipynb">
+https://github.com/hasibzunair/sharp-unets: demo.ipynb</a><br>
+
+
+<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">
+https://github.com/yingkaisha/keras-unet-collection: _model_swin_unet_2d.py </a><br>
+
+<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_transunet_2d.py">
+https://github.com/yingkaisha/keras-unet-collection: _model_transunet_2d.py</a><br>
+
+<a href="https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py">
+https://github.com/hamidriasat/UNet-3-Plus: unet3plus_utils.py</a><br>
+
+<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_u2net_2d.py">
+https://github.com/yingkaisha/keras-unet-collection: _model_u2net_2d.py</a><br>
+
+<h3>
+1.2 Tiled Image Segmentation
+</h3>
 
 As a typical example of image segmentation in the medical science region, we have applied 
 <b>Tiled-Image-Segmentation to 4K-images</b> of <a href="./dataset/MultipleMyeloma">MultipleMyeloma</a> dataset 
@@ -101,42 +145,7 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 </td>
 </tr>
 </table>
-<br>
-<b> Tensorflow UNet Class Hierarchy </b><br>
-<a href="./src/TensorflowUNet.py">TensorflowUNet</a><br>
-  ├─ <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a><br>
-  ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a><br>
-  ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
-  ├─ <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet</a><br>
-  ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a><br>
-  ├─ <a href="./src/TensorflowTransUNet.py">TensorflowTransUNet</a><br>
-  ├─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
-  └─ <a href="./src/TensorflowU2Net.py">TensorflowU2Net</a><br>
-  
-<br>
-We appreciate all contributors of these various UNet base implementations on the following github repositories.<br>
-
-<a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/attention-unet.py">
-https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: attention-unet.py</a><br>
-
-<a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/multiresunet.py">
-https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: multiresunet.py</a><br>
-
-<a href="https://github.com/hasibzunair/sharp-unets/blob/master/demo.ipynb">
-https://github.com/hasibzunair/sharp-unets: demo.ipynb</a><br>
-
-
-<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">
-https://github.com/yingkaisha/keras-unet-collection: _model_swin_unet_2d.py </a><br>
-
-<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_transunet_2d.py">
-https://github.com/yingkaisha/keras-unet-collection: _model_transunet_2d.py</a><br>
-
-<a href="https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py">
-https://github.com/hamidriasat/UNet-3-Plus: unet3plus_utils.py</a><br>
-
-<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_u2net_2d.py">
-https://github.com/yingkaisha/keras-unet-collection: _model_u2net_2d.py</a><br>
+As shown above, the Non-Tiled-Segmentation image appears to be slightly blurrier than the Tile-Segmentation image.<br>
 
 <br>
 <h2>
