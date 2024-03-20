@@ -85,7 +85,21 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
 </td>
 </tr>
 </table>
-
+<br>
+Segmentation sample<br>
+<table>
+<tr>
+<td>
+<b>Segmentation by TensorflowUNet</b><br>
+<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/4k_mini_test_output/405.jpg" width="512" height="auto">
+</td>
+<td>
+<b>Tiled-Segmentation by TensorflowUNet</b><br>
+<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/4k_tiled_mini_test_output/405.jpg"
+  width="512" height="auto"><br>
+</td>
+</tr>
+</table>
 <br>
 <b> Tensorflow UNet Class Hierarchy </b><br>
 <a href="./src/TensorflowUNet.py">TensorflowUNet</a><br>
