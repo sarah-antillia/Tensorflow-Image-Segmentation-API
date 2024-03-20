@@ -30,7 +30,6 @@ from ConfigParser import ConfigParser
 from ImageMaskDataset import ImageMaskDataset
 
 from TensorflowUNet import TensorflowUNet
-
 from TensorflowAttentionUNet import TensorflowAttentionUNet 
 from TensorflowEfficientUNet import TensorflowEfficientUNet
 from TensorflowMultiResUNet import TensorflowMultiResUNet
@@ -40,6 +39,8 @@ from TensorflowTransUNet import TensorflowTransUNet
 
 from TensorflowUNet3Plus import TensorflowUNet3Plus
 from TensorflowU2Net import TensorflowU2Net
+from TensorflowSharpUNet import TensorflowSharpUNet
+#from TensorflowBASNet    import TensorflowBASNet
 
 MODEL  = "model"
 TRAIN  = "train"

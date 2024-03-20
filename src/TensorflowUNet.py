@@ -114,6 +114,7 @@ tf.compat.v1.disable_eager_execution()
 from PIL import Image, ImageFilter, ImageOps
 
 from tensorflow.keras.layers import Lambda
+
 from tensorflow.keras.layers import Input
 
 from tensorflow.keras.layers import Conv2D, Dropout, Conv2D, MaxPool2D, BatchNormalization
@@ -127,6 +128,7 @@ from tensorflow.keras.metrics import BinaryAccuracy
 #from tensorflow.keras.metrics import Mean
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
+
 # 2023/10/20
 from tensorflow.python.framework import random_seed
 
@@ -139,6 +141,7 @@ from losses import dice_coef, basnet_hybrid_loss, sensitivity, specificity
 # 2024/02/22 Added bce_dice_loss
 from losses import iou_coef, iou_loss, bce_iou_loss, dice_loss,  bce_dice_loss
 
+from mish import mish
 
 gpus = tf.config.list_physical_devices('GPU')
 for gpu in gpus:
@@ -188,12 +191,6 @@ TILEDINFER = "tiledinfer"
 
 BEST_MODEL_FILE = "best_model.h5"
 
-# 2024/02/28 
-# Please see: https://github.com/digantamisra98/Mish/blob/master/Mish/TFKeras/mish.py
-@tf.function
-def mish(x):
-    x = tf.convert_to_tensor(x) #Added this line
-    return tf.math.multiply(x, tf.math.tanh(tf.math.softplus(x)))
 
 class TensorflowUNet:
 
@@ -278,9 +275,9 @@ class TensorflowUNet:
             base_filters = 16, num_layers = 5):
     # inputs
     print("Input image_height {} image_width {} image_channels {}".format(image_height, image_width, image_channels))
-    inputs = Input((image_height, image_width, image_channels))
-    s= Lambda(lambda x: x / 255)(inputs)
-
+    inputs = tf.keras.layers.Input((image_height, image_width, image_channels))
+    s= tf.keras.layers.Lambda(lambda x: x / 255)(inputs)
+    
     # normalization is False on default.
     normalization = self.config.get(MODEL, "normalization", dvalue=False)
     print("--- normalization {}".format(normalization))
@@ -344,27 +341,27 @@ class TensorflowUNet:
       print("--- kernel_size {}".format(kernel_size))
       print("--- dilation {}".format(dilation))
       
-      c = Conv2D(filters, kernel_size, strides=strides, 
+      c = tf.keras.layers.Conv2D(filters, kernel_size, strides=strides, 
                  activation=self.activation, 
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(s)
       # 2023/06/20
       if normalization:
-        c = BatchNormalization()(c) 
+        c = tf.keras.layers.BatchNormalization()(c) 
 
       # 2023/10/31
       if dropout_seed_fixing:
-        c = Dropout(dropout_rate * i, seed= self.seed)(c)
+        c = tf.keras.layers.Dropout(dropout_rate * i, seed= self.seed)(c)
       else:
-        c = Dropout(dropout_rate * i)(c)
+        c = tf.keras.layers.Dropout(dropout_rate * i)(c)
 
-      c = Conv2D(filters, kernel_size, strides=strides, 
+      c = tf.keras.layers.Conv2D(filters, kernel_size, strides=strides, 
                  activation=self.activation, 
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(c)
       # 2023/06/25
       if normalization:
-        c = BatchNormalization()(c) 
+        c = tf.keras.layers.BatchNormalization()(c) 
       if i < (num_layers-1):
-        p = MaxPool2D(pool_size=pool_size)(c)
+        p = tf.keras.layers.MaxPool2D(pool_size=pool_size)(c)
         s = p
       enc.append(c)
     
@@ -382,34 +379,34 @@ class TensorflowUNet:
 
       f = enc_len - 2 - i
       filters = base_filters* (2**f)
-      u = Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same')(c)
+      u = tf.keras.layers.Conv2DTranspose(filters, (2, 2), strides=(2, 2), padding='same')(c)
       n += 1
-      u = concatenate([u, enc[n]])
-      u = Conv2D(filters, kernel_size, strides=strides, 
+      u = tf.keras.layers.concatenate([u, enc[n]])
+      u = tf.keras.layers.Conv2D(filters, kernel_size, strides=strides, 
                  activation=self.activation, 
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(u)
       # 2023/06/20
       if normalization:
-        u = BatchNormalization()(u)
+        u = tf.keras.layers.BatchNormalization()(u)
       # 2023/10/31 
       if dropout_seed_fixing:
-        u = Dropout(dropout_rate * f, seed=self.seed)(u)
+        u = tf.keras.layers.Dropout(dropout_rate * f, seed=self.seed)(u)
       else:
-        u = Dropout(dropout_rate * f)(u)
+        u = tf.keras.layers.Dropout(dropout_rate * f)(u)
 
-      u = Conv2D(filters, kernel_size, strides=strides, 
+      u = tf.keras.layers.Conv2D(filters, kernel_size, strides=strides, 
                  activation=self.activation, 
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(u)
       # 2023/06/25
       if normalization:
-        u = BatchNormalization()(u) 
+        u = tf.keras.layers.BatchNormalization()(u) 
       c  = u
 
     # outouts
-    outputs = Conv2D(num_classes, (1, 1), activation='sigmoid')(c)
+    outputs = tf.keras.layers.Conv2D(num_classes, (1, 1), activation='sigmoid')(c)
 
     # create Model
-    model = Model(inputs=[inputs], outputs=[outputs])
+    model = tf.keras.Model(inputs=[inputs], outputs=[outputs])
 
     return model
   

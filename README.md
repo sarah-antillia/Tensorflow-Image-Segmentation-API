@@ -1,4 +1,4 @@
-<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/03/10)</h2>
+<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/03/20)</h2>
 
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
@@ -9,7 +9,10 @@
 <li><a href="#6">6 TensorflowAttentionUNet</a></li>
 <li><a href="#7">7 TensorflowUNet3Plust</a></li>
 <li><a href="#8">8 TensorflowTransUNet</a></li>
-<li><a href="#10">10 Image Segmentation Experimental projects</a></li>
+<li><a href="#9">9 TensorflowSharpUNet</a></li>
+<li><a href="#10">10 TensorflowU2Net</a></li>
+
+<li><a href="#20">20 Image Segmentation Experimental projects</a></li>
 <li><a href="#100">Dataset citations</a></li>
 <br>
 <li>2024/02/25: Fixed a git-clone error. </li>
@@ -20,7 +23,10 @@
 use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection">keras-unet-collection</a>.</li>
 <li>2024/03/10: Fixed a bug in infer_tiles method of TensorflowUNet.py.</li>
 
-See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/10)</a>
+<li>2024/03/20: Added TensorflowSharpUNet.py.</li>
+<li>2024/03/20: Added TensorflowU2Net.py.</li>
+
+See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/20)</a>
 <br>
 <br>
 On bitwise_blending, please see <a href="https://github.com/sarah-antillia/Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma">Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma</a>.
@@ -33,13 +39,16 @@ On bitwise_blending, please see <a href="https://github.com/sarah-antillia/Tenso
 </h2>
 In this repository, we provide <b>Image Segmentation API</b> that supports the following <b>Tensorflow UNet Models</b>.
 <br>
-<li><a href="./projects/TensorflowSlightlyFlexibleUNet">TensorflowSlightlyFlexibleUNet</a></li>
-<li><a href="./projects/TensorflowSwinUNet">TensorflowSwinUNet</a></li>
-<li><a href="./projects/TensorflowMultiResUNet">TensorflowMultiResUNet</a></li>
 <li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
 <li><a href="./projects/TensorflowEfficientUNet">TensorflowEfficientUNet</a></li>
-<li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
+<li><a href="./projects/TensorflowMultiResUNet">TensorflowMultiResUNet</a></li>
+<li><a href="./projects/TensorflowSharpUNet">TensorflowSharpUNet</a></li>
+<li><a href="./projects/TensorflowSlightlyFlexibleUNet">TensorflowSlightlyFlexibleUNet</a></li>
+<li><a href="./projects/TensorflowSwinUNet">TensorflowSwinUNet</a></li>
 <li><a href="./projects/TensorflowTransUNet">TensorflowTransUNet</a></li>
+<li><a href="./projects/TensorflowUNet3Plus">TensorflowUNet3Plus</a></li>
+<li><a href="./projects/TensorflowU2Net">TensorflowU2Net</a></li>
+
 <br>
 
 As a typical example of image segmentation in the medical science region, we have applied 
@@ -83,25 +92,38 @@ https://www.kaggle.com/datasets/sbilab/segpc2021dataset
   ├─ <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a><br>
   ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a><br>
   ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
+  ├─ <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet</a><br>
   ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a><br>
   ├─ <a href="./src/TensorflowTransUNet.py">TensorflowTransUNet</a><br>
-  └─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
+  ├─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
+  └─ <a href="./src/TensorflowU2Net.py">TensorflowU2Net</a><br>
   
 <br>
 We appreciate all contributors of these various UNet base implementations on the following github repositories.<br>
 
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/attention-unet.py">
 https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: attention-unet.py</a><br>
+
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/multiresunet.py">
 https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: multiresunet.py</a><br>
-<a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/efficientnetb0_unet.py">
-https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: efficientnetb0_unet.py</a><br>
+
+<a href="https://github.com/hasibzunair/sharp-unets/blob/master/demo.ipynb">
+https://github.com/hasibzunair/sharp-unets: demo.ipynb</a><br>
+
 <a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">
 https://github.com/yingkaisha/keras-unet-collection: _model_swin_unet_2d.py </a><br>
+
+<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py">
+https://github.com/yingkaisha/keras-unet-collection: _model_swin_unet_2d.py </a><br>
+
 <a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_transunet_2d.py">
 https://github.com/yingkaisha/keras-unet-collection: _model_transunet_2d.py</a><br>
+
 <a href="https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py">
 https://github.com/hamidriasat/UNet-3-Plus: unet3plus_utils.py</a><br>
+
+<a href="https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_u2net_2d.py">
+https://github.com/yingkaisha/keras-unet-collection: _model_u2net_2d.py</a><br>
 
 <br>
 <h2>
@@ -624,8 +646,143 @@ Please move to the <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<
 <br>
 <br>
 
+<!--
+ -->
+
 <h2>
-<a id="10">10 Image Segmentation Experimental projects</a>
+<a id="9">
+9 TensorflowSharpUNet
+</a>
+</h2>
+This <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet</a> model can be 
+slightly flexibly customizable by a configuration file.<br>
+For example, <b>TensorflowSharpUNet/MultipleMyeloma</b> model will be customizable
+by using <a href="./projects/TensorflowSharpUNet/MultipleMyeloma/train_eval_infer.config">
+train_eval_infer.config.</a>
+
+<h2>
+9.1 Training
+</h2>
+Please move to the <b>./projects/TensorflowSharpUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to train TensorflowSharpUNet model for MultipleMyeloma.<br>
+<pre>
+./1.train.bat
+</pre>
+If you would like to use the online dataset augmentation based on <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a>,
+please run the following bat file.<br>
+<pre>
+./1.train_by_augmentor.bat
+</pre> 
+
+<h2>
+9.2 Evaluation
+</h2>
+Please move to the <b>./projects/TensorflowSharpUNet/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evaluate TensorflowSharpUNet model for MultipleMyeloma.<br>
+<pre>
+./2.evaluate.bat
+</pre>
+
+
+<h2>
+9.3 Inference
+</h2>
+Please move to the <b>./projects/TensorflowSharpUNet/MultipleMyeloma</b> folder<br>
+,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowSharpUNet model for MultipleMyeloma.<br>
+<pre>
+./3.infer.bat
+</pre>
+<br>
+<b>Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
+<img src="./projects/TensorflowSharpUNet/MultipleMyeloma/asset/4k_mini_test_output.png" width="1024" height="auto">
+<br>
+
+<h2>
+9.4 Tiled-Image-Inference 
+</h2>
+Please move to the <b>./projects/TensorflowSharpUNet/MultipleMyeloma</b> folder<br>
+,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowSharpUNet model for MultipleMyeloma.<br>
+<pre>
+./4.tiled_infer.bat
+</pre>
+
+<br>
+<b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
+<img src="./projects/TensorflowSharpUNet/MultipleMyeloma/asset/4k_tiled_mini_test_output.png" width="1024" height="auto">
+<br>
+<br>
+
+
+<!--
+10 
+-->
+<h2>
+<a id="10">
+10 TensorflowU2Net
+</a>
+</h2>
+This <a href="./src/TensorflowU2Net.py">TensorflowU2Net</a> model can be 
+slightly flexibly customizable by a configuration file.<br>
+For example, <b>TensorflowU2Net/MultipleMyeloma</b> model will be customizable
+by using <a href="./projects/TensorflowU2Net/MultipleMyeloma/train_eval_infer.config">
+train_eval_infer.config.</a>
+
+<h2>
+10.1 Training
+</h2>
+Please move to the <b>./projects/TensorflowU2Net/MultipleMyeloma</b> folder,<br>
+and run the following bat file to train TensorflowU2Net model for MultipleMyeloma.<br>
+<pre>
+./1.train.bat
+</pre>
+If you would like to use the online dataset augmentation based on <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a>,
+please run the following bat file.<br>
+<pre>
+./1.train_by_augmentor.bat
+</pre> 
+
+<h2>
+10.2 Evaluation
+</h2>
+Please move to the <b>./projects/TensorflowU2Net/MultipleMyeloma</b> folder,<br>
+and run the following bat file to evaluate TensorflowU2Net model for MultipleMyeloma.<br>
+<pre>
+./2.evaluate.bat
+</pre>
+
+
+<h2>
+10.3 Inference
+</h2>
+Please move to the <b>./projects/TensorflowU2Net/MultipleMyeloma</b> folder<br>
+,and run the following bat file to infer segmentation regions for images by the Trained-TensorflowU2Net model for MultipleMyeloma.<br>
+<pre>
+./3.infer.bat
+</pre>
+<br>
+<b>Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
+<img src="./projects/TensorflowU2Net/MultipleMyeloma/asset/4k_mini_test_output.png" width="1024" height="auto">
+<br>
+
+<h2>
+10.4 Tiled-Image-Inference 
+</h2>
+Please move to the <b>./projects/TensorflowU2Net/MultipleMyeloma</b> folder<br>
+,and run the following bat file to do tile-image-inference segmentation for images by the Trained-TensorflowU2Net model for MultipleMyeloma.<br>
+<pre>
+./4.tiled_infer.bat
+</pre>
+
+<br>
+<b>Overlapped-Tiled-Image-Segmentation for 4K-Images: MultipleMyelom</b><br>
+<img src="./projects/TensorflowU2Net/MultipleMyeloma/asset/4k_tiled_mini_test_output.png" width="1024" height="auto">
+<br>
+<br>
+
+
+
+<h2>
+<a id="20">20 Image Segmentation Experimental projects</a>
 </h2>
 We have a lot of experimetal Image-Segmentation projects based on this Tensorflow Image Segmentation API.
 <br>

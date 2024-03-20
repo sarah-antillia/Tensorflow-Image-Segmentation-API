@@ -43,6 +43,9 @@ from TensorflowTransUNet import TensorflowTransUNet
 
 from TensorflowUNet3Plus import TensorflowUNet3Plus
 from TensorflowU2Net import TensorflowU2Net
+# 2024/03/20 Added the following line
+from TensorflowSharpUNet import TensorflowSharpUNet
+#from TensorflowBASNet    import TensorflowBASNet
 
 MODEL  = "model"
 TRAIN  = "train"

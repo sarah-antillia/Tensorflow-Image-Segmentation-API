@@ -51,10 +51,6 @@ from tensorflow.keras.layers import concatenate
 from tensorflow.keras.activations import elu, relu
 from tensorflow.keras import Model
 from tensorflow.keras.optimizers import Adam
-try:
-  from tensorflow.keras.optimizers import AdamW
-except:
-  traceback.print_exc()
   
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 

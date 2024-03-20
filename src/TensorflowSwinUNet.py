@@ -34,7 +34,6 @@ import sys
 
 import traceback
 
-
 import numpy as np
 from glob import glob
 
@@ -42,10 +41,6 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.layers import Lambda
 from tensorflow.keras.optimizers import Adam
-try:
-  from tensorflow.keras.optimizers import AdamW
-except:
-  traceback.print_exc()
 
 from tensorflow.keras.layers import Input
 

@@ -42,7 +42,9 @@ from TensorflowSwinUNet import TensorflowSwinUNet
 from TensorflowTransUNet import TensorflowTransUNet
 
 from TensorflowUNet3Plus import TensorflowUNet3Plus
-#from TensorflowU2Net import TensorflowU2Net
+from TensorflowU2Net import TensorflowU2Net
+from TensorflowSharpUNet import TensorflowSharpUNet
+#from TensorflowBASNet    import TensorflowBASNet
 
 MODEL  = "model"
 TRAIN  = "train"

@@ -13,21 +13,13 @@
 # limitations under the License.
 #
 
-# TensorflowSwinUNet.py
+# TensorflowU2Net.py
 # 2023/07/04 to-arai
-
-# Some methods on SwinTransformer in this TensorflowSwinUNet class have been taken from the following web-sites.
-#
-# keras-vision-transformer
-# https://github.com/yingkaisha/keras-vision-transformer
-#  MIT license
 
 # keras-unet-collection
 # https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection
 #  MIT license
 
-#Oxford IIIT image segmentation with SwinUNET
-#https://github.com/yingkaisha/keras-vision-transformer/blob/main/examples/Swin_UNET_oxford_iiit.ipynb
 
 import os
 import sys
@@ -44,11 +36,6 @@ from tensorflow.keras.layers import Lambda
 
 from tensorflow.keras.optimizers import Adam
 
-try:
-  from tensorflow.keras.optimizers import AdamW
-except:
-  traceback.print_exc()
-
 from tensorflow.keras.layers import Input
 
 from tensorflow.keras.models import Model
@@ -59,6 +46,9 @@ import sys
 # keras-unet-collection
 # https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection
 
+# model_u2net_2d.py
+# https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_u2net_2d.py
+
 from keras_unet_collection.layer_utils import *
 from keras_unet_collection.transformer_layers import patch_extract, patch_embedding, SwinTransformerBlock, patch_merging, patch_expanding
 
@@ -67,9 +57,7 @@ from ConfigParser import ConfigParser
 from TensorflowUNet import TensorflowUNet
 
 from losses import dice_coef, basnet_hybrid_loss, sensitivity, specificity
-from losses import iou_coef, iou_loss, bce_iou_loss
-
-
+from losses import iou_coef, iou_loss, bce_iou_loss, bce_dice_loss
 
 MODEL = "model"
 EVAL  = "eval"
@@ -134,15 +122,13 @@ class TensorflowU2Net(TensorflowUNet) :
       self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
          beta_1=0.9, 
          beta_2=0.999, 
-         #epsilon=None,        #2023/11/10 epsion=None is not allowed
-         weight_decay=0.0,     #2023/11/10 decay -> weight_decay
          clipvalue=clipvalue,  #2023/06/26
          amsgrad=False)
       print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
     
     elif optimizer == "AdamW":
       # 2023/11/10  Adam -> AdamW (tensorflow 2.14.0~)
-      self.optimizer = AdamW(learning_rate = learning_rate,
+      self.optimizer = tf.keras.optimizers.AdamW(learning_rate = learning_rate,
          clipvalue=clipvalue,
          )
       print("=== Optimizer AdamW learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
@@ -450,14 +436,23 @@ class TensorflowU2Net(TensorflowUNet) :
 
     return X_out
 
-  def create(self, 
-             n_labels, image_height, image_width, image_channels,
-             base_filters = 16, num_layers = 6,
-             #input_size, 
-             #filter_num_down, 
-             filter_num_up='auto', filter_mid_num_down='auto', filter_mid_num_up='auto', 
-             filter_4f_num='auto', filter_4f_mid_num='auto', activation='ReLU', output_activation='Sigmoid', 
-             batch_norm=False, pool=True, unpool=True, deep_supervision=False, name='u2net'):
+  def create(self, n_labels, image_height, image_width, image_channels,
+               base_filters = 16, num_layers = 6):
+ 
+    filter_num_up      ='auto'
+    filter_mid_num_down='auto'
+    filter_mid_num_up  ='auto'
+ 
+    filter_4f_num     ='auto'
+    filter_4f_mid_num ='auto'
+    activation        ='ReLU'
+    output_activation ='Sigmoid'
+    batch_norm        = False
+    pool              = True
+    unpool            = True
+    deep_supervision  = False
+    name              = 'u2net'
+    print("=== TensorflowU2Net.create")
     
     '''
     U^2-Net
@@ -519,6 +514,7 @@ class TensorflowU2Net(TensorflowUNet) :
     '''
     # filter_num_down =`[64, 128, 256, 512]`
     filter_num_down = []
+    print("--- num_layers {}".format(num_layers))
     num = base_filters
     for n in range(num_layers):
       filter_num_down +=[num]
