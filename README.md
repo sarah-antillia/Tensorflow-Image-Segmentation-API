@@ -205,9 +205,15 @@ Please expand the downloaded ImageMaskDataset and place them under <b>./dataset<
 Please note that the pixel size of the new image/mask is 512x512, which is twice as large as that of the image/mask of 
 the previous MultipleMyeloma Dataset in 
 <a href="https://github.com/sarah-antillia/Tensorflow-Image-Segmentation-Dataset/tree/main/dataset/MultipleMyeloma">
-Tensorflow-Image-Segmentation-Dataset</a>.
+Tensorflow-Image-Segmentation-Dataset</a>.<br>
 
+<b>train/images samples:</b><br>
+<img src="./asset/train_images_sample.png" width="1024" height="auto">
 <br>
+<b>train/masks samples:</b><br>
+<img src="./asset/train_masks_sample.png"  width="1024" height="auto">
+<br>
+
 <b>MultipleMyelomaDataset Statistics</b><br>
 <img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/MultipleMyeloma_Statistics.png" width="540" height="auto"><br>
 As shown above, the number of images of train and valid dataset is not necessarily large.
