@@ -13,6 +13,7 @@
 <li><a href="#10">10 TensorflowU2Net</a></li>
 
 <li><a href="#20">20 Image Segmentation Experimental projects</a></li>
+<li><a href="#99">Python Code citations</a></li>
 <li><a href="#100">Dataset citations</a></li>
 <br>
 <li>2024/02/25: Fixed a git-clone error. </li>
@@ -1117,6 +1118,57 @@ TensorflowEfficientUNet-Segmentation-CDD-CESM-Mammogram
 <br>
 <br>
 <br>
+
+<h2>
+<a id="99">
+Python Code Citation
+</a>
+</h2>
+<b>1. Semantic-Segmentation-Architecture</b><br>
+<pre>
+https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/attention-unet.py
+https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/multiresunet.py
+</pre>
+
+<b>2. Sharp U-Net: Depthwise Convolutional Network for Biomedical Image Segmentation</b><br>
+<pre>
+https://github.com/hasibzunair/sharp-unets/blob/master/demo.ipynb
+</pre>
+<pre>
+@article{zunair2021sharp,
+  title={Sharp U-Net: Depthwise Convolutional Network for Biomedical Image Segmentation},
+  author={Zunair, Hasib and Hamza, A Ben},
+  journal={Computers in Biology and Medicine},
+  pages={104699},
+  year={2021},
+  publisher={Elsevier}
+}
+</pre>
+
+<b>3. keras-unet-collection</b><br>
+<pre>
+https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_swin_unet_2d.py
+https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_transunet_2d.py
+https://github.com/yingkaisha/keras-unet-collection/blob/main/keras_unet_collection/_model_u2net_2d.py
+</pre>
+Sha, Y., 2021: Keras-unet-collection. GitHub repository, accessed 4 September 2021,<br>
+https://doi.org/10.5281/zenodo.5449801<br>
+<pre>
+@misc{keras-unet-collection,
+  author = {Sha, Yingkai},
+  title = {Keras-unet-collection},
+  year = {2021},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/yingkaisha/keras-unet-collection}},
+  doi = {10.5281/zenodo.5449801}
+}
+</pre>
+
+<b>4. UNet 3+: A Full-Scale Connected UNet for Medical Image Segmentation</b><br>
+<pre>
+https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py
+</pre>
 
 <br>
 <h2>
