@@ -657,6 +657,17 @@ class TensorflowUNet:
         new_image = cv2.cvtColor(new_image, cv2.COLOR_RGBA2BGRA)
     return new_image
 
+  def erode_image(self, img, shape_id=2, ksize=5):
+    # shape_id takes a value in [0, 1, 2]
+    #MORPH_RECT    = 0
+    #MORPH_CROSS   = 1
+    #MORPH_ELLIPSE = 2
+    element = cv2.getStructuringElement(shape_id,
+                       (ksize, ksize), 
+                       ( -1, -1) )
+      
+    return cv2.erode(img, element)
+
   # 2023/06/05
   # 1 Split the original image to some tiled-images
   # 2 Infer segmentation regions on those images 
@@ -671,7 +682,7 @@ class TensorflowUNet:
     image_files += glob.glob(input_dir + "/*.bmp")
     MARGIN       = self.config.get(TILEDINFER, "overlapping", dvalue=0)
     print("MARGIN {}".format(MARGIN))
-    
+
     merged_dir   = None
     try:
       merged_dir = self.config.get(TILEDINFER, "merged_dir")

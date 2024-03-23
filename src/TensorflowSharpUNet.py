@@ -18,6 +18,7 @@
 # You can customize your TensorflowUnNet model by using a configration file
 # Example: train_eval_infer.config
 
+# 2024/03/23 Modified 'create' method to use for loops to create the encoders and decoders.
 
 import os
 
@@ -71,11 +72,6 @@ BEST_MODEL_FILE = "best_model.h5"
 class TensorflowSharpUNet (TensorflowUNet):
 
   def __init__(self, config_file):
-
-    self.kernel_size  = 3
-    self.enc_filters = [32, 64, 128, 256, 512]
-    self.dec_filters = [256, 128, 64, 32,]
-
     super().__init__(config_file)
     print("=== TensorflowSharpUNet.__init__")
     
@@ -116,93 +112,77 @@ class TensorflowSharpUNet (TensorflowUNet):
     w = np.expand_dims(w, axis=-1)
     return w
 
-  
+  def dump(self, convs):
+    for i in range(len(convs)):
+      print("--- {} dump {}".format(i, convs[i]))
+
+  # 2024/03/23 Modified this method to use for loops to create the encoders and decoders.
+  #    Modified to use dilation_rate parameter in Conv2D
   def create(self, num_classes, image_height, image_width, image_channels,
                base_filters = 16, num_layers = 6):
     print("==== TensorflowSharpUNet.create ")
-    image_size = (image_width, image_height, image_channels)
+    image_size = (image_width, image_height, image_channels)    
+
+    filters     = self.config.get(MODEL, "filters", dvalue= [32, 64, 128, 256])
+    dec_filters = filters[::-1]
+    max_filter  = self.config.get(MODEL, "max_filter", dvalue=512)
+    print("--- filters     {}".format(filters))
+    print("--- dec_filters {}".format(dec_filters))
+    print("--- max filter  {}".format(max_filter))
     
     "Unet with sharp Blocks in skip connections"
 
+    base_ksize  = self.config.get(MODEL, "base_ksize", dvalue=(3, 3))
+    print("--- base_ksize {}".format(base_ksize))
+    dilation = self.config.get(MODEL, "dilation", dvalue=(1, 1))
+    print("--- dilation {}".format(dilation))
+
     # Kernel size for sharp blocks
-    kernel_size = self.kernel_size
- 
+    kernel_size = 3
+    
     inputs = Input(image_size)
-    conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(inputs)
-    conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(conv1)
-    pool1 = MaxPooling2D(pool_size=(2, 2))(conv1)
+    pool = inputs
+    enc_convs = []
+    layers = len(filters)
+    for i in range(layers):
+      print("--- {} filter:{}".format(i, filters[i]))
+      conv = Conv2D(filters[i], base_ksize, activation='relu', dilation_rate=dilation, padding='same')(pool)
+      conv = Conv2D(filters[i], base_ksize, activation='relu', dilation_rate=dilation,padding='same')(conv)
+      pool = MaxPooling2D(pool_size=(2, 2))(conv)
+      enc_convs = [conv] + enc_convs
 
-    conv2 = Conv2D(64, (3, 3), activation='relu', padding='same')(pool1)
-    conv2 = Conv2D(64, (3, 3), activation='relu', padding='same')(conv2)
-    pool2 = MaxPooling2D(pool_size=(2, 2))(conv2)
+    self.dump(enc_convs)
+    xconv = Conv2D(max_filter, base_ksize, activation='relu', dilation_rate=dilation, padding='same')(pool)
+    xconv = Conv2D(max_filter, base_ksize, activation='relu', dilation_rate=dilation,padding='same')(xconv)
 
-    conv3 = Conv2D(128, (3, 3), activation='relu', padding='same')(pool2)
-    conv3 = Conv2D(128, (3, 3), activation='relu', padding='same')(conv3)
-    pool3 = MaxPooling2D(pool_size=(2, 2))(conv3)
+    up = xconv
+    print("--- up {}".format(up))
+    dec_layers = len(dec_filters)
 
-    conv4 = Conv2D(256, (3, 3), activation='relu', padding='same')(pool3)
-    conv4 = Conv2D(256, (3, 3), activation='relu', padding='same')(conv4)
-    pool4 = MaxPooling2D(pool_size=(2, 2))(conv4)
-
-    conv5 = Conv2D(512, (3, 3), activation='relu', padding='same')(pool4)
-    conv5 = Conv2D(512, (3, 3), activation='relu', padding='same')(conv5)
-    
-    # Skip connection 1
-    # 1. Get sharpening kernel weights(1, H, W, channels) 
-    W1 = self.build_sharp_blocks(conv4)
-    # 2. Build depthwise convolutional layer with random weights
-    sb1 = DepthwiseConv2D(kernel_size, use_bias=False, padding='same')
-    # 3. Pass input to layer
-    conv4 = sb1(conv4)
-    # 4. Set filters as layer weights 
-    sb1.set_weights([W1])
-    # 5. Dont update weights
-    sb1.trainable = False
-    
-    up6 = concatenate([Conv2DTranspose(256, (2, 2), strides=(2, 2), padding='same')(conv5), conv4], axis=3)
-    conv6 = Conv2D(256, (3, 3), activation='relu', padding='same')(up6)
-    conv6 = Conv2D(256, (3, 3), activation='relu', padding='same')(conv6)
-    
-    # Skip connection 2
-    W2 = self.build_sharp_blocks(conv3) 
-    sb2 = DepthwiseConv2D(kernel_size, use_bias=False, padding='same')
-    conv3 = sb2(conv3)
-    sb2.set_weights([W2])
-    sb2.trainable = False
-   
-    up7 = concatenate([Conv2DTranspose(128, (2, 2), strides=(2, 2), padding='same')(conv6), conv3], axis=3)
-    conv7 = Conv2D(128, (3, 3), activation='relu', padding='same')(up7)
-    conv7 = Conv2D(128, (3, 3), activation='relu', padding='same')(conv7)
-
-    # Skip connection 3
-    W3 = self.build_sharp_blocks(conv2) 
-    sb3 = DepthwiseConv2D(kernel_size, use_bias=False, padding='same')
-    conv2 = sb3(conv2)
-    sb3.set_weights([W3])
-    sb3.trainable = False
-    
-    up8 = concatenate([Conv2DTranspose(64, (2, 2), strides=(2, 2), padding='same')(conv7), conv2], axis=3)
-    conv8 = Conv2D(64, (3, 3), activation='relu', padding='same')(up8)
-    conv8 = Conv2D(64, (3, 3), activation='relu', padding='same')(conv8)
-    
-    
-    # Skip connection 4
-    W4 = self.build_sharp_blocks(conv1)
-    sb4 = DepthwiseConv2D(kernel_size, use_bias=False, padding='same')
-    conv1 = sb4(conv1)
-    sb4.set_weights([W4])
-    sb4.trainable = False
-    
-    up9 = concatenate([Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same')(conv8), conv1], axis=3)
-    conv9 = Conv2D(32, (3, 3), activation='relu', padding='same')(up9)
-    conv9 = Conv2D(32, (3, 3), activation='relu', padding='same')(conv9)
+    for i in range(dec_layers):
+      enc = enc_convs[i] 
+      print("+++ {} fillter:{} enc:{}".format(i, dec_filters[i], enc))
+      # Skip connection 1
+      # 1. Get sharpening kernel weights(1, H, W, channels) 
+      W1 = self.build_sharp_blocks(enc)
+      # 2. Build depthwise convolutional layer with random weights
+      sb1 = DepthwiseConv2D(kernel_size, use_bias=False, padding='same')
+      # 3. Pass input to layer
+      conv  = sb1(enc)
+      # 4. Set filters as layer weights 
+      sb1.set_weights([W1])
+      # 5. Dont update weights
+      sb1.trainable = False
+      up = concatenate([Conv2DTranspose(dec_filters[i], (2, 2), strides=(2, 2), padding='same')(up), conv], axis=3)
+      conv = Conv2D(dec_filters[i], base_ksize, activation='relu', dilation_rate=dilation, padding='same')(up)
+      conv = Conv2D(dec_filters[i], base_ksize, activation='relu', dilation_rate=dilation, padding='same')(conv)
 
     # for multi-class segmentation, use the 'softmax' activation
     activation = "softmax" 
     if num_classes == 1:
       activation = "sigmoid"
       
-    conv10 = Conv2D(num_classes, (1, 1), activation= activation)(conv9)
+    conv10 = Conv2D(num_classes, (1, 1), activation= activation)(conv)
 
     model = Model(inputs=[inputs], outputs=[conv10])    
     

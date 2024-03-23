@@ -1,4 +1,4 @@
-<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/03/20)</h2>
+<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/03/23)</h2>
 
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
@@ -26,8 +26,9 @@ use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras
 
 <li>2024/03/20: Added <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py</a>.</li>
 <li>2024/03/20: Added <a href="./src/TensorflowU2Net.py">TensorflowU2Net.py</a>.</li>
+<li>2024/03/23: Updated <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py</a>.</li>
 
-See also <a href="./ChangeLog.md">ChangeLog.md (Updated: 2024/03/20)</a>
+See also <a href="./ChangeLog.md">ChangeLog.md</a>
 <br>
 <br>
 On bitwise_blending, please see <a href="https://github.com/sarah-antillia/Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma">Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma</a>.

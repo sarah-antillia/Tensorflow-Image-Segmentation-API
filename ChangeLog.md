@@ -93,3 +93,7 @@ use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras
 <li>2024/03/20: Added TensorflowSharpUNet.py.</li>
 <li>2024/03/20: Added TensorflowU2Net.py.</li>
 
+<b>2024/03/23: Updated</b><br>
+<li>2024/03/23 Modified 'create' method to use for loops to create the encoders and decoders.</li>
+
+
