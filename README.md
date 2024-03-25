@@ -11,7 +11,6 @@
 <li><a href="#8">8 TensorflowTransUNet</a></li>
 <li><a href="#9">9 TensorflowSharpUNet</a></li>
 <li><a href="#10">10 TensorflowU2Net</a></li>
-
 <li><a href="#20">20 Image Segmentation Experimental projects</a></li>
 <li><a href="#99">Python Code citations</a></li>
 <li><a href="#100">Dataset citations</a></li>
@@ -63,7 +62,7 @@ In this repository, we provide <b>Image Segmentation API</b> that supports the f
 <b> Tensorflow UNet Class Hierarchy </b><br>
 <a href="./src/TensorflowUNet.py">TensorflowUNet</a><br>
   ├─ <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a><br>
-  ├─ <a href="./src/TensorflowDeepLabV3Plus.py">TensorflowDeepLabV3Plus</a><br>  
+  ├─ <a href="./src/TensorflowDeepLabV3Plus.py">TensorflowDeepLabV3Plus</a><br>
   ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a><br>
   ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
   ├─ <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet</a><br>
