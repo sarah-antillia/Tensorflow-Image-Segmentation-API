@@ -59,11 +59,11 @@ Input image_height 512 image_width 512 image_channels 3
 === dropout_rate 0.2
 --- clipvalue 0.5
 === Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
---- loss    <function bce_dice_loss at 0x000002660E0F1FC0>
---- metrics [<function binary_accuracy at 0x000002660DCE80D0>]
+--- loss    <function bce_dice_loss at 0x0000023170FE1FC0>
+--- metrics [<function binary_accuracy at 0x0000023170B980D0>]
 === WARNING: Not found [train]  show_history, return default value False
 
-E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowDeepLabV3Plus.py ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config 
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowDeepLabV3Plus.py ./projects/TensorflowDeepLabV3Plus/MultipleMyeloma/train_eval_infer.config 
 === os.environ['PYTHONHASHSEED']         0
 === GPU Name: /physical_device:GPU:0   Type: GPU
 === random.seed 137
@@ -71,37 +71,41 @@ E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowDeepLabV
 === tf.random.set_seed(137)
 === tensorflow.python.framework random_seed(137)
 === cv2.setRNGSeed (137)
-=== config_file ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config
-==== ConfigParser ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config
-==== ConfigParser ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config
-{'dataset': {'datasetclass': '"ImageMaskDataset"',
-             'resize_interpolation': '"cv2.INTER_CUBIC"'},
- 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/valid/images/"',
-          'mask_datapath': '"../../../dataset/MultipleMyeloma/valid/masks/"',
-          'output_dir': '"./eval_output"'},
+=== config_file ./projects/TensorflowDeepLabV3Plus/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowDeepLabV3Plus/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowDeepLabV3Plus/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/test/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/test/masks/"'},
  'infer': {'images_dir': '"../../../4k_mini_test"',
            'output_dir': '"./4k_mini_test_output"'},
- 'mask': {'binarize': 'True', 'blur': 'True', 'threshold': '128'},
+ 'mask': {'binarize': 'True',
+          'blur': 'True',
+          'blur_size': '(3,3)',
+          'threshold': '160'},
  'model': {'activation': '"mish"',
            'base_filters': '16',
+           'base_kernels': '(5,5)',
            'clipvalue': '0.5',
-           'dropout_rate': '0.2',
+           'dilation': '(2,2)',
+           'dropout_rate': '0.02',
            'image_channels': '3',
            'image_height': '512',
            'image_width': '512',
            'learning_rate': '0.0001',
            'loss': '"bce_dice_loss"',
            'metrics': '["binary_accuracy"]',
-           'model': '"TensorflowAttentionUNet"',
+           'model': '"TensorDeepLabV3Plus"',
            'num_classes': '1',
-           'num_layers': '6',
+           'num_layers': '7',
            'optimizer': '"Adam"',
            'show_summary': 'False'},
  'tiledinfer': {'images_dir': '"../../../4k_mini_test"',
                 'output_dir': '"./4k_tiled_mini_test_output"',
-                'overlapping': '64'},
- 'train': {'batch_size': '2',
-           'create_backups': 'True',
+                'overlapping': '64',
+                'split_size': '512'},
+ 'train': {'batch_size': '4',
+           'create_backup': 'False',
            'dataset_splitter': 'True',
            'epochs': '100',
            'eval_dir': '"./eval"',
@@ -111,15 +115,14 @@ E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowDeepLabV
            'metrics': '["binary_accuracy", "val_binary_accuracy"]',
            'model_dir': '"./models"',
            'patience': '10',
-           'reducer_patience': '5',
-           'save_model_file': '"best_model.h5"'}}
+           'reducer_patience': '5'}}
 === activation mish
 === TensorflowMultiResUNet.create 
 Input image_height 512 image_width 512 image_channels 3
 --- clipvalue 0.5
 === Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
---- loss    <function bce_dice_loss at 0x000001FF67B99FC0>
---- metrics [<function binary_accuracy at 0x000001FF677440D0>]
+--- loss    <function bce_dice_loss at 0x000001C40FFFDFC0>
+--- metrics [<function binary_accuracy at 0x000001C40FBE40D0>]
 === WARNING: Not found [train]  show_history, return default value False
 
 E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowEfficientUNet.py ./projects/TensorflowEfficientUNet/MultipleMyeloma/train_eval_infer.config 
@@ -184,8 +187,8 @@ Input image_height 512 image_width 512 image_channels 3
 output shape (None, 512, 512, 1)
 --- clipvalue 0.2
 === Optimizer Adam learning_rate 0.0001 clipvalue 0.2 
---- loss    <function bce_dice_loss at 0x00000161CE4FA170>
---- metrics [<function binary_accuracy at 0x00000161CE0A4160>]
+--- loss    <function bce_dice_loss at 0x000001C1A3FBA170>
+--- metrics [<function binary_accuracy at 0x000001C1A3B64160>]
 === WARNING: Not found [train]  show_history, return default value False
 
 E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowMultiResUNet.py  ./projects/TensorflowMultiResUNet/MultipleMyeloma/train_eval_infer.config 
@@ -255,8 +258,8 @@ Input image_height 512 image_width 512 image_channels 3
 +++ Decoder filters 16
 --- clipvalue 0.3
 === Optimizer Adam learning_rate 0.0001 clipvalue 0.3 
---- loss    <function bce_dice_loss at 0x00000223FF716050>
---- metrics [<function binary_accuracy at 0x00000223FF2C8160>]
+--- loss    <function bce_dice_loss at 0x0000020DB85F6050>
+--- metrics [<function binary_accuracy at 0x0000020DB81A8160>]
 === WARNING: Not found [train]  show_history, return default value False
 
 E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowSharpUNet.py     ./projects/TensorflowSharpUNet/MultipleMyeloma/train_eval_infer.config 
@@ -337,8 +340,8 @@ E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowSharpUNe
 +++ 3 fillter:32 enc:Tensor("conv2d_1/Relu:0", shape=(None, 512, 512, 32), dtype=float32)
 --- clipvalue 0.5
 === Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
---- loss    <function bce_dice_loss at 0x0000020889E49F30>
---- metrics [<function binary_accuracy at 0x00000208899F4040>]
+--- loss    <function bce_dice_loss at 0x000001F6FD6E9F30>
+--- metrics [<function binary_accuracy at 0x000001F6FD294040>]
 === WARNING: Not found [train]  show_history, return default value False
 === TensorflowSharpUNet.__init__
 
@@ -410,8 +413,8 @@ E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowSwinUNet
 === TensorflowSwinUnet.swin_transformer_stack ===
 --- clipvalue 0.2
 === Optimizer Adam learning_rate 0.0001 clipvalue 0.2 
---- loss    <function bce_dice_loss at 0x00000247FD034C10>
---- metrics [<function binary_accuracy at 0x00000247FCBC41F0>]
+--- loss    <function bce_dice_loss at 0x00000212351F8C10>
+--- metrics [<function binary_accuracy at 0x0000021234D841F0>]
 === WARNING: Not found [train]  show_history, return default value False
 === TensorflowSwinUNet.__init__
 
@@ -484,8 +487,8 @@ E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowTransUNe
 === WARNING: Not found [model]  pool, return default value True
 --- clipvalue 0.5
 === Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
---- loss    <function bce_dice_loss at 0x00000198D508D5A0>
---- metrics [<function binary_accuracy at 0x00000198D4C180D0>]
+--- loss    <function bce_dice_loss at 0x0000021D0865D5A0>
+--- metrics [<function binary_accuracy at 0x0000021D081E80D0>]
 === WARNING: Not found [train]  show_history, return default value False
 === TensorflowTransUNet.__init__ ./projects/TensorflowTransUNet/MultipleMyeloma/train_eval_infer.config
 
@@ -565,8 +568,8 @@ Explicitly specifying keywords listed above if their "auto" settings do not sati
 The depth of u2net_2d = len(filter_num_down) + len(filter_4f_num) = 8
 --- clipvalue 0.5
 === Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
---- loss    <function bce_dice_loss at 0x0000022983D1D090>
---- metrics [<function binary_accuracy at 0x00000229838EC670>]
+--- loss    <function bce_dice_loss at 0x000001BF6670D090>
+--- metrics [<function binary_accuracy at 0x000001BF6629C670>]
 === WARNING: Not found [train]  show_history, return default value False
 
 E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowUNet.py          ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer.config 
@@ -659,8 +662,8 @@ Input image_height 512 image_width 512 image_channels 3
 +++ dilation (2, 2)
 --- clipvalue 0.5
 === Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
---- loss    <function bce_dice_loss at 0x0000021CC0CD9F30>
---- metrics [<function binary_accuracy at 0x0000021CC0982B90>]
+--- loss    <function bce_dice_loss at 0x000002B114219F30>
+--- metrics [<function binary_accuracy at 0x000002B113EC2B90>]
 === WARNING: Not found [train]  show_history, return default value False
 
 E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowUNet3Plus.py     ./projects/TensorflowUNet3Plus/MultipleMyeloma/train_eval_infer.config 
@@ -719,6 +722,6 @@ E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowUNet3Plu
 --- filters [16, 32, 64, 128, 256, 512]
 --- clipvalue 0.2
 === Optimizer Adam learning_rate 0.0001 clipvalue 0.2 
---- loss    <function bce_dice_loss at 0x00000140B9B4E050>
---- metrics [<function binary_accuracy at 0x00000140B96FC160>]
+--- loss    <function bce_dice_loss at 0x000001F473BEE050>
+--- metrics [<function binary_accuracy at 0x000001F47379C160>]
 === WARNING: Not found [train]  show_history, return default value False

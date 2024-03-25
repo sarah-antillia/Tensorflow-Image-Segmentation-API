@@ -43,6 +43,7 @@ from TensorflowU2Net import TensorflowU2Net
 #from TensorflowDeepLabV3Plus import TensorflowDeepLabV3Plus
 from TensorflowSharpUNet import TensorflowSharpUNet
 #from TensorflowBASNet    import TensorflowBASNet
+from TensorflowDeepLabV3Plus import TensorflowDeepLabV3Plus
 
 MODEL  = "model"
 TRAIN  = "train"

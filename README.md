@@ -27,8 +27,8 @@ use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras
 <li>2024/03/20: Added <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py</a>.</li>
 <li>2024/03/20: Added <a href="./src/TensorflowU2Net.py">TensorflowU2Net.py</a>.</li>
 <li>2024/03/23: Updated <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py</a>.</li>
-<li>2024/03/25: Refactored the constructors of subclasses of TensorFlowUNet to achieve a more simplified codebase.
-</li>
+<li>2024/03/25: Refactored the constructors of subclasses of TensorFlowUNet to achieve a more simplified codebase.</li>
+<li>2024/03/25: Added <a href="./src/TensorflowDeepLabV3Plus.py">TensorflowDeepLabV3Plus.py</a>.</li>
 
 See also <a href="./ChangeLog.md">ChangeLog.md</a>
 <br>
@@ -48,6 +48,7 @@ On bitwise_blending, please see <a href="https://github.com/sarah-antillia/Tenso
 In this repository, we provide <b>Image Segmentation API</b> that supports the following <b>Tensorflow UNet Models</b>.
 <br>
 <li><a href="./projects/TensorflowAttentionUNet">TensorflowAttentionUNet</a></li>
+<li><a href="./projects/TensorflowDeepLabV3Plus">TensorflowDeepLabV3Plus</a></li>
 <li><a href="./projects/TensorflowEfficientUNet">TensorflowEfficientUNet</a></li>
 <li><a href="./projects/TensorflowMultiResUNet">TensorflowMultiResUNet</a></li>
 <li><a href="./projects/TensorflowSharpUNet">TensorflowSharpUNet</a></li>
@@ -62,6 +63,7 @@ In this repository, we provide <b>Image Segmentation API</b> that supports the f
 <b> Tensorflow UNet Class Hierarchy </b><br>
 <a href="./src/TensorflowUNet.py">TensorflowUNet</a><br>
   ├─ <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a><br>
+  ├─ <a href="./src/TensorflowDeepLabV3Plus.py">TensorflowDeepLabV3Plus</a><br>  
   ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a><br>
   ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
   ├─ <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet</a><br>
@@ -75,6 +77,9 @@ We appreciate all contributors of these various UNet base implementations on the
 
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/attention-unet.py">
 https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: attention-unet.py</a><br>
+
+<a href="https://github.com/TanyaChutani/DeepLabV3Plus-Tf2.x/blob/master/notebook/DeepLab_V3_Plus.ipynb">
+https://github.com/TanyaChutani/DeepLabV3Plus-Tf2.x: DeepLab_V3_Plus.ipynb</a><br>
 
 <a href="https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture/blob/main/TensorFlow/multiresunet.py">
 https://github.com/nikhilroxtomar/Semantic-Segmentation-Architecture: multiresunet.py</a><br>
@@ -1171,6 +1176,11 @@ https://doi.org/10.5281/zenodo.5449801<br>
 <b>4. UNet 3+: A Full-Scale Connected UNet for Medical Image Segmentation</b><br>
 <pre>
 https://github.com/hamidriasat/UNet-3-Plus/blob/unet3p_lits/models/unet3plus_utils.py
+</pre>
+
+<b>5. DeepLabV3Plus-Tf2.x:</b><br>
+<pre>
+https://github.com/TanyaChutani/DeepLabV3Plus-Tf2.x/blob/master/notebook/DeepLab_V3_Plus.ipynb
 </pre>
 
 <br>
