@@ -27,6 +27,8 @@ use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras
 <li>2024/03/20: Added <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py</a>.</li>
 <li>2024/03/20: Added <a href="./src/TensorflowU2Net.py">TensorflowU2Net.py</a>.</li>
 <li>2024/03/23: Updated <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py</a>.</li>
+<li>2024/03/25: Refactored the constructors of subclasses of TensorFlowUNet to achieve a more simplified codebase.
+</li>
 
 See also <a href="./ChangeLog.md">ChangeLog.md</a>
 <br>
