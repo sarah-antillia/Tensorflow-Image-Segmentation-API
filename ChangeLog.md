@@ -97,4 +97,9 @@ use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras
 <li>2024/03/23 Modified 'create' method of TensorflowSharpUNet class to use for loops to create the encoders and decoders in 
 <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py.</li>
 
+<b>2024/03/25: Updated</b><br>
+<li>2024/03/25 Refactored the constructors of subclasses of TensorFlowUNet classes to achieve a more simplified codebase.</li>
+<li>2024/03/25 Added check_models.bat.</li>
+
+ 
 
