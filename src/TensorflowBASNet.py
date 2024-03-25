@@ -57,15 +57,7 @@ import keras_cv
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers, backend
-
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
-
 from ConfigParser import ConfigParser
-
-from EpochChangeCallback import EpochChangeCallback
-from GrayScaleImageWriter import GrayScaleImageWriter
-from losses import dice_coef, basnet_hybrid_loss, jacard_loss, sensitivity, specificity
-from losses import iou_coef, iou_loss, bce_iou_loss
 
 from TensorflowUNet import TensorflowUNet
 
@@ -230,7 +222,7 @@ class TensorflowBASNet(TensorflowUNet):
     print("==== TensorflowBASNet.create ")
     image_size = (image_width, image_height, image_channels)
     out_classes = num_classes  
-  #def create(self, input_shape, out_classes):
+
     """BASNet, it's a combination of two modules
     Prediction Module and Residual Refinement Module(RRM)."""
     input_shape =  (image_width, image_height, image_channels)

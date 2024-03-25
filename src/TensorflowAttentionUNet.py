@@ -26,16 +26,12 @@
 
 
 import os
+import sys
+import traceback
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
 os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="false"
 
-import shutil
-import sys
-import glob
-import traceback
-import numpy as np
-import cv2
 import tensorflow as tf
 
 from tensorflow.keras.layers import Lambda
@@ -44,24 +40,10 @@ from tensorflow.keras.layers import Input
 from tensorflow.keras.layers import (Conv2D, Dropout, Conv2D, MaxPool2D, 
                                      Activation, BatchNormalization, UpSampling2D, Concatenate)
 
-from tensorflow.keras.layers import Conv2DTranspose
-from tensorflow.keras.layers import concatenate
-from tensorflow.keras.activations import elu, relu
-from tensorflow.keras import Model
-from tensorflow.keras.optimizers import Adam
-try:
-  from tensorflow.keras.optimizers import AdamW
-except:
-  traceback.print_exc()
 
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras import Model
 
 from ConfigParser import ConfigParser
-
-from EpochChangeCallback import EpochChangeCallback
-from GrayScaleImageWriter import GrayScaleImageWriter
-from losses import dice_coef, basnet_hybrid_loss, jacard_loss, sensitivity, specificity
-from losses import iou_coef, iou_loss, bce_iou_loss
 
 from TensorflowUNet import TensorflowUNet
 

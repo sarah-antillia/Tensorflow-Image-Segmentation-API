@@ -923,8 +923,8 @@ if __name__ == "__main__":
     model    = TensorflowUNet(config_file)
     # Please download and install graphviz for your OS
     # https://www.graphviz.org/download/ 
-    image_file = './asset/model.png'
-    tf.keras.utils.plot_model(model.model, to_file=image_file, show_shapes=True)
+    #image_file = './asset/model.png'
+    #tf.keras.utils.plot_model(model.model, to_file=image_file, show_shapes=True)
 
   except:
     traceback.print_exc()

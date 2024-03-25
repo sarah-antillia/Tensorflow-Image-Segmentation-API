@@ -26,24 +26,17 @@ This is based on the following code in
 
 import os
 import sys
-
 import traceback
-
-
 import numpy as np
-from glob import glob
 
 import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras.layers import Lambda
-from tensorflow.keras.optimizers import Adam
 
 from tensorflow.keras.layers import Input
 
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Dense, Conv2D, concatenate
 from keras_unet_collection.layer_utils import *
-from keras_unet_collection.activations import GELU, Snake
+#from keras_unet_collection.activations import GELU, Snake
 from keras_unet_collection._model_unet_2d import UNET_left, UNET_right
 from keras_unet_collection.transformer_layers import patch_extract, patch_embedding
 from keras_unet_collection._backbone_zoo import backbone_zoo, bach_norm_checker
@@ -55,13 +48,7 @@ import sys
 # keras-unet-collection
 # https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection
 
-
-from ConfigParser import ConfigParser
 from TensorflowUNet import TensorflowUNet
-
-from losses import dice_coef, basnet_hybrid_loss, sensitivity, specificity
-from losses import iou_coef, iou_loss, bce_iou_loss, bce_dice_loss
-
 
 TRAIN = "train"
 MODEL = "model"
@@ -69,89 +56,12 @@ EVAL  = "eval"
 INFER = "infer"
 
 class TensorflowTransUNet(TensorflowUNet) :
-
+  
+  # 2024/03/25 Modified to call super()
   def __init__(self, config_file):
-    #super().__init__(config_file)
+    super().__init__(config_file)
     print("=== TensorflowTransUNet.__init__ {}".format(config_file))
-    self.model_loaded = False
-    
-    self.config_file = config_file
-    self.config = ConfigParser(config_file)
-    self.config.dump_all()
 
-    self.show_history = self.config.get(TRAIN, "show_history", dvalue=False)
-    
-    num_classes     = self.config.get(MODEL, "num_classes")
-    image_width     = self.config.get(MODEL, "image_width")
-    image_height    = self.config.get(MODEL, "image_height")
-    image_channels  = self.config.get(MODEL, "image_channels")
-    base_filters    = self.config.get(MODEL, "base_filters")
-    num_layers      = self.config.get(MODEL, "num_layers")
-
-    learning_rate    = self.config.get(MODEL, "learning_rate")
-    clipvalue        = self.config.get(MODEL, "clipvalue", dvalue=0.5)
-    
-    # 2023/11/10
-    optimizer = self.config.get(MODEL, "optimizer", dvalue="Adam")
-    if optimizer == "Adam":
-      self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
-         beta_1=0.9, 
-         beta_2=0.999, 
-         clipvalue=clipvalue,  #2023/06/26
-         amsgrad=False)
-      print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
-    
-    elif optimizer == "AdamW":
-      # 2023/11/10  Adam -> AdamW (tensorflow 2.14.0~)
-      self.optimizer = tf.keras.optimizers.AdamW(learning_rate = learning_rate,
-         clipvalue=clipvalue,
-         )
-      print("=== Optimizer AdamW learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
-        
-    binary_crossentropy = tf.keras.metrics.binary_crossentropy
-    binary_accuracy     = tf.keras.metrics.binary_accuracy
-    
-    # Default loss and metrics functions
-    self.loss    = binary_crossentropy
-    self.metrics = [binary_accuracy]
-    
-    # Read a loss function name from our config file, and eval it.
-    # loss = "binary_crossentropy"
-    self.loss  = eval(self.config.get(MODEL, "loss"))
-
-    # Read a list of metrics function names, ant eval each of the list,
-    # metrics = ["binary_accuracy"]
-    metrics  = self.config.get(MODEL, "metrics")
-    self.metrics = []
-    for metric in metrics:
-      self.metrics.append(eval(metric))
-    
-    print("--- loss    {}".format(self.loss))
-    print("--- metrics {}".format(self.metrics))
-    
-    self.filter_num     = self.config.get(MODEL, "filter_num", dvalue=[64, 128, 256, 512])
-    self.stack_num_down = self.config.get(MODEL, "stack_num_down", dvalue=2)
-    self.stack_num_up   = self.config.get(MODEL, "stack_num_up", dvalue=2)
-    self.embed_dim      = self.config.get(MODEL, "embed_dim", dvalue=768)
-    self.num_mlp        = self.config.get(MODEL, "num_mlp", dvalue=3072)
-    self.num_heads      = self.config.get(MODEL, "num_heads", dvalue=12)
-    self.num_transformer= self.config.get(MODEL, "num_transformer", dvalue=12)
-    self.activation     = self.config.get(MODEL, "activation", dvalue='ReLU')
-    self.mlp_activation = self.config.get(MODEL, "mlp_activation", dvalue='GELU')
-    #self.output_activation='Softmax'
-    self.batch_norm     = self.config.get(MODEL, "batch_norm", dvalue=False)
-    self.pool           = self.config.get(MODEL, "pool", dvalue=True)
-    self.unpool         = self.config.get(MODEL, "pool", dvalue=True) 
-    self.backbone       = self.config.get(MODEL, "backbone", dvalue=None)
-    self.weights        = self.config.get(MODEL, "weights", dvalue='imagenet')
-    self.freeze_backbone= self.config.get(MODEL, "freeze_backbone", dvalue=True)
-    self.freeze_batch_norm=self.config.get(MODEL, "freeze_batch_norm", dvalue=True)
-
-    self.name='transunet'
-
-    self.model      = self.create(num_classes, image_height, image_width, image_channels,
-                         base_filters = base_filters, num_layers = num_layers)
-    self.model.compile(optimizer= self.optimizer, loss =   self.loss, metrics= self.metrics)
   
   def ViT_MLP(self, X, filter_num, activation='GELU', name='MLP'):
       '''
@@ -415,9 +325,26 @@ class TensorflowTransUNet(TensorflowUNet) :
                base_filters = 16, num_layers = 6):
       print("==== TensorflowTransUNet.create ")
       input_size = (image_width, image_height, image_channels)
-      #IN = Input(input_size)
-      inputs = Input((image_height, image_width, image_channels))
-      IN = Lambda(lambda x: x / 255)(inputs)
+
+      self.filter_num     = self.config.get(MODEL, "filter_num", dvalue=[64, 128, 256, 512])
+      self.stack_num_down = self.config.get(MODEL, "stack_num_down", dvalue=2)
+      self.stack_num_up   = self.config.get(MODEL, "stack_num_up", dvalue=2)
+      self.embed_dim      = self.config.get(MODEL, "embed_dim", dvalue=768)
+      self.num_mlp        = self.config.get(MODEL, "num_mlp", dvalue=3072)
+      self.num_heads      = self.config.get(MODEL, "num_heads", dvalue=12)
+      self.num_transformer= self.config.get(MODEL, "num_transformer", dvalue=12)
+      self.activation     = self.config.get(MODEL, "activation", dvalue='ReLU')
+      self.mlp_activation = self.config.get(MODEL, "mlp_activation", dvalue='GELU')
+      #self.output_activation='Softmax'
+      self.batch_norm     = self.config.get(MODEL, "batch_norm", dvalue=False)
+      self.pool           = self.config.get(MODEL, "pool", dvalue=True)
+      self.unpool         = self.config.get(MODEL, "pool", dvalue=True) 
+      self.backbone       = self.config.get(MODEL, "backbone", dvalue=None)
+      self.weights        = self.config.get(MODEL, "weights", dvalue='imagenet')
+      self.freeze_backbone= self.config.get(MODEL, "freeze_backbone", dvalue=True)
+      self.freeze_batch_norm=self.config.get(MODEL, "freeze_batch_norm", dvalue=True)
+
+      self.name='transunet'
 
       '''
       TransUNET with an optional ImageNet-trained bakcbone.

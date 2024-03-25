@@ -25,37 +25,21 @@ import os
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
 os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="false"
 
-import shutil
 import sys
-import glob
 import traceback
 import numpy as np
-import cv2
+
 import tensorflow as tf
 
-
-from tensorflow.keras.layers import Lambda
 from tensorflow.keras.layers import Input
 
-from tensorflow.keras.layers import (Conv2D, Dropout, Conv2D, MaxPool2D, MaxPooling2D, DepthwiseConv2D,
-                                     Activation, BatchNormalization, UpSampling2D, Concatenate)
+from tensorflow.keras.layers import (Conv2D, Dropout, Conv2D, MaxPool2D, MaxPooling2D, DepthwiseConv2D,)
 
 from tensorflow.keras.layers import Conv2DTranspose, AveragePooling2D
 from tensorflow.keras.layers import concatenate
-from tensorflow.keras.activations import elu, relu
 from tensorflow.keras import Model
-from tensorflow.keras.optimizers import Adam
-
-import tensorflow.keras.backend as K
-
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 from ConfigParser import ConfigParser
-
-from EpochChangeCallback import EpochChangeCallback
-from GrayScaleImageWriter import GrayScaleImageWriter
-from losses import dice_coef, basnet_hybrid_loss, jacard_loss, sensitivity, specificity
-from losses import iou_coef, iou_loss, bce_iou_loss
 
 from TensorflowUNet import TensorflowUNet
 
@@ -187,3 +171,27 @@ class TensorflowSharpUNet (TensorflowUNet):
     model = Model(inputs=[inputs], outputs=[conv10])    
     
     return model
+
+if __name__ == "__main__":
+  try:
+    # Default config_file
+    config_file    = "./train_eval_infer.config"
+    # You can specify config_file on your command line parammeter.
+    if len(sys.argv) == 2:
+      config_file= sys.argv[1]
+      if not os.path.exists(config_file):
+         raise Exception("Not found " + config_file)
+     
+    config   = ConfigParser(config_file)
+    
+    width    = config.get(MODEL, "image_width")
+    height   = config.get(MODEL, "image_height")
+
+    if not (width == height and  height % 128 == 0 and width % 128 == 0):
+      raise Exception("Image width should be a multiple of 128. For example 128, 256, 512")
+    
+    # Create a UNetMolde and compile
+    model    = TensorflowSharpUNet(config_file)
+
+  except:
+    traceback.print_exc()

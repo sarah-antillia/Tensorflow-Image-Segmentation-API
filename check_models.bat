@@ -1,0 +1,9 @@
+python ./src/TensorflowAttentionUNet.py ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config
+python ./src/TensorflowEfficientUNet.py ./projects/TensorflowEfficientUNet/MultipleMyeloma/train_eval_infer.config
+python ./src/TensorflowMultiResUNet.py  ./projects/TensorflowMultiResUNet/MultipleMyeloma/train_eval_infer.config
+python ./src/TensorflowSharpUNet.py     ./projects/TensorflowSharpUNet/MultipleMyeloma/train_eval_infer.config
+python ./src/TensorflowSwinUNet.py      ./projects/TensorflowSwinUNet/MultipleMyeloma/train_eval_infer.config
+python ./src/TensorflowTransUNet.py     ./projects/TensorflowTransUNet/MultipleMyeloma/train_eval_infer.config
+python ./src/TensorflowU2Net.py         ./projects/TensorflowU2Net/MultipleMyeloma/train_eval_infer.config
+python ./src/TensorflowUNet.py          ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer.config
+python ./src/TensorflowUNet3Plus.py     ./projects/TensorflowUNet3Plus/MultipleMyeloma/train_eval_infer.config
