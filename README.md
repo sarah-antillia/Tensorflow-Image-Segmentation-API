@@ -1,4 +1,4 @@
-<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/03/23)</h2>
+<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/03/25)</h2>
 
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>

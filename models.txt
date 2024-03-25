@@ -1,0 +1,724 @@
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>rem 2024/03/25 
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>rem Check all models by calling constructors of each TensorflowUNet class.   
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowAttentionUNet.py ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config 
+=== os.environ['PYTHONHASHSEED']         0
+=== GPU Name: /physical_device:GPU:0   Type: GPU
+=== random.seed 137
+=== numpy.random.seed 137
+=== tf.random.set_seed(137)
+=== tensorflow.python.framework random_seed(137)
+=== cv2.setRNGSeed (137)
+=== config_file ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"',
+             'resize_interpolation': '"cv2.INTER_CUBIC"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/valid/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/valid/masks/"',
+          'output_dir': '"./eval_output"'},
+ 'infer': {'images_dir': '"../../../4k_mini_test"',
+           'output_dir': '"./4k_mini_test_output"'},
+ 'mask': {'binarize': 'True', 'blur': 'True', 'threshold': '128'},
+ 'model': {'activation': '"mish"',
+           'base_filters': '16',
+           'clipvalue': '0.5',
+           'dropout_rate': '0.2',
+           'image_channels': '3',
+           'image_height': '512',
+           'image_width': '512',
+           'learning_rate': '0.0001',
+           'loss': '"bce_dice_loss"',
+           'metrics': '["binary_accuracy"]',
+           'model': '"TensorflowAttentionUNet"',
+           'num_classes': '1',
+           'num_layers': '6',
+           'optimizer': '"Adam"',
+           'show_summary': 'False'},
+ 'tiledinfer': {'images_dir': '"../../../4k_mini_test"',
+                'output_dir': '"./4k_tiled_mini_test_output"',
+                'overlapping': '64'},
+ 'train': {'batch_size': '2',
+           'create_backups': 'True',
+           'dataset_splitter': 'True',
+           'epochs': '100',
+           'eval_dir': '"./eval"',
+           'image_datapath': '"../../../dataset/MultipleMyeloma/train/images/"',
+           'learning_rate_reducer': 'True',
+           'mask_datapath': '"../../../dataset/MultipleMyeloma/train/masks/"',
+           'metrics': '["binary_accuracy", "val_binary_accuracy"]',
+           'model_dir': '"./models"',
+           'patience': '10',
+           'reducer_patience': '5',
+           'save_model_file': '"best_model.h5"'}}
+=== activation mish
+=== TensorflowAttentionUNet.create 
+Input image_height 512 image_width 512 image_channels 3
+=== dropout_rate 0.2
+--- clipvalue 0.5
+=== Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
+--- loss    <function bce_dice_loss at 0x000002660E0F1FC0>
+--- metrics [<function binary_accuracy at 0x000002660DCE80D0>]
+=== WARNING: Not found [train]  show_history, return default value False
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowDeepLabV3Plus.py ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config 
+=== os.environ['PYTHONHASHSEED']         0
+=== GPU Name: /physical_device:GPU:0   Type: GPU
+=== random.seed 137
+=== numpy.random.seed 137
+=== tf.random.set_seed(137)
+=== tensorflow.python.framework random_seed(137)
+=== cv2.setRNGSeed (137)
+=== config_file ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowAttentionUNet/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"',
+             'resize_interpolation': '"cv2.INTER_CUBIC"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/valid/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/valid/masks/"',
+          'output_dir': '"./eval_output"'},
+ 'infer': {'images_dir': '"../../../4k_mini_test"',
+           'output_dir': '"./4k_mini_test_output"'},
+ 'mask': {'binarize': 'True', 'blur': 'True', 'threshold': '128'},
+ 'model': {'activation': '"mish"',
+           'base_filters': '16',
+           'clipvalue': '0.5',
+           'dropout_rate': '0.2',
+           'image_channels': '3',
+           'image_height': '512',
+           'image_width': '512',
+           'learning_rate': '0.0001',
+           'loss': '"bce_dice_loss"',
+           'metrics': '["binary_accuracy"]',
+           'model': '"TensorflowAttentionUNet"',
+           'num_classes': '1',
+           'num_layers': '6',
+           'optimizer': '"Adam"',
+           'show_summary': 'False'},
+ 'tiledinfer': {'images_dir': '"../../../4k_mini_test"',
+                'output_dir': '"./4k_tiled_mini_test_output"',
+                'overlapping': '64'},
+ 'train': {'batch_size': '2',
+           'create_backups': 'True',
+           'dataset_splitter': 'True',
+           'epochs': '100',
+           'eval_dir': '"./eval"',
+           'image_datapath': '"../../../dataset/MultipleMyeloma/train/images/"',
+           'learning_rate_reducer': 'True',
+           'mask_datapath': '"../../../dataset/MultipleMyeloma/train/masks/"',
+           'metrics': '["binary_accuracy", "val_binary_accuracy"]',
+           'model_dir': '"./models"',
+           'patience': '10',
+           'reducer_patience': '5',
+           'save_model_file': '"best_model.h5"'}}
+=== activation mish
+=== TensorflowMultiResUNet.create 
+Input image_height 512 image_width 512 image_channels 3
+--- clipvalue 0.5
+=== Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
+--- loss    <function bce_dice_loss at 0x000001FF67B99FC0>
+--- metrics [<function binary_accuracy at 0x000001FF677440D0>]
+=== WARNING: Not found [train]  show_history, return default value False
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowEfficientUNet.py ./projects/TensorflowEfficientUNet/MultipleMyeloma/train_eval_infer.config 
+=== os.environ['PYTHONHASHSEED']         0
+=== GPU Name: /physical_device:GPU:0   Type: GPU
+=== random.seed 137
+=== numpy.random.seed 137
+=== tf.random.set_seed(137)
+=== tensorflow.python.framework random_seed(137)
+=== cv2.setRNGSeed (137)
+==== ConfigParser ./projects/TensorflowEfficientUNet/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"',
+             'resize_interpolation': '"cv2.INTER_CUBIC"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/valid/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/valid/masks/"'},
+ 'infer': {'images_dir': '"../../../4k_mini_test"',
+           'output_dir': '"./4k_mini_test_output"'},
+ 'mask': {'algorithm': '"cv2.THRESH_OTSU"',
+          'binarize': 'True',
+          'blur': 'False',
+          'threshold': '128'},
+ 'model': {'activation': '"mish"',
+           'clipvalue': '0.2',
+           'dropout_rate': '0.02',
+           'efficientnet': '"B0"',
+           'image_channels': '3',
+           'image_height': '512',
+           'image_width': '512',
+           'learning_rate': '0.0001',
+           'loss': '"bce_dice_loss"',
+           'metrics': '["binary_accuracy"]',
+           'model': '"TensorflowEfficientUNet"',
+           'num_classes': '1',
+           'optimizer': '"Adam"',
+           'show_summary': 'False'},
+ 'tiledinfer': {'bitwise_blending': 'False',
+                'debug': 'True',
+                'images_dir': '"../../../4k_mini_test"',
+                'output_dir': '"./4k_tiled_mini_test_output"',
+                'overlapping': '64'},
+ 'train': {'batch_size': '4',
+           'create_backup': 'False',
+           'dataset_splitter': 'True',
+           'epochs': '100',
+           'eval_dir': '"./eval"',
+           'image_datapath': '"../../../dataset/MultipleMyeloma/train/images/"',
+           'learning_rate_reducer': 'True',
+           'mask_datapath': '"../../../dataset/MultipleMyeloma/train/masks/"',
+           'metrics': '["binary_accuracy", "val_binary_accuracy"]',
+           'model_dir': '"./models"',
+           'patience': '10',
+           'reducer_patience': '5',
+           'save_model_file': '"best_model.h5"',
+           'save_weights_only': 'True'}}
+=== WARNING: Not found [model]  base_filters, return default value None
+=== WARNING: Not found [model]  num_layers, return default value None
+=== activation mish
+=== TensorflowEfficientNetUNet.create 
+=== efficientnet B0
+Input image_height 512 image_width 512 image_channels 3
+=== get_encoder EfficientNetB0
+output shape (None, 512, 512, 1)
+--- clipvalue 0.2
+=== Optimizer Adam learning_rate 0.0001 clipvalue 0.2 
+--- loss    <function bce_dice_loss at 0x00000161CE4FA170>
+--- metrics [<function binary_accuracy at 0x00000161CE0A4160>]
+=== WARNING: Not found [train]  show_history, return default value False
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowMultiResUNet.py  ./projects/TensorflowMultiResUNet/MultipleMyeloma/train_eval_infer.config 
+=== os.environ['PYTHONHASHSEED']         0
+=== GPU Name: /physical_device:GPU:0   Type: GPU
+=== random.seed 137
+=== numpy.random.seed 137
+=== tf.random.set_seed(137)
+=== tensorflow.python.framework random_seed(137)
+=== cv2.setRNGSeed (137)
+=== config_file ./projects/TensorflowMultiResUNet/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowMultiResUNet/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowMultiResUNet/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"',
+             'resize_interpolation': '"cv2.INTER_CUBIC"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/valid/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/valid/masks/"'},
+ 'infer': {'images_dir': '"../../../4k_mini_test"',
+           'output_dir': '"./4k_mini_test_output"'},
+ 'mask': {'binarize': 'True', 'blur': 'True', 'threshold': '100'},
+ 'model': {'activation': '"mish"',
+           'base_filters': '16',
+           'clipvalue': '0.3',
+           'dilation': '(1,1)',
+           'dropout_rate': '0.05',
+           'generator': 'False',
+           'image_channels': '3',
+           'image_height': '512',
+           'image_width': '512',
+           'learning_rate': '0.0001',
+           'loss': '"bce_dice_loss"',
+           'metrics': '["binary_accuracy"]',
+           'model': '"TensorflowMultiResUNet"',
+           'num_classes': '1',
+           'num_layers': '6',
+           'optimizer': '"Adam"',
+           'show_summary': 'False'},
+ 'tiledinfer': {'images_dir': '"../../../4k_mini_test"',
+                'output_dir': '"./4k_tiled_mini_test_output"',
+                'overlapping': '64'},
+ 'train': {'batch_size': '1',
+           'create_backup': 'False',
+           'dataset_splitter': 'True',
+           'epochs': '100',
+           'eval_dir': '"./eval"',
+           'image_datapath': '"../../../dataset/MultipleMyeloma/train/images/"',
+           'learning_rate_reducer': 'True',
+           'mask_datapath': '"../../../dataset/MultipleMyeloma/train/masks/"',
+           'metrics': '["binary_accuracy", "val_binary_accuracy"]',
+           'model_dir': '"./models"',
+           'patience': '10',
+           'reducer_patience': '5',
+           'save_model_file': '"best_model.h5"'}}
+=== activation mish
+=== TensorflowMultiResUNet.create 
+Input image_height 512 image_width 512 image_channels 3
+--- Encoder filters 16
+--- Encoder filters 32
+--- Encoder filters 64
+--- Encoder filters 128
+--- Encoder filters 256
+=== Bridge filters 512
++++ Decoder filters 256
++++ Decoder filters 128
++++ Decoder filters 64
++++ Decoder filters 32
++++ Decoder filters 16
+--- clipvalue 0.3
+=== Optimizer Adam learning_rate 0.0001 clipvalue 0.3 
+--- loss    <function bce_dice_loss at 0x00000223FF716050>
+--- metrics [<function binary_accuracy at 0x00000223FF2C8160>]
+=== WARNING: Not found [train]  show_history, return default value False
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowSharpUNet.py     ./projects/TensorflowSharpUNet/MultipleMyeloma/train_eval_infer.config 
+=== os.environ['PYTHONHASHSEED']         0
+=== GPU Name: /physical_device:GPU:0   Type: GPU
+=== random.seed 137
+=== numpy.random.seed 137
+=== tf.random.set_seed(137)
+=== tensorflow.python.framework random_seed(137)
+=== cv2.setRNGSeed (137)
+==== ConfigParser ./projects/TensorflowSharpUNet/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowSharpUNet/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"',
+             'resize_interpolation': '"cv2.INTER_CUBIC"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/valid/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/valid/masks/"'},
+ 'infer': {'images_dir': '"../../../4k_mini_test"',
+           'output_dir': '"./4k_mini_test_output"'},
+ 'mask': {'binarize': 'True', 'blur': 'True', 'threshold': '128'},
+ 'model': {'activation': '"mish"',
+           'base_ksize': '(3,3)',
+           'clipvalue': '0.5',
+           'dilation': '(1,1)',
+           'dropout_rate': '0.02',
+           'filters': '[32, 64, 128, 256]',
+           'image_channels': '3',
+           'image_height': '512',
+           'image_width': '512',
+           'kernel_size': '3',
+           'learning_rate': '0.0001',
+           'loss': '"bce_dice_loss"',
+           'max_filter': '512',
+           'metrics': '["binary_accuracy"]',
+           'model': '"TensorflowSharpUNet"',
+           'num_classes': '1',
+           'optimizer': '"Adam"',
+           'show_summary': 'False'},
+ 'tiledinfer': {'bitwise_blending': 'True',
+                'debug': 'True',
+                'images_dir': '"../../../4k_mini_test"',
+                'output_dir': '"./4k_tiled_mini_test_output"',
+                'overlapping': '64'},
+ 'train': {'batch_size': '4',
+           'create_backup': 'False',
+           'dataset_splitter': 'True',
+           'epochs': '100',
+           'eval_dir': '"./eval"',
+           'image_datapath': '"../../../dataset/MultipleMyeloma/train/images/"',
+           'learning_rate_reducer': 'True',
+           'mask_datapath': '"../../../dataset/MultipleMyeloma/train/masks/"',
+           'metrics': '["binary_accuracy", "val_binary_accuracy"]',
+           'model_dir': '"./models"',
+           'patience': '10',
+           'reducer_patience': '5',
+           'save_model_file': '"best_model.h5"',
+           'save_weights_only': 'True'}}
+=== WARNING: Not found [model]  base_filters, return default value None
+=== WARNING: Not found [model]  num_layers, return default value None
+=== activation mish
+==== TensorflowSharpUNet.create 
+--- filters     [32, 64, 128, 256]
+--- dec_filters [256, 128, 64, 32]
+--- max filter  512
+--- base_ksize (3, 3)
+--- dilation (1, 1)
+--- 0 filter:32
+--- 1 filter:64
+--- 2 filter:128
+--- 3 filter:256
+--- 0 dump Tensor("conv2d_7/Relu:0", shape=(None, 64, 64, 256), dtype=float32)
+--- 1 dump Tensor("conv2d_5/Relu:0", shape=(None, 128, 128, 128), dtype=float32)
+--- 2 dump Tensor("conv2d_3/Relu:0", shape=(None, 256, 256, 64), dtype=float32)
+--- 3 dump Tensor("conv2d_1/Relu:0", shape=(None, 512, 512, 32), dtype=float32)
+--- up Tensor("conv2d_9/Relu:0", shape=(None, 32, 32, 512), dtype=float32)
++++ 0 fillter:256 enc:Tensor("conv2d_7/Relu:0", shape=(None, 64, 64, 256), dtype=float32)
++++ 1 fillter:128 enc:Tensor("conv2d_5/Relu:0", shape=(None, 128, 128, 128), dtype=float32)
++++ 2 fillter:64 enc:Tensor("conv2d_3/Relu:0", shape=(None, 256, 256, 64), dtype=float32)
++++ 3 fillter:32 enc:Tensor("conv2d_1/Relu:0", shape=(None, 512, 512, 32), dtype=float32)
+--- clipvalue 0.5
+=== Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
+--- loss    <function bce_dice_loss at 0x0000020889E49F30>
+--- metrics [<function binary_accuracy at 0x00000208899F4040>]
+=== WARNING: Not found [train]  show_history, return default value False
+=== TensorflowSharpUNet.__init__
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowSwinUNet.py      ./projects/TensorflowSwinUNet/MultipleMyeloma/train_eval_infer.config 
+=== os.environ['PYTHONHASHSEED']         0
+=== GPU Name: /physical_device:GPU:0   Type: GPU
+=== random.seed 137
+=== numpy.random.seed 137
+=== tf.random.set_seed(137)
+=== tensorflow.python.framework random_seed(137)
+=== cv2.setRNGSeed (137)
+==== ConfigParser ./projects/TensorflowSwinUNet/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"',
+             'resize_interpolation': '"cv2.INTER_CUBIC"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/valid/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/valid/masks/"'},
+ 'infer': {'images_dir': '"../../../4k_mini_test"',
+           'merged_dir': '"./4k_mini_test_output_merged"',
+           'output_dir': '"./4k_mini_test_output"'},
+ 'mask': {'binarize': 'True', 'blur': 'True', 'threshold': '128'},
+ 'model': {'activation': '"mish"',
+           'clipvalue': '0.2',
+           'depth': '4',
+           'filter_num_begin': '64',
+           'image_channels': '3',
+           'image_height': '512',
+           'image_width': '512',
+           'learning_rate': '0.0001',
+           'loss': '"bce_dice_loss"',
+           'metrics': '["binary_accuracy"]',
+           'model': '"TensorflowSwinUNet"',
+           'num_classes': '1',
+           'num_heads': '[4, 8, 8, 8]',
+           'num_mlp': '512',
+           'optimizer': '"Adam"',
+           'patch_size': '(4, 4)',
+           'shift_window': 'True',
+           'show_summary': 'False',
+           'stack_num_down': '2',
+           'stack_num_up': '2',
+           'window_size': '[4, 2, 2, 2]'},
+ 'tiledinfer': {'images_dir': '"../../../4k_mini_test"',
+                'output_dir': '"./4k_tiled_mini_test_output"',
+                'overlapping': '64'},
+ 'train': {'batch_size': '2',
+           'create_backup': 'True',
+           'dataset_splitter': 'True',
+           'epochs': '100',
+           'eval_dir': '"./eval"',
+           'image_datapath': '"../../../dataset/MultipleMyeloma/train/images/"',
+           'learning_rate_reducer': 'True',
+           'mask_datapath': '"../../../dataset/MultipleMyeloma/train/masks/"',
+           'metrics': '["binary_accuracy", "val_binary_accuracy"]',
+           'model_dir': '"./models"',
+           'patience': '10',
+           'reducer_patience': '5',
+           'save_model_file': '""'}}
+=== WARNING: Not found [model]  base_filters, return default value None
+=== WARNING: Not found [model]  num_layers, return default value None
+=== activation mish
+==== TensorflowSwiUNet.create 
+--- TensorflowSwinUnet.swin_unet_2d_base ---
+=== TensorflowSwinUnet.swin_transformer_stack ===
+=== TensorflowSwinUnet.swin_transformer_stack ===
+=== TensorflowSwinUnet.swin_transformer_stack ===
+=== TensorflowSwinUnet.swin_transformer_stack ===
+=== TensorflowSwinUnet.swin_transformer_stack ===
+=== TensorflowSwinUnet.swin_transformer_stack ===
+=== TensorflowSwinUnet.swin_transformer_stack ===
+--- clipvalue 0.2
+=== Optimizer Adam learning_rate 0.0001 clipvalue 0.2 
+--- loss    <function bce_dice_loss at 0x00000247FD034C10>
+--- metrics [<function binary_accuracy at 0x00000247FCBC41F0>]
+=== WARNING: Not found [train]  show_history, return default value False
+=== TensorflowSwinUNet.__init__
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowTransUNet.py     ./projects/TensorflowTransUNet/MultipleMyeloma/train_eval_infer.config 
+=== os.environ['PYTHONHASHSEED']         0
+=== GPU Name: /physical_device:GPU:0   Type: GPU
+=== random.seed 137
+=== numpy.random.seed 137
+=== tf.random.set_seed(137)
+=== tensorflow.python.framework random_seed(137)
+=== cv2.setRNGSeed (137)
+==== ConfigParser ./projects/TensorflowTransUNet/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"',
+             'resize_interpolation': '"cv2.INTER_CUBIC"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/valid/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/valid/masks/"'},
+ 'infer': {'images_dir': '"../../../4k_mini_test"',
+           'output_dir': '"./4k_mini_test_output"'},
+ 'mask': {'binarize': 'True', 'blur': 'True', 'threshold': '76'},
+ 'model': {'backbone': 'None',
+           'batch_norm': 'False',
+           'clipvalue': '0.5',
+           'dropout_rate': '0.1',
+           'embed_dim': '256',
+           'filter_num': '[32, 64, 128, 256]',
+           'freeze_backbone': 'True',
+           'freeze_batch_norm': 'True',
+           'image_channels': '3',
+           'image_height': '384',
+           'image_width': '384',
+           'learning_rate': '0.0001',
+           'loss': '"bce_dice_loss"',
+           'metrics': '["binary_accuracy"]',
+           'mlp_activation': "'GELU'",
+           'model': '"TensorflowTransUNet"',
+           'num_classes': '1',
+           'num_heads': '4',
+           'num_mlp': '512',
+           'num_transformer': '4',
+           'optimizer': '"Adam"',
+           'self.activation': "'ReLU'",
+           'show_summary': 'False',
+           'stack_num_down': '2',
+           'stack_num_up': '2',
+           'weights': "'imagenet'"},
+ 'tiledinfer': {'debug': 'True',
+                'images_dir': '"../../../4k_mini_test"',
+                'output_dir': '"./4k_tiled_mini_test_output"',
+                'overlapping': '64'},
+ 'train': {'batch_size': '2',
+           'create_backup': 'False',
+           'dataset_splitter': 'True',
+           'epochs': '100',
+           'eval_dir': '"./eval"',
+           'image_datapath': '"../../../dataset/MultipleMyeloma/train/images/"',
+           'learning_rate_reducer': 'True',
+           'mask_datapath': '"../../../dataset/MultipleMyeloma/train/masks/"',
+           'metrics': '["binary_accuracy", "val_binary_accuracy"]',
+           'model_dir': '"./models"',
+           'patience': '10',
+           'reducer_patience': '5',
+           'save_model_file': '""'}}
+=== WARNING: Not found [model]  base_filters, return default value None
+=== WARNING: Not found [model]  num_layers, return default value None
+=== WARNING: Not found [model]  activation, return default value relu
+=== activation relu
+==== TensorflowTransUNet.create 
+=== WARNING: Not found [model]  activation, return default value ReLU
+=== WARNING: Not found [model]  pool, return default value True
+=== WARNING: Not found [model]  pool, return default value True
+--- clipvalue 0.5
+=== Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
+--- loss    <function bce_dice_loss at 0x00000198D508D5A0>
+--- metrics [<function binary_accuracy at 0x00000198D4C180D0>]
+=== WARNING: Not found [train]  show_history, return default value False
+=== TensorflowTransUNet.__init__ ./projects/TensorflowTransUNet/MultipleMyeloma/train_eval_infer.config
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowU2Net.py         ./projects/TensorflowU2Net/MultipleMyeloma/train_eval_infer.config 
+=== os.environ['PYTHONHASHSEED']         0
+=== GPU Name: /physical_device:GPU:0   Type: GPU
+=== random.seed 137
+=== numpy.random.seed 137
+=== tf.random.set_seed(137)
+=== tensorflow.python.framework random_seed(137)
+=== cv2.setRNGSeed (137)
+==== ConfigParser ./projects/TensorflowU2Net/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"',
+             'resize_interpolation': '"cv2.INTER_CUBIC"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/valid/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/valid/masks/"'},
+ 'infer': {'images_dir': '"../../../4k_mini_test"',
+           'output_dir': '"./4k_mini_test_output"'},
+ 'mask': {'binarize': 'False', 'blur': 'True', 'threshold': '128'},
+ 'model': {'activation': '"mish"',
+           'base_filters': '16',
+           'clipvalue': '0.5',
+           'image_channels': '3',
+           'image_height': '512',
+           'image_width': '512',
+           'learning_rate': '0.0001',
+           'loss': '"bce_dice_loss"',
+           'metrics': '["binary_accuracy"]',
+           'model': '"TensorflowU2Net"',
+           'num_classes': '1',
+           'num_layers': '6',
+           'optimizer': '"Adam"',
+           'show_summary': 'False'},
+ 'tiledinfer': {'bitwise_blending': 'True',
+                'debug': 'True',
+                'images_dir': '"../../../4k_mini_test"',
+                'output_dir': '"./4k_tiled_mini_test_output"',
+                'overlapping': '64'},
+ 'train': {'batch_size': '4',
+           'create_backup': 'False',
+           'dataset_splitter': 'True',
+           'epochs': '100',
+           'eval_dir': '"./eval"',
+           'image_datapath': '"../../../dataset/MultipleMyeloma/train/images/"',
+           'learning_rate_reducer': 'True',
+           'mask_datapath': '"../../../dataset/MultipleMyeloma/train/masks/"',
+           'metrics': '["binary_accuracy", "val_binary_accuracy"]',
+           'model_dir': '"./models"',
+           'patience': '10',
+           'reducer_patience': '5',
+           'save_model_file': '"best_model.h5"',
+           'save_weights_only': 'True'}}
+=== activation mish
+=== TensorflowU2Net.create
+=== WARNING: Not found [model]  filter_num_begin, return default value 128
+=== WARNING: Not found [model]  depth, return default value 4
+=== WARNING: Not found [model]  stack_num_down, return default value 2
+=== WARNING: Not found [model]  stack_num_up, return default value 2
+=== WARNING: Not found [model]  patch_size, return default value (4, 4)
+=== WARNING: Not found [model]  num_heads, return default value [4, 8, 8, 8]
+=== WARNING: Not found [model]  window_size, return default value None
+=== WARNING: Not found [model]  num_mlp, return default value 512
+=== WARNING: Not found [model]  shift_window, return default value None
+--- num_layers 6
+=== filter_num_down [16, 32, 64, 128, 256, 512]
+Automated hyper-parameter determination is applied with the following details:
+----------
+	Number of RSU output channels within downsampling blocks: filter_num_down = [16, 32, 64, 128, 256, 512]
+	Number of RSU intermediate channels within downsampling blocks: filter_mid_num_down = [4, 8, 16, 32, 64, 128]
+	Number of RSU output channels within upsampling blocks: filter_num_up = [16, 32, 64, 128, 256, 512]
+	Number of RSU intermediate channels within upsampling blocks: filter_mid_num_up = [4, 8, 16, 32, 64, 128]
+	Number of RSU-4F output channels within downsampling and bottom blocks: filter_4f_num = [512, 512]
+	Number of RSU-4F intermediate channels within downsampling and bottom blocks: filter_4f_num = [256, 256]
+----------
+Explicitly specifying keywords listed above if their "auto" settings do not satisfy your needs
+----------
+The depth of u2net_2d = len(filter_num_down) + len(filter_4f_num) = 8
+--- clipvalue 0.5
+=== Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
+--- loss    <function bce_dice_loss at 0x0000022983D1D090>
+--- metrics [<function binary_accuracy at 0x00000229838EC670>]
+=== WARNING: Not found [train]  show_history, return default value False
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowUNet.py          ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer.config 
+=== os.environ['PYTHONHASHSEED']         0
+=== GPU Name: /physical_device:GPU:0   Type: GPU
+=== random.seed 137
+=== numpy.random.seed 137
+=== tf.random.set_seed(137)
+=== tensorflow.python.framework random_seed(137)
+=== cv2.setRNGSeed (137)
+==== ConfigParser ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/test/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/test/masks/"'},
+ 'infer': {'images_dir': '"../../../4k_mini_test"',
+           'output_dir': '"./4k_mini_test_output"'},
+ 'mask': {'binarize': 'True',
+          'blur': 'True',
+          'blur_size': '(3,3)',
+          'threshold': '160'},
+ 'model': {'activation': '"mish"',
+           'base_filters': '16',
+           'base_kernels': '(5,5)',
+           'clipvalue': '0.5',
+           'dilation': '(2,2)',
+           'dropout_rate': '0.02',
+           'image_channels': '3',
+           'image_height': '512',
+           'image_width': '512',
+           'learning_rate': '0.0001',
+           'loss': '"bce_dice_loss"',
+           'metrics': '["binary_accuracy"]',
+           'model': '"TensorflowUNet"',
+           'num_classes': '1',
+           'num_layers': '7',
+           'optimizer': '"Adam"',
+           'show_summary': 'False'},
+ 'tiledinfer': {'images_dir': '"../../../4k_mini_test"',
+                'output_dir': '"./4k_tiled_mini_test_output"',
+                'overlapping': '64',
+                'split_size': '512'},
+ 'train': {'batch_size': '4',
+           'create_backup': 'False',
+           'dataset_splitter': 'True',
+           'epochs': '100',
+           'eval_dir': '"./eval"',
+           'image_datapath': '"../../../dataset/MultipleMyeloma/train/images/"',
+           'learning_rate_reducer': 'True',
+           'mask_datapath': '"../../../dataset/MultipleMyeloma/train/masks/"',
+           'metrics': '["binary_accuracy", "val_binary_accuracy"]',
+           'model_dir': '"./models"',
+           'patience': '10',
+           'reducer_patience': '5'}}
+=== activation mish
+Input image_height 512 image_width 512 image_channels 3
+=== WARNING: Not found [model]  normalization, return default value False
+--- normalization False
+=== WARNING: Not found [model]  dropout_seed_fixing, return default value False
+--- dropout_seed_fixing False
+--- kernel_size   [(5, 5), (3, 3), (3, 3), (3, 3), (3, 3), (3, 3), (3, 3)]
+--- rkernel_size  [(3, 3), (3, 3), (3, 3), (3, 3), (3, 3), (5, 5)]
+=== dilations  [(2, 2), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)]
+=== rdilations [(1, 1), (1, 1), (1, 1), (1, 1), (1, 1), (2, 2)]
+--- kernel_size (5, 5)
+--- dilation (2, 2)
+--- kernel_size (3, 3)
+--- dilation (1, 1)
+--- kernel_size (3, 3)
+--- dilation (1, 1)
+--- kernel_size (3, 3)
+--- dilation (1, 1)
+--- kernel_size (3, 3)
+--- dilation (1, 1)
+--- kernel_size (3, 3)
+--- dilation (1, 1)
+--- kernel_size (3, 3)
+--- dilation (1, 1)
++++ kernel_size (3, 3)
++++ dilation (1, 1)
++++ kernel_size (3, 3)
++++ dilation (1, 1)
++++ kernel_size (3, 3)
++++ dilation (1, 1)
++++ kernel_size (3, 3)
++++ dilation (1, 1)
++++ kernel_size (3, 3)
++++ dilation (1, 1)
++++ kernel_size (5, 5)
++++ dilation (2, 2)
+--- clipvalue 0.5
+=== Optimizer Adam learning_rate 0.0001 clipvalue 0.5 
+--- loss    <function bce_dice_loss at 0x0000021CC0CD9F30>
+--- metrics [<function binary_accuracy at 0x0000021CC0982B90>]
+=== WARNING: Not found [train]  show_history, return default value False
+
+E:\unet-master\Tensorflow-Image-Segmentation-API>python ./src/TensorflowUNet3Plus.py     ./projects/TensorflowUNet3Plus/MultipleMyeloma/train_eval_infer.config 
+=== os.environ['PYTHONHASHSEED']         0
+=== GPU Name: /physical_device:GPU:0   Type: GPU
+=== random.seed 137
+=== numpy.random.seed 137
+=== tf.random.set_seed(137)
+=== tensorflow.python.framework random_seed(137)
+=== cv2.setRNGSeed (137)
+==== ConfigParser ./projects/TensorflowUNet3Plus/MultipleMyeloma/train_eval_infer.config
+==== ConfigParser ./projects/TensorflowUNet3Plus/MultipleMyeloma/train_eval_infer.config
+{'dataset': {'datasetclass': '"ImageMaskDataset"',
+             'resize_interpolation': '"cv2.INTER_CUBIC"'},
+ 'eval': {'image_datapath': '"../../../dataset/MultipleMyeloma/valid/images/"',
+          'mask_datapath': '"../../../dataset/MultipleMyeloma/valid/masks/"'},
+ 'infer': {'images_dir': '"../../../4k_mini_test"',
+           'output_dir': '"./4k_mini_test_output"'},
+ 'mask': {'binarize': 'True', 'blur': 'False', 'threshold': '128'},
+ 'model': {'activation': '"mish"',
+           'base_filters': '16',
+           'clipvalue': '0.2',
+           'dilation': '(1,1)',
+           'dropout_rate': '0.02',
+           'generator': 'False',
+           'image_channels': '3',
+           'image_height': '256',
+           'image_width': '256',
+           'learning_rate': '0.0001',
+           'loss': '"bce_dice_loss"',
+           'metrics': '["binary_accuracy"]',
+           'model': '"TensorflowUNet3Plus"',
+           'num_classes': '1',
+           'num_layers': '6',
+           'optimizer': '"Adam"',
+           'show_summary': 'False'},
+ 'tiledinfer': {'images_dir': '"../../../4k_mini_test"',
+                'output_dir': '"./4k_tiled_mini_test_output"',
+                'overlapping': '64'},
+ 'train': {'batch_size': '4',
+           'create_backup': 'False',
+           'dataset_splitter': 'True',
+           'epochs': '100',
+           'eval_dir': '"./eval"',
+           'image_datapath': '"../../../dataset/MultipleMyeloma/train/images/"',
+           'learning_rate_reducer': 'True',
+           'mask_datapath': '"../../../dataset/MultipleMyeloma/train/masks/"',
+           'metrics': '["binary_accuracy", "val_binary_accuracy"]',
+           'model_dir': '"./models"',
+           'patience': '10',
+           'reducer_patience': '5',
+           'save_model_file': '"best_model.h5"'}}
+=== activation mish
+=== TensorflowUNet3Plus  create ...
+=== dropout_rate 0.02
+--- filters [16, 32, 64, 128, 256, 512]
+--- clipvalue 0.2
+=== Optimizer Adam learning_rate 0.0001 clipvalue 0.2 
+--- loss    <function bce_dice_loss at 0x00000140B9B4E050>
+--- metrics [<function binary_accuracy at 0x00000140B96FC160>]
+=== WARNING: Not found [train]  show_history, return default value False
