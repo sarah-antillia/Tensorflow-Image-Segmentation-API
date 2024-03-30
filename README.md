@@ -1,5 +1,4 @@
 <h2> Tensorflow-Image-Segmentation-API (Updated: 2024/04/01)</h2>
-
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -12,7 +11,6 @@
 <li><a href="#9">9 TensorflowSharpUNet</a></li>
 <li><a href="#10">10 TensorflowU2Net</a></li>
 <li><a href="#11">11 TensorflowEfficientNetB7UNet</a></li>
-
 <li><a href="#20">20 Image Segmentation Experimental projects</a></li>
 <li><a href="#99">Python Code citations</a></li>
 <li><a href="#100">Dataset citations</a></li>
