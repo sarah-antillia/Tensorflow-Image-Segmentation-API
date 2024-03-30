@@ -62,16 +62,20 @@ seedreset_callback = True
 # Added dataset_splitter flag to [train] section.
 #; Enable splitting dataset into train and valid if True.
 #dataset_splitter = True
-
 """
 #; Enable splitting dataset into train and valid if True.
 [train]
 #dataset_splitter = True
 
 # 2023/10/27
-
 dataset_splitter = self.config.get(TRAIN, "dataset_splitter", dvalue=False) 
 
+"""
+
+# 2024/03/28
+"""
+Added 'plot_line_graphs' method to <a href="./src/TensorflowUNet.py">TensorflowUNet</a> class 
+to plot line_graphs for <i>train_eval.csv</i> and <i>train_losses.csv</i> generated through the training-process.</li>
 """
 
 import os
@@ -112,13 +116,9 @@ import tensorflow as tf
 tf.compat.v1.disable_eager_execution()
 
 from PIL import Image, ImageFilter, ImageOps
-
 from tensorflow.keras.layers import Lambda
-
 from tensorflow.keras.layers import Input
-
 from tensorflow.keras.layers import Conv2D, Dropout, Conv2D, MaxPool2D, BatchNormalization
-
 from tensorflow.keras.layers import Conv2DTranspose
 from tensorflow.keras.layers import concatenate
 from tensorflow.keras.activations import relu
@@ -131,17 +131,17 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLRO
 
 # 2023/10/20
 from tensorflow.python.framework import random_seed
-
 from EpochChangeCallback import EpochChangeCallback
 from GrayScaleImageWriter import GrayScaleImageWriter
 
-#2023/10/26
 from SeedResetCallback       import SeedResetCallback
 from losses import dice_coef, basnet_hybrid_loss, sensitivity, specificity
-# 2024/02/22 Added bce_dice_loss
 from losses import iou_coef, iou_loss, bce_iou_loss, dice_loss,  bce_dice_loss
 
 from mish import mish
+
+from LineGraphPlotter import LineGraphPlotter
+
 
 gpus = tf.config.list_physical_devices('GPU')
 for gpu in gpus:
@@ -161,72 +161,66 @@ print("=== numpy.random.seed {}".format(SEED))
 tf.random.set_seed(SEED)
 print("=== tf.random.set_seed({})".format(SEED))
 
-# 2023/10/24
 # See https://www.tensorflow.org/community/contribute/tests
 # Always seed any source of stochasticity
 random_seed.set_seed(SEED)
 print("=== tensorflow.python.framework random_seed({})".format(SEED))
 
-#2023/10/23
 # Disable OpenCL and disable multi-threading.
 #cv2.ocl.setUseOpenCL(False)
 #cv2.setNumThreads(1)
-
 cv2.setRNGSeed(SEED)
 print("=== cv2.setRNGSeed ({})".format(SEED))
 
 #See: https://www.tensorflow.org/api_docs/python/tf/keras/metrics
 #Module: tf.keras.metrics
-
 #See also: https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/keras/engine/training.py
 
 MODEL  = "model"
 TRAIN  = "train"
 INFER  = "infer"
 EVAL   = "eval"
+MASK   = "mask"
 SEGMENTATION = "segmentation"
-
-# 2023/06/10
 TILEDINFER = "tiledinfer"
-
 BEST_MODEL_FILE = "best_model.h5"
 
-
 class TensorflowUNet:
-
   def __init__(self, config_file):
     #self.set_seed()
     self.seed        = SEED
     self.config_file = config_file
     self.config    = ConfigParser(config_file)
-     
     self.config.dump_all()
 
     image_height   = self.config.get(MODEL, "image_height")
     image_width    = self.config.get(MODEL, "image_width")
     image_channels = self.config.get(MODEL, "image_channels")
     num_classes    = self.config.get(MODEL, "num_classes")
+    # 204/03/30
+    self.num_classes = num_classes
+    self.tiledinfer_binarize =self.config.get(TILEDINFER,   "binarize", dvalue=True) 
+    self.tiledinfer_threshold = self.config.get(TILEDINFER, "threshold", dvalue=60)
+
     base_filters   = self.config.get(MODEL, "base_filters")
     num_layers     = self.config.get(MODEL, "num_layers")
-    # 2024/02/28: Added  
+      
     activatation    = self.config.get(MODEL, "activation", dvalue="relu")
     self.activation = eval(activatation)
     print("=== activation {}".format(activatation))
-    # 
 
     self.model     = self.create(num_classes, image_height, image_width, image_channels, 
-                            base_filters = base_filters, num_layers = num_layers)
-    
+                            base_filters = base_filters, num_layers = num_layers)  
     learning_rate  = self.config.get(MODEL, "learning_rate")
     clipvalue      = self.config.get(MODEL, "clipvalue", 0.2)
     print("--- clipvalue {}".format(clipvalue))
-  # 2023/11/10
+  
     optimizer = self.config.get(MODEL, "optimizer", dvalue="Adam")
     if optimizer == "Adam":
       self.optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate,
          beta_1=0.9, 
          beta_2=0.999, 
-         clipvalue=clipvalue,  #2023/06/26
+         clipvalue=clipvalue, 
          amsgrad=False)
       print("=== Optimizer Adam learning_rate {} clipvalue {} ".format(learning_rate, clipvalue))
     
@@ -239,7 +233,6 @@ class TensorflowUNet:
             
     self.model_loaded = False
 
-    # 2023/05/20 Modified to read loss and metrics from train_eval_infer.config file.
     binary_crossentropy = tf.keras.metrics.binary_crossentropy
     binary_accuracy     = tf.keras.metrics.binary_accuracy
     # Default loss and metrics functions
@@ -247,7 +240,6 @@ class TensorflowUNet:
     self.metrics = [binary_accuracy]
     
     # Read a loss function name from our config file, and eval it.
-    # loss = "binary_crossentropy"
     self.loss  = eval(self.config.get(MODEL, "loss"))
 
     # Read a list of metrics function names, and eval each of the list,
@@ -255,21 +247,16 @@ class TensorflowUNet:
     metrics  = self.config.get(MODEL, "metrics")
     self.metrics = []
     for metric in metrics:
-      self.metrics.append(eval(metric))
-    
+      self.metrics.append(eval(metric))    
     print("--- loss    {}".format(self.loss))
     print("--- metrics {}".format(self.metrics))
     
-    #self.model.trainable = self.trainable
-
     self.model.compile(optimizer = self.optimizer, loss= self.loss, metrics = self.metrics)
    
     show_summary = self.config.get(MODEL, "show_summary")
     if show_summary:
       self.model.summary()
-
     self.show_history = self.config.get(TRAIN, "show_history", dvalue=False)
-
 
   def create(self, num_classes, image_height, image_width, image_channels,
             base_filters = 16, num_layers = 5):
@@ -292,7 +279,6 @@ class TensorflowUNet:
     pool_size   = (2, 2)
     dilation    = (2, 2)
     strides     = (1, 1)
-    # <experiment on="2023/06/20">
     # [model] 
     # Specify a tuple of base kernel size of odd number something like this: 
     # base_kernels = (5,5)
@@ -318,7 +304,7 @@ class TensorflowUNet:
       if d1 == d2:
         dilation = dilation_
     except:
-      pass
+      traceback.print_exc()
 
     dilations = []
     (d, d) = dilation
@@ -329,7 +315,6 @@ class TensorflowUNet:
         d = 1
     rdilations = dilations[::-1]
     rdilations = rdilations[1:]
-
     print("=== dilations  {}".format(dilations))
     print("=== rdilations {}".format(rdilations))
 
@@ -337,27 +322,21 @@ class TensorflowUNet:
       filters = base_filters * (2**i)
       kernel_size = kernel_sizes[i] 
       dilation = dilations[i]
-      
       print("--- kernel_size {}".format(kernel_size))
       print("--- dilation {}".format(dilation))
       
       c = tf.keras.layers.Conv2D(filters, kernel_size, strides=strides, 
                  activation=self.activation, 
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(s)
-      # 2023/06/20
       if normalization:
         c = tf.keras.layers.BatchNormalization()(c) 
-
-      # 2023/10/31
       if dropout_seed_fixing:
         c = tf.keras.layers.Dropout(dropout_rate * i, seed= self.seed)(c)
       else:
         c = tf.keras.layers.Dropout(dropout_rate * i)(c)
-
       c = tf.keras.layers.Conv2D(filters, kernel_size, strides=strides, 
                  activation=self.activation, 
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(c)
-      # 2023/06/25
       if normalization:
         c = tf.keras.layers.BatchNormalization()(c) 
       if i < (num_layers-1):
@@ -385,10 +364,8 @@ class TensorflowUNet:
       u = tf.keras.layers.Conv2D(filters, kernel_size, strides=strides, 
                  activation=self.activation, 
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(u)
-      # 2023/06/20
       if normalization:
         u = tf.keras.layers.BatchNormalization()(u)
-      # 2023/10/31 
       if dropout_seed_fixing:
         u = tf.keras.layers.Dropout(dropout_rate * f, seed=self.seed)(u)
       else:
@@ -397,21 +374,22 @@ class TensorflowUNet:
       u = tf.keras.layers.Conv2D(filters, kernel_size, strides=strides, 
                  activation=self.activation, 
                  kernel_initializer='he_normal', dilation_rate=dilation, padding='same')(u)
-      # 2023/06/25
       if normalization:
         u = tf.keras.layers.BatchNormalization()(u) 
       c  = u
 
     # outouts
-    outputs = tf.keras.layers.Conv2D(num_classes, (1, 1), activation='sigmoid')(c)
+    # 2024/03/28
+    activation = "softmax"
+    if num_classes == 1:
+      activation = "sigmoid"
+    outputs = tf.keras.layers.Conv2D(num_classes, (1, 1), activation=activation)(c)
 
     # create Model
     model = tf.keras.Model(inputs=[inputs], outputs=[outputs])
-
     return model
   
   def create_dirs(self, eval_dir, model_dir ):
-    # 2023/06/20
     dt_now = str(datetime.datetime.now())
     dt_now = dt_now.replace(":", "_").replace(" ", "_")
     create_backup = self.config.get(TRAIN, "create_backup", False)
@@ -435,11 +413,9 @@ class TensorflowUNet:
         print("--- Moved to {}".format(moved_dir))      
       else:
         shutil.rmtree(model_dir)
-
     if not os.path.exists(model_dir):
       os.makedirs(model_dir)
 
- 
   #2023/08/20
   # Modified the second and the third parameter can be taken  
   # (train_generator, valid_generaator ) or (x_train_images,  y_train_smasks).
@@ -457,7 +433,6 @@ class TensorflowUNet:
       metrics    = self.config.get(TRAIN, "metrics")
     except:
       pass
-    # 2023/06/20
     self.create_dirs(eval_dir, model_dir)
     # Copy current config_file to model_dir
     shutil.copy2(self.config_file, model_dir)
@@ -489,7 +464,6 @@ class TensorflowUNet:
     else:
       callbacks = [early_stopping, check_point, epoch_change]
    
-    #2023/10/25
     seedreset_callback = self.config.get(TRAIN, "seedreset_callback", dvalue=False) 
     if seedreset_callback:
       print("=== Added SeedResetCallback")
@@ -500,7 +474,6 @@ class TensorflowUNet:
       x_train = train_generator
       y_train = valid_generator
  
-      # 2023/10/27
       dataset_splitter = self.config.get(TRAIN, "dataset_splitter", dvalue=False) 
       print("=== Dataset_splitter {}".format(dataset_splitter))
 
@@ -525,8 +498,7 @@ class TensorflowUNet:
                     shuffle=False,
                     callbacks=callbacks,
                     verbose=1)
-        self.visualiz_history(history)
-
+        self.plot_line_graphs(history)
       else:
         # By the parameter setting : validation_split=0.2,
         # x_train and y_train will be split into real_train (0.8) and 0.2 real_valid (0.2) 
@@ -537,7 +509,7 @@ class TensorflowUNet:
                     shuffle=False,
                     callbacks=callbacks,
                     verbose=1)
-        self.visualiz_history(history)
+        self.plot_line_graphs(history)
 
     else:
       # train and valid dataset will be used by train_generator and valid_generator respectively
@@ -552,16 +524,17 @@ class TensorflowUNet:
                     shuffle = False,
                     callbacks=callbacks,
                     verbose=1)
-      self.visualiz_history(history)
+      self.plot_line_graphs(history)
 
-  def visualiz_history(self, history):
-    history = history.history
-    if self.show_history:
-      keys = history.keys() 
-      print("---history.keys {}".format(keys))
-      #
+  def plot_line_graphs(self, history):
+    print("=== plot_line_graph")
+    eval_dir   = self.config.get(TRAIN, "eval_dir")
+    if os.path.exists(eval_dir):
+      plotter = LineGraphPlotter()
+      plotter.plot(eval_dir)
+    else:
+      print("=== Not found " + eval_dir)
 
-  # 2023/05/09
   def load_model(self) :
     rc = False
     if  not self.model_loaded:    
@@ -580,20 +553,16 @@ class TensorflowUNet:
       #print("== Already loaded a weight file.")
     return rc
   
-  # 2023/05/05 Added newly.    
   def infer(self, input_dir, output_dir, expand=True):
     colorize = self.config.get(SEGMENTATION, "colorize", dvalue=False)
     black    = self.config.get(SEGMENTATION, "black",    dvalue="black")
     white    = self.config.get(SEGMENTATION, "white",    dvalue="white")
     blursize = self.config.get(SEGMENTATION, "blursize", dvalue=None)
-
     writer       = GrayScaleImageWriter(colorize=colorize, black=black, white=white)
 
-    # We are intereseted in png and jpg files.
     image_files  = glob.glob(input_dir + "/*.png")
     image_files += glob.glob(input_dir + "/*.jpg")
     image_files += glob.glob(input_dir + "/*.tif")
-    #2023/05/15 Added *.bmp files
     image_files += glob.glob(input_dir + "/*.bmp")
 
     width        = self.config.get(MODEL, "image_width")
@@ -606,15 +575,13 @@ class TensorflowUNet:
       if not os.path.exists(merged_dir):
         os.makedirs(merged_dir)
     except:
-      pass
+      traceback.print_exc()
 
     for image_file in image_files:
       basename = os.path.basename(image_file)
-      name     = basename.split(".")[0]
-      # <fixed> 2023/08/05 
+      name     = basename.split(".")[0]    
       img      = cv2.imread(image_file)
-      # </fixed>
-      # img = BGR format 
+      # img = BGR format
       h = img.shape[0]
       w = img.shape[1]
       # Any way, we have to resize input image to match the input size of our TensorflowUNet model.
@@ -625,10 +592,8 @@ class TensorflowUNet:
       # Resize the predicted image to be the original image size (w, h), and save it as a grayscale image.
       # Probably, this is a natural way for all humans. 
       mask = writer.save_resized(image, (w, h), output_dir, name)
-
       print("--- image_file {}".format(image_file))
       if merged_dir !=None:
-        # Resize img to the original size (w, h)
         img   = cv2.resize(img, (w, h))
         if blursize:
           img   = cv2.blur(img, blursize)
@@ -657,32 +622,19 @@ class TensorflowUNet:
         new_image = cv2.cvtColor(new_image, cv2.COLOR_RGBA2BGRA)
     return new_image
 
-  def erode_image(self, img, shape_id=2, ksize=5):
-    # shape_id takes a value in [0, 1, 2]
-    #MORPH_RECT    = 0
-    #MORPH_CROSS   = 1
-    #MORPH_ELLIPSE = 2
-    element = cv2.getStructuringElement(shape_id,
-                       (ksize, ksize), 
-                       ( -1, -1) )
-      
-    return cv2.erode(img, element)
-
   # 2023/06/05
   # 1 Split the original image to some tiled-images
   # 2 Infer segmentation regions on those images 
   # 3 Merge detected regions into one image
-  # 2023/07/01
   # Added MARGIN to cropping 
-  def infer_tiles(self, input_dir, output_dir, expand=True):
-    
+  def infer_tiles(self, input_dir, output_dir, expand=True):    
     image_files  = glob.glob(input_dir + "/*.png")
     image_files += glob.glob(input_dir + "/*.jpg")
     image_files += glob.glob(input_dir + "/*.tif")
     image_files += glob.glob(input_dir + "/*.bmp")
     MARGIN       = self.config.get(TILEDINFER, "overlapping", dvalue=0)
     print("MARGIN {}".format(MARGIN))
-
+    
     merged_dir   = None
     try:
       merged_dir = self.config.get(TILEDINFER, "merged_dir")
@@ -725,7 +677,12 @@ class TensorflowUNet:
       prediction  = predictions[0]
       whole_mask  = prediction[0]    
 
+      #whole_mask_pil = self.mask_to_image(whole_mask)
+      #whole_mask  = self.pil2cv(whole_mask_pil)
       whole_mask  = self.normalize_mask(whole_mask)
+      # 2024/03/30
+      whole_mask  = self.binarize(whole_mask)
+
       whole_mask  = cv2.resize(whole_mask, (w, h))
                 
       basename = os.path.basename(image_file)
@@ -752,7 +709,6 @@ class TensorflowUNet:
       horiz_split_num = w // split_size
       if w % split_size != 0:
         horiz_split_num += 1
-
       background = Image.new("L", (w, h), bgcolor)
 
       # Tiled image segmentation
@@ -803,7 +759,6 @@ class TensorflowUNet:
           prediction  = predictions[0]
           mask        = prediction[0]    
           mask        = self.mask_to_image(mask)
-
           # Resize the mask to the same size of the corresponding the cropped_size (cw, ch)
           mask        = mask.resize((cw, ch))
 
@@ -829,12 +784,14 @@ class TensorflowUNet:
 
       basename = os.path.basename(image_file)
       output_file = os.path.join(output_dir, basename)
-
       cv_background = self.pil2cv(background)
+
       bitwised = None
       if bitwise_blending:
         # Blend the non-tiled whole_mask and the tiled-backcround
         bitwised = cv2.bitwise_and(whole_mask, cv_background)
+        # 2024/03/30
+        bitwised = self.binarize(bitwised)
         bitwized_output_file =  os.path.join(output_dir, basename)
         cv2.imwrite(bitwized_output_file, bitwised)
       else:
@@ -842,7 +799,6 @@ class TensorflowUNet:
         background.save(output_file)
 
       print("=== Saved outputfile {}".format(output_file))
-
       if merged_dir !=None:
         img   = np.array(image)
         img   = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
@@ -854,18 +810,17 @@ class TensorflowUNet:
  
         mask  = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
         img += mask
-
         merged_file = os.path.join(merged_dir, basename)
         cv2.imwrite(merged_file, img)     
 
-  def mask_to_image(self, data, factor=255.0):
+  def mask_to_image(self, data, factor=255.0, format="RGB"):
     h = data.shape[0]
     w = data.shape[1]
     data = data*factor
     data = data.reshape([w, h])
     data = data.astype(np.uint8)
     image = Image.fromarray(data)
-    image = image.convert("RGB")
+    image = image.convert(format)
     return image
   
   def normalize_mask(self, data, factor=255.0):
@@ -876,18 +831,47 @@ class TensorflowUNet:
     data = data.astype(np.uint8)
     return data
 
+  #2024/03/30
+  def binarize(self, mask):
+    if self.num_classes == 1:
+      #algorithm = cv2.THRESH_OTSU
+      #_, mask = cv2.threshold(mask, 0, 255, algorithm)
+      if self.tiledinfer_binarize:
+        #algorithm = "cv2.THRESH_OTSU"
+        #print("--- tiled_infer: binarize {}".format(algorithm))
+        #algorithm = eval(algorithm)
+        #_, mask = cv2.threshold(mask, 0, 255, algorithm)
+        mask[mask< self.tiledinfer_threshold] =   0
+        mask[mask>=self.tiledinfer_threshold] = 255
+    else:
+      pass
+    return mask     
+  
   def evaluate(self, x_test, y_test): 
     self.load_model()
-    # 2023/08/11
     batch_size = self.config.get(EVAL, "batch_size", dvalue=4)
-    score = self.model.evaluate(x_test, y_test, 
+    print("=== evaluate batch_size {}".format(batch_size))
+    scores = self.model.evaluate(x_test, y_test, 
                                 batch_size = batch_size,
                                 verbose = 1)
-    print("Test loss    :{}".format(round(score[0], 4)))     
-    print("Test accuracy:{}".format(round(score[1], 4)))
-     
+    test_loss     = str(round(scores[0], 4))
+    test_accuracy = str(round(scores[1], 4))
+    print("Test loss    :{}".format(test_loss))     
+    print("Test accuracy:{}".format(test_accuracy))
+    # 2024/03/28 Added the following lines to write the evaluation result.
+    loss    = self.config.get(MODEL, "loss")
+    metrics = self.config.get(MODEL, "metrics")
+    metric = metrics[0]
+    evaluation_result_csv = "./evaluation.csv"    
+    with open(evaluation_result_csv, "w") as f:
+       metrics = self.model.metrics_names
+       for i, metric in enumerate(metrics):
+         score = str(round(scores[i], 4))
+         line  = metric + "," + score
+         print("--- Evaluation  metric:{}  score:{}".format(metric, score))
+         f.writelines(line + "\n")     
+    print("--- Saved {}".format(evaluation_result_csv))
 
-  # 2023/07/10
   def inspect(self, image_file='./model.png', summary_file="./summary.txt"):
     # Please download and install graphviz for your OS
     # https://www.graphviz.org/download/ 
@@ -899,9 +883,7 @@ class TensorflowUNet:
       self.model.summary(print_fn=lambda x: f.write(x + '\n'))
     print("=== Saved model summary as a text_file {}".format(summary_file))
 
-
 if __name__ == "__main__":
-
   try:
     # Default config_file
     config_file    = "./train_eval_infer.config"
@@ -910,9 +892,7 @@ if __name__ == "__main__":
       config_file= sys.argv[1]
       if not os.path.exists(config_file):
          raise Exception("Not found " + config_file)
-     
     config   = ConfigParser(config_file)
-    
     width    = config.get(MODEL, "image_width")
     height   = config.get(MODEL, "image_height")
 
@@ -921,11 +901,7 @@ if __name__ == "__main__":
     
     # Create a UNetMolde and compile
     model    = TensorflowUNet(config_file)
-    # Please download and install graphviz for your OS
-    # https://www.graphviz.org/download/ 
-    #image_file = './asset/model.png'
-    #tf.keras.utils.plot_model(model.model, to_file=image_file, show_shapes=True)
-
+ 
   except:
     traceback.print_exc()
     

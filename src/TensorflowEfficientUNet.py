@@ -105,6 +105,8 @@ class TensorflowEfficientUNet(TensorflowUNet) :
 
     print("Input image_height {} image_width {} image_channels {}".format(image_height, image_width, image_channels))
     inputs  = Input((image_height, image_width, image_channels))
+    #
+    #inputs = tf.keras.layers.Lambda(lambda x: x / 255)(inputs)
 
     weights = "imagenet"
     encoder = self.get_encoder(weights, inputs)

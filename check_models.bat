@@ -4,6 +4,8 @@ python ./src/TensorflowAttentionUNet.py ./projects/TensorflowAttentionUNet/Multi
 python ./src/TensorflowDeepLabV3Plus.py ./projects/TensorflowDeepLabV3Plus/MultipleMyeloma/train_eval_infer.config
 
 python ./src/TensorflowEfficientUNet.py ./projects/TensorflowEfficientUNet/MultipleMyeloma/train_eval_infer.config
+python ./src/TensorflowEfficientNetB7UNet.py ./projects/TensorflowEfficientNetB7UNet/MultipleMyeloma/train_eval_infer.config
+
 python ./src/TensorflowMultiResUNet.py  ./projects/TensorflowMultiResUNet/MultipleMyeloma/train_eval_infer.config
 python ./src/TensorflowSharpUNet.py     ./projects/TensorflowSharpUNet/MultipleMyeloma/train_eval_infer.config
 python ./src/TensorflowSwinUNet.py      ./projects/TensorflowSwinUNet/MultipleMyeloma/train_eval_infer.config

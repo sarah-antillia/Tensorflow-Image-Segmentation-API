@@ -13,14 +13,14 @@
 # limitations under the License.
 #
 
-# TensorflowUNetTileInfer.py
+# TensorflowUNetTileInferencer.py
 # 2023/06/08 to-arai
 
 
 import os
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
-os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="false"
+os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="true"
 
 import shutil
 import sys
@@ -34,14 +34,13 @@ from TensorflowAttentionUNet import TensorflowAttentionUNet
 from TensorflowEfficientUNet import TensorflowEfficientUNet
 from TensorflowMultiResUNet import TensorflowMultiResUNet
 from TensorflowSwinUNet import TensorflowSwinUNet
-# 2023/12/10 Added the follwoing line
 from TensorflowTransUNet import TensorflowTransUNet
-
 from TensorflowUNet3Plus import TensorflowUNet3Plus
 from TensorflowU2Net import TensorflowU2Net
 from TensorflowSharpUNet import TensorflowSharpUNet
 #from TensorflowBASNet    import TensorflowBASNet
 from TensorflowDeepLabV3Plus import TensorflowDeepLabV3Plus
+from TensorflowEfficientNetB7UNet import TensorflowEfficientNetB7UNet
 
 MODEL  = "model"
 TRAIN  = "train"
@@ -64,12 +63,10 @@ if __name__ == "__main__":
     #model          = TensorflowUNet(config_file)
     ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
     print("=== ModelClass {}".format(ModelClass))
-
     model     = ModelClass(config_file)
       
     if not os.path.exists(images_dir):
       raise Exception("Not found " + images_dir)
-    
     if os.path.exists(output_dir):
       shutil.rmtree(output_dir)
     if not os.path.exists(output_dir):

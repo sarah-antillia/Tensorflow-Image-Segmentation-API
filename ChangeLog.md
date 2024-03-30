@@ -1,4 +1,5 @@
-<h2>ChangeLog (Updated: 2024/03/20)</h2>
+<h2>ChangeLog (Updated: 2024/03/31)</h2>
+
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -76,31 +77,37 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <br>
 
 <b>2024/03/05: Updated</b><br>
-<li>2024/03/05: Modified TensorflowUNet.py to support bitwise_blending in infer_tiles method.</li>
+<li>Modified TensorflowUNet.py to support bitwise_blending in infer_tiles method.</li>
 <br>
 
 <b>2024/03/07: Updated</b><br>
-<li>2024/03/07: Updated 1.train_by_augmentor.bat and train_eval_infer_augmentor.config.</li>
+<li>Updated 1.train_by_augmentor.bat and train_eval_infer_augmentor.config.</li>
 
 <b>2024/03/08: Updated</b><br>
-<li>2024/03/08: Updated <a href="./src/TensorflowTransUNet.py">TensorflowTransUnet.py to 
+<li>Updated <a href="./src/TensorflowTransUNet.py">TensorflowTransUnet.py to 
 use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection">keras-unet-collection</a>.</li>
 
 <b>2024/03/10: Updated</b><br>
-<li>2024/03/10: Fixed a bug in infer_tiles method of TensorflowUNet.py.</li>
+<li>Fixed a bug in infer_tiles method of TensorflowUNet.py.</li>
 
 <b>2024/03/20: Updated</b><br>
-<li>2024/03/20: Added TensorflowSharpUNet.py.</li>
-<li>2024/03/20: Added TensorflowU2Net.py.</li>
+<li>Added TensorflowSharpUNet.py.</li>
+<li>Added TensorflowU2Net.py.</li>
 
 <b>2024/03/23: Updated</b><br>
-<li>2024/03/23 Modified 'create' method of TensorflowSharpUNet class to use for loops to create the encoders and decoders in 
+<li>Modified 'create' method of TensorflowSharpUNet class to use for loops to create the encoders and decoders in 
 <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py.</li>
 
 <b>2024/03/25: Updated</b><br>
-<li>2024/03/25 Refactored the constructors of subclasses of TensorFlowUNet classes to achieve a more simplified codebase.</li>
-<li>2024/03/25 Added check_models.bat.</li>
-<li>2024.03/25 Added <a href="./src/TensorflowDeepLabV3Plus.py">TensorflowDeepLabV3Plus.py</a>.</li>
+<li>Refactored the constructors of subclasses of TensorFlowUNet classes to achieve a more simplified codebase.</li>
+<li>Added check_models.bat.</li>
+<li>Added <a href="./src/TensorflowDeepLabV3Plus.py">TensorflowDeepLabV3Plus.py</a>.</li>
 
- 
+<b>2024/03/29</b><br>
+<li>Added <a href="./src/LineGraphPlotter.py">LineGraphPlotter.py</a> to plot line_graphs fo train_eval.csv and train_losses.</li>
+<li>Added 'plot_line_graphs' method to <a href="./src/TensorflowUNet.py">TensorflowUNet</a> class 
+to plot line_graphs for <i>train_eval.csv</i> and <i>train_losses.csv</i> generated through the training-process.</li>
 
+<b>2024/03/31</b><br>
+<li>Added <a href="./src/TensorflowEfficientNetB7UNet.py">TensorflowEfficientNetB7UNet.py</a>.</li>
+<li>Updated create method of <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet.py</a>.</li>

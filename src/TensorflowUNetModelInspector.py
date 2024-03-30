@@ -21,7 +21,7 @@
 import os
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
-os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="false"
+os.environ["TF_ENABLE_GPU_GARBAGE_COLLECTION"]="true"
 
 import shutil
 import sys
@@ -33,14 +33,13 @@ from TensorflowAttentionUNet import TensorflowAttentionUNet
 from TensorflowEfficientUNet import TensorflowEfficientUNet
 from TensorflowMultiResUNet import TensorflowMultiResUNet
 from TensorflowSwinUNet import TensorflowSwinUNet
-# 2023/12/10 Added the follwoing line
 from TensorflowTransUNet import TensorflowTransUNet
-
 from TensorflowUNet3Plus import TensorflowUNet3Plus
 from TensorflowU2Net import TensorflowU2Net
 from TensorflowSharpUNet import TensorflowSharpUNet
 #from TensorflowBASNet    import TensorflowBASNet
 from TensorflowDeepLabV3Plus import TensorflowDeepLabV3Plus
+from TensorflowEfficientNetB7UNet import TensorflowEfficientNetB7UNet
 
 
 MODEL   = "model"
