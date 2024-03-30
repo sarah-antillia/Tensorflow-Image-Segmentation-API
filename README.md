@@ -702,9 +702,6 @@ Please move to the <b>./projects/TensorflowTransUNet/MultipleMyeloma</b> folder<
 <br>
 <br>
 
-<!--
- -->
-
 <h2>
 <a id="9">
 9 TensorflowSharpUNet
@@ -768,10 +765,6 @@ Please move to the <b>./projects/TensorflowSharpUNet/MultipleMyeloma</b> folder<
 <br>
 <br>
 
-
-<!--
-10 
--->
 <h2>
 <a id="10">
 10 TensorflowU2Net
@@ -835,9 +828,6 @@ Please move to the <b>./projects/TensorflowU2Net/MultipleMyeloma</b> folder<br>
 <br>
 <br>
 
-<----
-11
- ---->
 <h2>
 <a id="11">
 11 TensorflowU2Net
