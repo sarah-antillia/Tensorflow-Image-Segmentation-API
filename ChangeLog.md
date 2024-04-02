@@ -1,5 +1,4 @@
 <h2>ChangeLog (Updated: 2024/04/02)</h2>
-
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
