@@ -112,6 +112,7 @@ import cv2
 from ConfigParser import ConfigParser
 
 import tensorflow as tf
+print("====== Tensorflow Version: {} ====== ".format(tf.version.VERSION))
 
 tf.compat.v1.disable_eager_execution()
 
@@ -139,9 +140,7 @@ from losses import dice_coef, basnet_hybrid_loss, sensitivity, specificity
 from losses import iou_coef, iou_loss, bce_iou_loss, dice_loss,  bce_dice_loss
 
 from mish import mish
-
-from LineGraphPlotter import LineGraphPlotter
-
+from LineGraph import LineGraph
 
 gpus = tf.config.list_physical_devices('GPU')
 for gpu in gpus:
@@ -200,6 +199,7 @@ class TensorflowUNet:
     # 204/03/30
     self.num_classes = num_classes
     self.tiledinfer_binarize =self.config.get(TILEDINFER,   "binarize", dvalue=True) 
+    print("--- tiledinfer binarize {}".format(self.tiledinfer_binarize))
     self.tiledinfer_threshold = self.config.get(TILEDINFER, "threshold", dvalue=60)
 
     base_filters   = self.config.get(MODEL, "base_filters")
@@ -260,11 +260,16 @@ class TensorflowUNet:
 
   def create(self, num_classes, image_height, image_width, image_channels,
             base_filters = 16, num_layers = 5):
-    # inputs
+    print("=== create")
     print("Input image_height {} image_width {} image_channels {}".format(image_height, image_width, image_channels))
     inputs = tf.keras.layers.Input((image_height, image_width, image_channels))
-    s= tf.keras.layers.Lambda(lambda x: x / 255)(inputs)
-    
+    input_normalize = self.config.get(MODEL, "input_normalize", dvalue=True)
+    print("--- input_normalize {}".format(input_normalize))
+    if input_normalize:
+      s= tf.keras.layers.Lambda(lambda x: x / 255)(inputs)
+    else:
+      s = inputs
+
     # normalization is False on default.
     normalization = self.config.get(MODEL, "normalization", dvalue=False)
     print("--- normalization {}".format(normalization))
@@ -416,6 +421,12 @@ class TensorflowUNet:
     if not os.path.exists(model_dir):
       os.makedirs(model_dir)
 
+  def count_files(self, dir):
+     count = 0
+     if os.path.exists(dir):
+       count = sum(len(files) for _, _, files in os.walk(dir))
+     return count
+  
   #2023/08/20
   # Modified the second and the third parameter can be taken  
   # (train_generator, valid_generaator ) or (x_train_images,  y_train_smasks).
@@ -492,24 +503,27 @@ class TensorflowUNet:
         print("--- split the master into train(0.8) and valid(0.2)")
         print("=== Start model.fit ")
         history = self.model.fit(train_x, train_y, 
-                    batch_size=batch_size, 
-                    epochs=epochs, 
+                    batch_size= batch_size, 
+                    epochs    = epochs, 
                     validation_data= (valid_x, valid_y),
-                    shuffle=False,
-                    callbacks=callbacks,
-                    verbose=1)
-        self.plot_line_graphs(history)
+                    shuffle   = False,
+                    callbacks = callbacks,
+                    verbose   = 1)
+        #self.plot_line_graphs(history)
+        epoch_change.save_eval_graphs()
+
       else:
         # By the parameter setting : validation_split=0.2,
         # x_train and y_train will be split into real_train (0.8) and 0.2 real_valid (0.2) 
         history = self.model.fit(x_train, y_train, 
                     validation_split=0.2, 
-                    batch_size=batch_size, 
-                    epochs=epochs, 
-                    shuffle=False,
-                    callbacks=callbacks,
-                    verbose=1)
-        self.plot_line_graphs(history)
+                    batch_size = batch_size, 
+                    epochs     = epochs, 
+                    shuffle    = False,
+                    callbacks  = callbacks,
+                    verbose    = 1)
+        #self.plot_line_graphs(history)
+        epoch_change.save_eval_graphs()
 
     else:
       # train and valid dataset will be used by train_generator and valid_generator respectively
@@ -517,23 +531,16 @@ class TensorflowUNet:
       validation_steps = self.config.get(TRAIN, "validation_steps", dvalue=800)
   
       history = self.model.fit(train_generator, 
-                    steps_per_epoch=steps_per_epoch,
-                    epochs=epochs, 
-                    validation_data=valid_generator,
+                    steps_per_epoch = steps_per_epoch,
+                    epochs          = epochs, 
+                    validation_data = valid_generator,
                     validation_steps= validation_steps,
-                    shuffle = False,
-                    callbacks=callbacks,
-                    verbose=1)
-      self.plot_line_graphs(history)
+                    shuffle         = False,
+                    callbacks       = callbacks,
+                    verbose         = 1)
+      #self.plot_line_graphs(history)
+      epoch_change.save_eval_graphs()
 
-  def plot_line_graphs(self, history):
-    print("=== plot_line_graph")
-    eval_dir   = self.config.get(TRAIN, "eval_dir")
-    if os.path.exists(eval_dir):
-      plotter = LineGraphPlotter()
-      plotter.plot(eval_dir)
-    else:
-      print("=== Not found " + eval_dir)
 
   def load_model(self) :
     rc = False

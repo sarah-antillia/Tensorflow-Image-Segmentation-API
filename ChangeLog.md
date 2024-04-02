@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/03/31)</h2>
+<h2>ChangeLog (Updated: 2024/04/02)</h2>
 
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
@@ -111,3 +111,10 @@ to plot line_graphs for <i>train_eval.csv</i> and <i>train_losses.csv</i> genera
 <b>2024/03/31</b><br>
 <li>Added <a href="./src/TensorflowEfficientNetB7UNet.py">TensorflowEfficientNetB7UNet.py</a>.</li>
 <li>Updated create method of <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet.py</a>.</li>
+<b>2024/04/02</b><br>
+<li>Added <a href="./src/LineGraph.py">LineGraph.py</a> to draw two line-graphs (train_metrics and train_losses).</li>
+<li>Modified <a href="./src/EpochChangeCallback.py">EpochChangeCallback</a> class to draw the line-graphs in 
+the 'on_epoch_end' method by using LineGraph class.</li>
+<li>Retrained <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a> Model
+using a modified train_eval_infer.config file</li>
+

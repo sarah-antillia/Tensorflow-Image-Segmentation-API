@@ -1,4 +1,4 @@
-<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/04/01)</h2>
+<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/04/02)</h2>
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -33,7 +33,10 @@ use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras
 to plot line_graphs for <i>train_eval.csv</i> and <i>train_losses.csv</i> generated through the training-process.</li>
 <li>2024/03/31: Added <a href="./src/TensorflowEfficientNetB7UNet.py">TensorflowEfficientNetB7UNet.py</a>.</li>
 <li>2024/03/31: Updated create method of <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet.py</a>.</li>
-
+<li>2024/04/02: Modified <a href="./src/EpochChangeCallback.py">EpochChangeCallback.py</a> to draw line-graphs in the 'on_epoch_end' method
+ by using <a href="./src/LineGraph.py">LineGraph.py.</li>
+<li>2024/04/02: Retrained <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a> Model
+</li>
 
 See also <a href="./ChangeLog.md">ChangeLog.md</a>
 <br>
@@ -241,7 +244,7 @@ Please see also our online data augmentation experiment <br>
 <br>
 
 <br>
-<h3>2.2 Dataset class (Updated:2023/11/01)</h3>
+<h3>2.2 Dataset class</h3>
 <b> Dataset Class Hierarchy </b><br>
 <a href="./src/BaseImageMaskDataset.py">BaseImageMaskDataet</a><br>
   └─ <a href="./src/ImageMaskDataset.py">ImageMaskDataset</a><br>
@@ -260,14 +263,13 @@ resize_interpolation = "cv2.INTER_CUBIC"
 <br>
 
 <br>
-<h3>2.3 Saved model (Updated:2023/11/01)</h3>
+<h3>2.3 Saved model</h3>
 
 If your would like to save and load your trained model as a saved_model, please specify empty string for <b>save_model_file</b> in
 [train] section in your <b>train_eval_infer.config</b> file. as shown below, <br>
 
 <pre>
 [train]
-;2023/11/10
 ;save_model_file = "best_model.h5"
 
 ; To save your model as a saved_model by model.save(model_dir) method,
@@ -328,9 +330,9 @@ At the end of this training process, this command will automatically generate tw
 as shown below.<br><br>
 
 <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/eval/train_metrics.csv">train_metrics.csv</a><br> 
-<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/eval/train_metrics.csv.png" width="540" height="auto"><br>
+<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/eval/train_metrics.png" width="540" height="auto"><br>
 <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/eval/train_losses.csv">train_losses.csv</a><br> 
-<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/eval/train_losses.csv.png"  width="540" height="auto"><br>
+<img src="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/eval/train_losses.png"  width="540" height="auto"><br>
 <br>
 If you would like to use the online dataset augmentation based on <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a>,
 please run the following bat file.<br>

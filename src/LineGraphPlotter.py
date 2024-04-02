@@ -14,70 +14,26 @@
 #
 # 2024/03/29 (C) antillia.com
 
-
 import os
 import sys
-import numpy as np
 
 import traceback
-import csv
 from ConfigParser import ConfigParser
 
 import matplotlib.pyplot as plt
 
-class LineGraphPlotter:
+from LineGraph import LineGraph
+
+class LineGraphPlotter(LineGraph):
   # Constructor
   def __init__(self):
-    print("=== LineGraphPlotter")
-    self.line_style          = "solid"
-    self.marker              = "o"
-    self.y_label             = "score"
-    self.output_image_format = ".png"
+    super().__init__()
 
   def plot(self, eval_dir):
     train_metrics = os.path.join(eval_dir, "train_metrics.csv")
     train_losses  = os.path.join(eval_dir, "train_losses.csv")
-
-    self.plot_csv_file(train_metrics, eval_dir)
-    self.plot_csv_file(train_losses,  eval_dir)
-
-
-  def plot_csv_file(self, csv_file, output_dir):
-    print("=== plot_csv")
-
-    rows = []
-    basename = os.path.basename(csv_file)
-
-    with open(csv_file) as f:   
-      reader = csv.reader(f)
-      rows = [row for row in reader]
-
-    header = rows.pop(0)
-
-    data = np.float_(np.array(rows).T)
-    print(header)
-
-    fig, ax = plt.subplots()
-
-    ax.plot(data[0], data[1], linestyle=self.line_style, 
-                     marker=self.marker, label= header[1])
-    ax.plot(data[0], data[2], linestyle=self.line_style, 
-                     marker=self.marker, label= header[2])
-
-    ax.set_xlabel(header[0])
-
-    ax.set_ylabel(self.y_label)
-
-    ax.legend()
-
-    plt.title(basename)
-    output_file = os.path.join(output_dir, basename + self.output_image_format)
-
-    plt.savefig(output_file)
-    print("=== Saved {}".format(output_file))
-
-    plt.close()
-    #plt.show()
+    super.plot(train_metrics)
+    super.plot(train_losses)
 
 if __name__ == "__main__":
   try:
