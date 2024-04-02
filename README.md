@@ -37,7 +37,6 @@ to plot line_graphs for <i>train_eval.csv</i> and <i>train_losses.csv</i> genera
  by using <a href="./src/LineGraph.py">LineGraph.py.</li>
 <li>2024/04/02: Retrained <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a> Model
 </li>
-
 See also <a href="./ChangeLog.md">ChangeLog.md</a>
 <br>
 <br>
