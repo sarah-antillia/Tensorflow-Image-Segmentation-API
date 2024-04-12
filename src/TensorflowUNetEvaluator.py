@@ -70,9 +70,19 @@ if __name__ == "__main__":
     print("=== DatasetClass {}".format(DatasetClass))
     dataset = DatasetClass(config_file)
 
-    target = ConfigParser.EVAL
-    if generator:
-      target = ConfigParser.TEST
+    # 2024/04/13 You may specify an evaluation section name including
+    # both image and mask datapath in [model] section.
+    """
+    ; train_eval_infer.config
+    [model]
+    evaluation="test"
+    ...
+    [test]
+    image_datapath = "../../../dataset/Breast-Cancer/test/images/"
+    mask_datapath  = "../../../dataset/Breast-Cancer/test/masks/"
+    """
+    target = config.get(ConfigParser.MODEL, "evaluation", dvalue=ConfigParser.TEST)
+    # target should be one of config-setion names TEST or EVAL or your own dataset
     x_test, y_test = dataset.create(dataset=target)
   
     model.evaluate(x_test, y_test)

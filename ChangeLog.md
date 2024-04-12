@@ -130,4 +130,7 @@ in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter
 <li>Modified the section name 'transoformer' to be 'deformation', and added a new section [distortion] to a config file.</li>
 
 <li>Updated <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a> to support distortion-augmentation.</li>
+<li> Modified <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a> to 
+be able to specify a section name wich includes the parameters for image/mask datapaths.</li>
+
 
