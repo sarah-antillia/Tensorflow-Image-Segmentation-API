@@ -46,6 +46,7 @@ TensorflowModel.py</a> </li>
 in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter.</li>
 <li>2024/04/13: Moved the section names used in config files to <a href="./src/ConfigParser.py">ConfigParser.py</a> </li>
 <li>2024/04/13: Modified the section name 'transoformer' to be 'deformation', and added a new section [distortion] to a config file.</li>
+<li>2024/04/15: Updated <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a> to support distortion-augmentation.</li>
 
 <br>
 
