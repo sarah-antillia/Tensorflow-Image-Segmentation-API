@@ -1,4 +1,4 @@
-<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/04/02)</h2>
+<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/04/13)</h2>
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -37,6 +37,18 @@ to plot line_graphs for <i>train_eval.csv</i> and <i>train_losses.csv</i> genera
  by using <a href="./src/LineGraph.py">LineGraph.py.</li>
 <li>2024/04/02: Retrained <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a> Model
 </li>
+<li>2024/04/13: Moved 'train', 'evaluate', 'infer' and some other methods in the original TensorflowUNet.py to a new 
+  <a href="./src/TensorflowModel.py">
+TensorflowModel.py</a> </li>
+<li>2024/04/13: Modified the new 'train' method in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> to be able to use valid dataset specified in [eval] section.</li
+
+<li>2024/04/13: Modified <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a> to call the new 'train' method 
+in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter.</li>
+<li>2024/04/13: Moved the section names used in config files to <a href="./src/ConfigParser.py">ConfigParser.py</a> </li>
+<li>2024/04/13: Modified the section name 'transoformer' to be 'deformation', and added a new section [distortion] to a config file.</li>
+
+<br>
+
 See also <a href="./ChangeLog.md">ChangeLog.md</a>
 <br>
 <br>
@@ -68,18 +80,21 @@ In this repository, we provide <b>Image Segmentation API</b> that supports the f
 
 <br>
 
-<b> Tensorflow UNet Class Hierarchy </b><br>
-<a href="./src/TensorflowUNet.py">TensorflowUNet</a><br>
-  ├─ <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a><br>
-  ├─ <a href="./src/TensorflowDeepLabV3Plus.py">TensorflowDeepLabV3Plus</a><br>
-  ├─ <a href="./src/TensorflowEfficientNetB7UNet.py">TensorflowEfficientNetB7UNet</a><br>
-  ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a><br>
-  ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a><br>
-  ├─ <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet</a><br>
-  ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a><br>
-  ├─ <a href="./src/TensorflowTransUNet.py">TensorflowTransUNet</a><br>
-  ├─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a><br>
-  └─ <a href="./src/TensorflowU2Net.py">TensorflowU2Net</a><br>
+<b> Tensorflow UNet Class Hierarchy (Updated: 2024/04/13)</b><br>
+<pre>
+<a href="./src/TensorflowModel.py">TensorflowModel</a>
+ └─<a href="./src/TensorflowUNet.py">TensorflowUNet</a>
+       ├─ <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet</a>
+       ├─ <a href="./src/TensorflowDeepLabV3Plus.py">TensorflowDeepLabV3Plus</a>
+       ├─ <a href="./src/TensorflowEfficientNetB7UNet.py">TensorflowEfficientNetB7UNet</a>
+       ├─ <a href="./src/TensorflowEfficientUNet.py">TensorflowEfficientUNet</a>
+       ├─ <a href="./src/TensorflowMultiResUNet.py">TensorflowMultiResUNet</a>
+       ├─ <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet</a>
+       ├─ <a href="./src/TensorflowSwinUNet.py">TensorflowSwinUNet</a>
+       ├─ <a href="./src/TensorflowTransUNet.py">TensorflowTransUNet</a>
+       ├─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a>
+       └─ <a href="./src/TensorflowU2Net.py">TensorflowU2Net</a>
+</pre>
   
 <br>
 We appreciate all contributors of these various UNet base implementations on the following github repositories.<br>

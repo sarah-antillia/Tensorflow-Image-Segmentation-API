@@ -34,6 +34,7 @@ import traceback
 from ConfigParser import ConfigParser
 from ImageMaskDataset import ImageMaskDataset
 from BaseImageMaskDataset import BaseImageMaskDataset
+from NormalizedImageMaskDataset import NormalizedImageMaskDataset
 
 from TensorflowUNet import TensorflowUNet
 
@@ -48,32 +49,25 @@ from TensorflowSharpUNet import TensorflowSharpUNet
 #from TensorflowBASNet    import TensorflowBASNet
 from TensorflowDeepLabV3Plus import TensorflowDeepLabV3Plus
 from TensorflowEfficientNetB7UNet import TensorflowEfficientNetB7UNet
+#from TensorflowXceptionLikeUNet import TensorflowXceptionLikeUNet
 
-MODEL   = "model"
-TRAIN   = "train"
-DATASET = "dataset"
 
 if __name__ == "__main__":
   try:
     config_file    = "./train_eval_infer.config"
     if len(sys.argv) == 2:
       config_file = sys.argv[1]
-
     config   = ConfigParser(config_file)
 
     # Create a UNetModel and compile
-    ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    ModelClass = eval(config.get(ConfigParser.MODEL, "model", dvalue="TensorflowUNet"))
     print("=== ModelClass {}".format(ModelClass))
+    # 1 Create model by call the constructor of ModelClass
     model     = ModelClass(config_file)
+    
+    
+    # 2 Call model.train()
+    model.train()
 
-    # Create a DatasetClass
-    DatasetClass = eval(config.get(DATASET, "datasetclass", dvalue="ImageMaskDataset"))
-    dataset = DatasetClass(config_file)
-    print("=== DatasetClass {}".format(dataset))
-    # Create a TRAIN dataset
-    x_train, y_train = dataset.create(dataset=TRAIN)
-
-    model.train(x_train, y_train)
-
-  except:
+  except:  
     traceback.print_exc()

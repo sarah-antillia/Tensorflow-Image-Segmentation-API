@@ -32,6 +32,7 @@ from ImageMaskDataset import ImageMaskDataset
 from TensorflowUNet import TensorflowUNet
 
 from ImageMaskDatasetGenerator import ImageMaskDatasetGenerator
+from NormalizedImageMaskDataset import NormalizedImageMaskDataset
 
 from TensorflowAttentionUNet import TensorflowAttentionUNet 
 from TensorflowEfficientUNet import TensorflowEfficientUNet
@@ -44,10 +45,7 @@ from TensorflowSharpUNet import TensorflowSharpUNet
 #from TensorflowBASNet    import TensorflowBASNet
 from TensorflowDeepLabV3Plus import TensorflowDeepLabV3Plus
 from TensorflowEfficientNetB7UNet import TensorflowEfficientNetB7UNet
-
-MODEL  = "model"
-TRAIN  = "train"
-EVAL   = "eval"
+#from TensorflowXceptionLikeUNet import TensorflowXceptionLikeUNet
 
 if __name__ == "__main__":
   try:
@@ -57,18 +55,22 @@ if __name__ == "__main__":
     config   = ConfigParser(config_file)
 
     # Create a UNetModel and compile
-    ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    ModelClass = eval(config.get(ConfigParser.MODEL, "model", dvalue="TensorflowUNet"))
     print("=== ModelClass {}".format(ModelClass))
     model     = ModelClass(config_file)
-        
-    train_gen = ImageMaskDatasetGenerator(config_file, dataset=TRAIN)
+
+    # 2024/04/13 Modified to call model.train method
+    model.train()
+
+    """    
+    train_gen = ImageMaskDatasetGenerator(config_file, dataset=ConfigParser.TRAIN)
     train_generator = train_gen.generate()
 
-    valid_gen = ImageMaskDatasetGenerator(config_file, dataset=EVAL)
+    valid_gen = ImageMaskDatasetGenerator(config_file, dataset=ConfigParser.EVAL)
     valid_generator = valid_gen.generate()
-
+   
     model.train(train_generator, valid_generator)
-
+    """    
   except:
     traceback.print_exc()
     

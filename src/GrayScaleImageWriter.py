@@ -19,6 +19,7 @@
 # 2023/05/24 to-arai
 # 2024/02/22 Added self.colorize
 # 2024/03/01 Modifie save and save_resize method to use mask_to_image method.
+# 2024/04/13 Modified save_resized method to check image mode.
 
 import os
 import cv2
@@ -58,6 +59,9 @@ class GrayScaleImageWriter:
     print("== resized to {}".format(resized))
     image = image.resize(resized)
     if self.colorize:
+       #2024/04/13 Added the following two lines
+       if image.mode != "L":
+         image = image.convert("L")
        image = ImageOps.colorize(image, black=self.black, white=self.white)
     image.save(image_filepath)
     print("=== Saved {}". format(image_filepath))

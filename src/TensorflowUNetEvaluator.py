@@ -32,6 +32,7 @@ import traceback
 from ConfigParser import ConfigParser
 from ImageMaskDataset import ImageMaskDataset
 from BaseImageMaskDataset import BaseImageMaskDataset
+from NormalizedImageMaskDataset import NormalizedImageMaskDataset
 
 from TensorflowUNet import TensorflowUNet
 from TensorflowAttentionUNet import TensorflowAttentionUNet 
@@ -45,13 +46,8 @@ from TensorflowSharpUNet import TensorflowSharpUNet
 #from TensorflowBASNet    import TensorflowBASNet
 from TensorflowDeepLabV3Plus import TensorflowDeepLabV3Plus
 from TensorflowEfficientNetB7UNet import TensorflowEfficientNetB7UNet
+#from TensorflowXceptionLikeUNet import TensorflowXceptionLikeUNet
 
-MODEL  = "model"
-TRAIN  = "train"
-EVAL   = "eval"
-TEST   = "test"
-# 2024/03/05 Added
-DATASETCLASS ="datasetclass"
 
 if __name__ == "__main__":
   try:
@@ -60,23 +56,23 @@ if __name__ == "__main__":
       config_file = sys.argv[1]
 
     config = ConfigParser(config_file)
-    generator  = config.get(MODEL, "generator", dvalue=False)
+    generator  = config.get(ConfigParser.MODEL, "generator", dvalue=False)
     print("=== TensorflowUNetEvaluator")
     print("=== config generator {}".format(generator))
 
-    ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    ModelClass = eval(config.get(ConfigParser.MODEL, "model", dvalue="TensorflowUNet"))
     print("=== ModelClass {}".format(ModelClass))
     model     = ModelClass(config_file)
 
     # Create a DatasetClass
     # 2024/03/05 MODEL -> DATASETCLASS
-    DatasetClass = eval(config.get(DATASETCLASS, "datasetclass", dvalue="ImageMaskDataset"))
+    DatasetClass = eval(config.get(ConfigParser.DATASETCLASS, "datasetclass", dvalue="ImageMaskDataset"))
     print("=== DatasetClass {}".format(DatasetClass))
     dataset = DatasetClass(config_file)
 
-    target = EVAL
+    target = ConfigParser.EVAL
     if generator:
-      target = TEST
+      target = ConfigParser.TEST
     x_test, y_test = dataset.create(dataset=target)
   
     model.evaluate(x_test, y_test)

@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/04/02)</h2>
+<h2>ChangeLog (Updated: 2024/04/13)</h2>
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -116,4 +116,16 @@ to plot line_graphs for <i>train_eval.csv</i> and <i>train_losses.csv</i> genera
 the 'on_epoch_end' method by using LineGraph class.</li>
 <li>Retrained <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a> Model
 using a modified train_eval_infer.config file</li>
+
+<b>2024/04/13</b><br>
+<li>Moved 'train', 'evaluate', 'infer' and some other methods in the original TensorflowUNet.py to a new 
+  <a href="./src/TensorflowModel.py">TensorflowModel.py</a> </li>
+<li>Modified the new 'train' method in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> to be able to 
+use valid dataset specified in [eval] section if available.</li
+
+<li>Modified <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a> to call the new 'train' method 
+in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter.</li>
+
+<li>Moved the section names used in config files to <a href="./src/ConfigParser.py">ConfigParser.py</a> </li>
+<li>Modified the section name 'transoformer' to be 'deformation', and added a new section [distortion] to a config file.</li>
 

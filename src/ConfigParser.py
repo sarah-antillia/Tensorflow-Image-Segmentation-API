@@ -26,6 +26,23 @@ import traceback
 #Comments were taken from main.py
 
 class ConfigParser:
+  # settion names of a ini file.
+  DATASET     = "dataset"
+  DATASETCLASS = "datasetclass"
+  EVAL        = "eval"
+  GENERATOR   = "generator"
+  MASK        = "mask"
+  INFER       = "infer"
+  MODEL       = "model"
+  TEST        = "test"
+  TRAIN       = "train"
+  TILEDINFER  = "tiledinfer"
+  TRANSORMER  = "transformer"
+  DEFORMATION = "deformation"
+  SEGMENTATION= "segmentation"
+  AUGMENTOR   = "augmentor"
+  DISTORTION  = "distortion"
+  INSPECCT    = "inspect"
 
   # Constructor
   # 

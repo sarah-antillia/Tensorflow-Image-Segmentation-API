@@ -16,7 +16,6 @@
 # TensorflowUNetTileInferencer.py
 # 2023/06/08 to-arai
 
-
 import os
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
@@ -28,6 +27,7 @@ import traceback
 
 from ConfigParser import ConfigParser
 from ImageMaskDataset import ImageMaskDataset
+from NormalizedImageMaskDataset import NormalizedImageMaskDataset
 
 from TensorflowUNet import TensorflowUNet
 from TensorflowAttentionUNet import TensorflowAttentionUNet 
@@ -41,14 +41,8 @@ from TensorflowSharpUNet import TensorflowSharpUNet
 #from TensorflowBASNet    import TensorflowBASNet
 from TensorflowDeepLabV3Plus import TensorflowDeepLabV3Plus
 from TensorflowEfficientNetB7UNet import TensorflowEfficientNetB7UNet
+#from TensorflowXceptionLikeUNet import TensorflowXceptionLikeUNet
 
-MODEL  = "model"
-TRAIN  = "train"
-INFER  = "infer"
-
-# Added section name [tiledinfer] to train_eval_infer.config
-
-TILEDINFER = "tiledinfer"
 
 if __name__ == "__main__":
   try:
@@ -56,12 +50,11 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
       config_file = sys.argv[1]
     config     = ConfigParser(config_file)
-    images_dir = config.get(TILEDINFER, "images_dir")
-    output_dir = config.get(TILEDINFER, "output_dir")
+    images_dir = config.get(ConfigParser.TILEDINFER, "images_dir")
+    output_dir = config.get(ConfigParser.TILEDINFER, "output_dir")
  
-    # Create a UNetMolde and compile
-    #model          = TensorflowUNet(config_file)
-    ModelClass = eval(config.get(MODEL, "model", dvalue="TensorflowUNet"))
+    # Create a UNetModel and compile
+    ModelClass = eval(config.get(ConfigParser.MODEL, "model", dvalue="TensorflowUNet"))
     print("=== ModelClass {}".format(ModelClass))
     model     = ModelClass(config_file)
       

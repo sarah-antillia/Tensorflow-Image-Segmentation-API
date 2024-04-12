@@ -20,6 +20,12 @@
 # 2023/08/27 Added shear method to augment images and masks.
 # 2023/08/28 Added elastic_transorm method to augment images and masks.
 # 2024/02/12 Modified shear method to check self.hflip and self.vflip flags
+# 2024/04/06 Added distort method.
+# 2024/04/08 Modified to use [deformation] section.
+# [deformation]
+# alpah   = 1300
+# sigmoid = 8
+# Modified method name 'elastic_transform' to 'deform' 
 
 import os
 import sys
@@ -33,29 +39,48 @@ MODEL     = "model"
 GENERATOR = "generator"
 AUGMENTOR = "augmentor"
 
+# 2024/04/06
+DEFORMATION = "deformation" 
+DISTORTION  = "distortion"
+
 class ImageMaskAugmentor:
   
   def __init__(self, config_file):
-    self.config  = ConfigParser(config_file)
-    self.debug    = self.config.get(GENERATOR, "debug",  dvalue=True)
-    self.W        = self.config.get(MODEL,     "image_width")
-    self.H        = self.config.get(MODEL,     "image_height")
-
-    self.rotation = self.config.get(AUGMENTOR, "rotation", dvalue=True)
-    self.SHRINKS  = self.config.get(AUGMENTOR, "shrinks",  dvalue=[0.8])
-    self.ANGLES   = self.config.get(AUGMENTOR, "angles",   dvalue=[60, 120, 180, 240, 300])
-    #2023/08/27
-    self.SHEARS   = self.config.get(AUGMENTOR, "shears",   dvalue=[])
-
-    self.hflip    = self.config.get(AUGMENTOR, "hflip", dvalue=True)
-    self.vflip    = self.config.get(AUGMENTOR, "vflip", dvalue=True)
-    #print("---self.hflip {}".format(self.hflip))
-    #input("----")
-    self.transformer = self.config.get(AUGMENTOR, "transformer", dvalue=False)
-    self.alpha    = self.config.get(AUGMENTOR, "alpah", dvalue=1300)
-    self.sigmoid  = self.config.get(AUGMENTOR, "sigmoid", dvalue=8)
     self.seed     = 137
   
+    self.config   = ConfigParser(config_file)
+    self.debug    = self.config.get(ConfigParser.GENERATOR, "debug",  dvalue=True)
+    self.W        = self.config.get(ConfigParser.MODEL,     "image_width")
+    self.H        = self.config.get(ConfigParser.MODEL,     "image_height")
+
+    self.rotation = self.config.get(ConfigParser.AUGMENTOR, "rotation", dvalue=True)
+    self.SHRINKS  = self.config.get(ConfigParser.AUGMENTOR, "shrinks",  dvalue=[0.8])
+    self.ANGLES   = self.config.get(ConfigParser.AUGMENTOR, "angles",   dvalue=[90, 180, 270])
+
+    self.SHEARS   = self.config.get(ConfigParser.AUGMENTOR, "shears",   dvalue=[])
+
+    self.hflip    = self.config.get(ConfigParser.AUGMENTOR, "hflip", dvalue=True)
+    self.vflip    = self.config.get(ConfigParser.AUGMENTOR, "vflip", dvalue=True)
+  
+    transformer = self.config.get(ConfigParser.AUGMENTOR, "transformer", dvalue=False)
+
+    if transformer :
+      raise Exception("Deprecated [augmentor] transformer, use deformation.") 
+     
+    self.deformation = self.config.get(ConfigParser.AUGMENTOR, "deformation", dvalue=False)
+    if self.deformation:
+      self.alpha    = self.config.get(ConfigParser.DEFORMATION, "alpah", dvalue=1300)
+      self.sigmoid  = self.config.get(ConfigParser.DEFORMATION, "sigmoid", dvalue=8)
+ 
+    # 2024/04/06
+    self.distortion = self.config.get(ConfigParser.AUGMENTOR, "distortion", dvalue=False)
+    # Distortion
+    self.gaussina_filer_rsigma = self.config.get(ConfigParser.DISTORTION, "gaussian_filter_rsigma", dvalue=40)
+    self.gaussina_filer_sigma  = self.config.get(ConfigParser.DISTORTION, "gaussian_filter_sigma",  dvalue=0.5)
+    self.distortions           = self.config.get(ConfigParser.DISTORTION, "distortions",  dvalue=[0.02])
+    self.rsigma = "sigma"  + str(self.gaussina_filer_rsigma)
+    self.sigma  = "rsigma" + str(self.gaussina_filer_sigma)
+
   # It applies  horizotanl and vertical flipping operations to image and mask repectively.
   def augment(self, IMAGES, MASKS, image, mask,
                 generated_images_dir, image_basename,
@@ -107,10 +132,17 @@ class ImageMaskAugmentor:
                  generated_images_dir, image_basename,
                  generated_masks_dir,  mask_basename )
     # 2023/08/28
-    if self.transformer:
-      self.elastic_transform(IMAGES, MASKS, image, mask,
+    #if self.transformer:
+    if self.deformation:
+      self.deform(IMAGES, MASKS, image, mask,
                  generated_images_dir, image_basename,
                  generated_masks_dir,  mask_basename )
+    # 2024/04/06
+    if self.distortion:
+      self.distort(IMAGES, MASKS, image, mask,
+                 generated_images_dir, image_basename,
+                 generated_masks_dir,  mask_basename )
+
 
   def horizontal_flip(self, image): 
     image = image[:, ::-1, :]
@@ -119,7 +151,6 @@ class ImageMaskAugmentor:
   def vertical_flip(self, image):
     image = image[::-1, :, :]
     return image
-  
   
   def rotate(self, IMAGES, MASKS, image, mask,
                 generated_images_dir, image_basename,
@@ -284,8 +315,9 @@ class ImageMaskAugmentor:
   #
   # See also
   # https://www.kaggle.com/code/jiqiujia/elastic-transform-for-data-augmentation/notebook
-
-  def elastic_transform(self, IMAGES, MASKS, image, mask,
+  # 
+  # 2024/04/08 elastic_transform -> deform
+  def deform(self, IMAGES, MASKS, image, mask,
                 generated_images_dir, image_basename,
                 generated_masks_dir,  mask_basename ):
     """Elastic deformation of images as described in [Simard2003]_.
@@ -321,13 +353,68 @@ class ImageMaskAugmentor:
     MASKS.append(deformed_mask)
 
     if self.debug:
-      image_filename = "elastic" + "_alpha_" + str(self.alpha) + "_sigmoid_" +str(self.sigmoid) + "_" + image_basename
+      image_filename = "deformed" + "_alpha_" + str(self.alpha) + "_sigmoid_" +str(self.sigmoid) + "_" + image_basename
       image_filepath  = os.path.join(generated_images_dir, image_filename)
       cv2.imwrite(image_filepath, deformed_image)
       #print("=== Saved {}".format(image_filepath))
     
-      mask_filename = "elastic" + "_alpha_" + str(self.alpha) + "_sigmoid_" +str(self.sigmoid) + "_" + mask_basename
+      mask_filename = "deformed" + "_alpha_" + str(self.alpha) + "_sigmoid_" +str(self.sigmoid) + "_" + mask_basename
       mask_filepath  = os.path.join(generated_masks_dir, mask_filename)
       cv2.imwrite(mask_filepath, deformed_mask)
 
+  # 2024/04/06 
+  # The code used here is based on the following stakoverflow web-site
+  #https://stackoverflow.com/questions/41703210/inverting-a-real-valued-index-grid/78031420#78031420
+
+  def distort(self, IMAGES, MASKS, image, mask,
+                generated_images_dir, image_basename,
+                generated_masks_dir,  mask_basename):
+    for size in self.distortions:
+      distorted_image = self.distort_one(image, size)  
+      distorted_image = distorted_image.reshape(image.shape)
+      distorted_mask  = self.distort_one(mask, size)
+      distorted_mask  = distorted_mask.reshape(mask.shape)
+
+      IMAGES.append(distorted_image)
+      MASKS.append(distorted_mask)
+
+      if self.debug:
+        image_filename = "distorted_" + str(size) + "_" + self.sigma + "_" + self.rsigma + "_" + image_basename
+
+        image_filepath  = os.path.join(generated_images_dir, image_filename)
+        cv2.imwrite(image_filepath, distorted_image)
+    
+        mask_filename = "distorted_" + str(size) + "_" + self.sigma + "_" + self.rsigma + "_" + mask_basename
+        mask_filepath  = os.path.join(generated_masks_dir, mask_filename)
+        cv2.imwrite(mask_filepath, distorted_mask)
+
+  def distort_one(self, image, size):
+    shape = (image.shape[1], image.shape[0])
+    (w, h) = shape
+    xsize = w
+    if h>w:
+      xsize = h
+    # Resize original img to a square image
+    resized = cv2.resize(image, (xsize, xsize))
+ 
+    shape   = (xsize, xsize)
+ 
+    t = np.random.normal(size = shape)
+
+    dx = gaussian_filter(t, self.gaussina_filer_rsigma, order =(0,1))
+    dy = gaussian_filter(t, self.gaussina_filer_rsigma, order =(1,0))
+    sizex = int(xsize * size)
+    sizey = int(xsize * size)
+    dx *= sizex/dx.max()  
+    dy *= sizey/dy.max()
+
+    img = gaussian_filter(image, self.gaussina_filer_sigma)
+
+    yy, xx = np.indices(shape)
+    xmap = (xx-dx).astype(np.float32)
+    ymap = (yy-dy).astype(np.float32)
+
+    distorted = cv2.remap(resized, xmap, ymap, cv2.INTER_LINEAR)
+    distorted = cv2.resize(distorted, (w, h))
+    return distorted
 

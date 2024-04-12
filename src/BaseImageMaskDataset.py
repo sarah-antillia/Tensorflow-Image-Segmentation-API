@@ -20,6 +20,7 @@
 import os
 import numpy as np
 import cv2
+from tensorflow.python.keras.utils import np_utils
 from tqdm import tqdm
 import glob
 from matplotlib import pyplot as plt
@@ -44,20 +45,21 @@ class BaseImageMaskDataset:
     print("=== BaseImageMaskDataset.constructor")
 
     self.config = ConfigParser(config_file)
-    self.image_width    = self.config.get(MODEL, "image_width")
-    self.image_height   = self.config.get(MODEL, "image_height")
-    self.image_channels = self.config.get(MODEL, "image_channels")
-    
-    self.binarize       = self.config.get(MASK, "binarize")
-    self.algorithm      = self.config.get(MASK, "algorithm", dvalue=None)
+    self.image_width    = self.config.get(ConfigParser.MODEL, "image_width")
+    self.image_height   = self.config.get(ConfigParser.MODEL, "image_height")
+    self.image_channels = self.config.get(ConfigParser.MODEL, "image_channels")
+    self.num_classes    = self.config.get(ConfigParser.MODEL, "num_classes")
+    self.binarize       = self.config.get(ConfigParser.MASK,  "binarize")
+    self.algorithm      = self.config.get(ConfigParser.MASK,  "algorithm", dvalue=None)
+    self.batch_size     = self.config.get(ConfigParser.TRAIN, "batch_size", dvalue=2)
     print("--- binarize algorithm {}".format(self.algorithm))
     if self.algorithm !=None:
       self.algorithm = eval(self.algorithm)
 
-    self.threshold      = self.config.get(MASK, "threshold")
-    self.blur_mask      = self.config.get(MASK, "blur")
+    self.threshold      = self.config.get(ConfigParser.MASK, "threshold")
+    self.blur_mask      = self.config.get(ConfigParser.MASK, "blur")
   
-    self.blur_size = self.config.get(MASK, "blur_size", dvalue=(3,3))
+    self.blur_size = self.config.get(ConfigParser.MASK, "blur_size", dvalue=(3,3))
 
 
   # If needed, please override this method in a subclass derived from this class.
@@ -67,13 +69,19 @@ class BaseImageMaskDataset:
     print("=== BaseImagMaskDataset.create dataset {}".format(dataset))
     image_datapath = self.config.get(dataset, "image_datapath")
     mask_datapath  = self.config.get(dataset, "mask_datapath")
+    print("=== create  {} {}".format(image_datapath, mask_datapath))
+
+    if not os.path.exists(image_datapath) or not os.path.exists(mask_datapath):
+       print("=== Not found datapath for dataset:{}".format(dataset))
+       return [], []
     
     image_files  = glob.glob(image_datapath + "/*.jpg")
     image_files += glob.glob(image_datapath + "/*.png")
     image_files += glob.glob(image_datapath + "/*.bmp")
     image_files += glob.glob(image_datapath + "/*.tif")
     image_files  = sorted(image_files)
-
+    mask_channels  = self.config.get(ConfigParser.MASK, "mask_channels", dvalue=1)
+   
     mask_files   = None
     if os.path.exists(mask_datapath):
       mask_files  = glob.glob(mask_datapath + "/*.jpg")
@@ -90,8 +98,15 @@ class BaseImageMaskDataset:
       raise Exception("FATAL: Not found image files")
     
     X = np.zeros((num_images, self.image_height, self.image_width, self.image_channels), dtype=np.uint8)
+    if self.num_classes == 1:
+      print("--- Single class")
+      Y = np.zeros((num_images, self.image_height, self.image_width, 1                ), dtype=bool)
+    #if self.num_classes > 1:
+    #  Y = np.zeros((num_images, self.image_height, self.image_width, self.image_channels),  dtype=bool)
 
-    Y = np.zeros((num_images, self.image_height, self.image_width, 1                ), dtype=bool)
+    else:   
+      print("--- Multi classes {}".format(self.num_classes))
+      Y = np.zeros((num_images, self.image_height, self.image_width, 1                ), dtype=np.uint8)
 
     for n, image_file in tqdm(enumerate(image_files), total=len(image_files)):
       X[n]  = self.read_image_file(image_file)
@@ -102,7 +117,10 @@ class BaseImageMaskDataset:
           #plt.show()
           cv2.waitKey(27)
           input("XX")   
-  
+    if self.num_classes >1:
+      print("=== call to_categorical ")
+      Y = np_utils.to_categorical(Y, self.num_classes)
+    print("-----Create X-len: {}  Y-len {}".format(len(X), len(Y)))
     return X, Y
 
   def read_image_file(self, image_file):
