@@ -1,4 +1,4 @@
-<h2> Tensorflow-Image-Segmentation-API (Updated: 2024/04/13)</h2>
+<h2> Tensorflow-Image-Segmentation-API V1.2(Updated: 2024/04/13)</h2>
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -80,7 +80,7 @@ In this repository, we provide <b>Image Segmentation API</b> that supports the f
 
 <br>
 
-<b> Tensorflow UNet Class Hierarchy (Updated: 2024/04/13)</b><br>
+<b> Tensorflow UNet Class Hierarchy V1.2(Updated: 2024/04/13)</b><br>
 <pre>
 <a href="./src/TensorflowModel.py">TensorflowModel</a>
  └─<a href="./src/TensorflowUNet.py">TensorflowUNet</a>
