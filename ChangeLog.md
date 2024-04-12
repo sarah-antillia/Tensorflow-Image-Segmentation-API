@@ -4,8 +4,8 @@
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
 <li>Modified TensorflowUNetTrainer.py to use datasetclass defined in the config file.</li>
 <li>Fixed bug infer_files method in TensorflowUNet class.</li>
-<br>
-<b>2023/11/01: Updated</b><br>
+
+<br><b>2023/11/01: Updated</b><br>
 <li>Updated <a href="./src/TensorflowUNet.py">TensorflowUNet.py</a> to set some random seeds and to force deterministic behavior for Tensorflow.</li>
 <li>Added an experimental <a href="./src/SeedResetCallback.py">SeedResetCallback.py</a> to src to reset some random seeds on_epoch_begin method of that callback.</li>
 <li>Updated <a href="./src/ImageMaskDataset.py">ImageMaskDataset.py</a> to read the interpolation parameter for cv2.resize from a train_eval_infer.config file.</li>
@@ -15,7 +15,7 @@
 <li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a></li>
 <li>Added <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma/train_eval_infer_image_mask_dataset_512x512.config">
 a sample train_eval_infer.config</a> to ./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</li>
-<br>
+
 <br>
 <b>2023/11/07: Updated</b><br>
 <li>Moved Development-Environment to WSL2/Ubuntu-22.04 and Tensorflow 2.14.0.</li>
@@ -24,13 +24,11 @@ a sample train_eval_infer.config</a> to ./projects/TensorflowSlightlyFlexibleUNe
 <br>
 Please note that you have to install the proper version of libraries of cuDNN and CUDA listed in 
 <a href="https://www.tensorflow.org/install/source#gpu">Tensorflow GPU</a> to your WSL2 in order to train a model of Tensorflow 2.14.0 on your GPU.<br>
-<br>
 
 <br>
 <b>2023/11/10: Updated</b><br>
 <li>Updated <a href="./src/TensorflowUNet.py">TensorflowUNet.py</a> to be able to save and load a trained model as a saved_model not only a weight_file (.h5).</li>
 <li>Updated <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a> to use a saved_model.</li>
-<br>
 
 <br>
 <b>2023/11/13: Updated</b><br>
@@ -39,22 +37,18 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <li>Modified all bat files to use TensorflowTrainer, Evaluator, Inferencer, TiledInferencer and ModelInspector.</li>
 <br>
 
-<br>
 <b>2023/11/17: Updated</b><br>
 <li>Fixed a bug of TensorflowUnet.load_model method.</li>
-<br>
 
 <br>
 <b>2023/11/21: Updated</b><br>
 <li>Updated projects/Tensorflow* model folders to support various datasets.</li>
 <li>Added ReduceLROnPlateau callback to callbacks parameter of model.fit.</li>
-<br>
 
 <br>
 <b>2023/12/04: Updated</b><br>
 <li>Fixed a bug in TensorflowUNetGeneratorTrainer.py.</li>
 <li>Added TensorflowTransUNet to ./projects.</li>
-<br>
 
 <br>
 <b>2024/02/25: Updated</b><br>
@@ -63,12 +57,10 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <li>Modified shear method to check self.hflip and self.vflip flags in ImageMaskAugmentor class.</li>
 <br>
 
-<br>
 <b>2024/02/26: Updated</b><br>
 <li>Added DatasetStatistics.py to ./src.</li>
 <br>
 
-<br>
 <b>2024/03/02: Updated</b><br>
 <li>Fixed a bug in infer_tiles method in TensorflowUNet.py.</li>
 <li>Added mish activation function to TensorflowUNet.py</li>
@@ -76,24 +68,20 @@ Please note that you have to install the proper version of libraries of cuDNN an
 <li>Updated save and save_reisze methods in GrayScaleImageWriter.py to call mask_to_image method.</li>
 <br>
 
-<br>
 <b>2024/03/04: Updated</b><br>
  <li>Removed mini_test and 4k_mini_test under projects folder.</li>
 <li>Updated TensorflowSwinUNet Tiled-image-segmentation.</li>
 <li>Updated TensorflowMultiResUNet Tiled-image-segmentation.</li>
 <li>Updated TensorflowAttentionUNet Tiled-image-segmentation.</li>
 <li>Updated TensorflowUNet3Plus Tiled-image-segmentation.</li>
-<br>
 
 <br>
 <b>2024/03/05: Updated</b><br>
 <li>Modified TensorflowUNet.py to support bitwise_blending in infer_tiles method.</li>
 <br>
 
-<br>
 <b>2024/03/07: Updated</b><br>
 <li>Updated 1.train_by_augmentor.bat and train_eval_infer_augmentor.config.</li>
-
 <br>
 <b>2024/03/08: Updated</b><br>
 <li>Updated <a href="./src/TensorflowTransUNet.py">TensorflowTransUnet.py to 
