@@ -40,7 +40,7 @@ to plot line_graphs for <i>train_eval.csv</i> and <i>train_losses.csv</i> genera
 <li>2024/04/13: Moved 'train', 'evaluate', 'infer' and some other methods in the original TensorflowUNet.py to a new 
   <a href="./src/TensorflowModel.py">
 TensorflowModel.py</a> </li>
-<li>2024/04/13: Modified the new 'train' method in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> to be able to use valid dataset specified in [eval] section.</li
+<li>2024/04/13: Modified the new 'train' method in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> to be able to use valid dataset specified in [eval] section.</li>
 
 <li>2024/04/13: Modified <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a> to call the new 'train' method 
 in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter.</li>
