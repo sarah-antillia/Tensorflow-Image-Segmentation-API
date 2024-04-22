@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/04/13)</h2>
+<h2>ChangeLog (Updated: 2024/04/22)</h2>
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -141,5 +141,14 @@ in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter
 <li>Updated <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a> to support distortion-augmentation.</li>
 <li> Modified <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a> to 
 be able to specify a section name wich includes the parameters for image/mask datapaths.</li>
+<br>
+<b>2024/04/22</b><br
+
+<li>Moved train method in TensorflowModel to <a href="./src/TensorflowUNetInferencer,py">TensorflowUNetTrainer,py</a>.</li>
+<li>Moved evaluate method in TensorflowModel to <a href="./src/TensorflowUNetEvaluator,py">TensorflowUNetEvaluator,py</a>.</li>
+<li>Moved infer method in TensorflowModel to <a href="./src/TensorflowUNetInferencer,py">TensorflowUNetInferencer,py</a>.</li>
+<li>Moved infer_tiles method in TensorflowModel to <a href="./src/TensorflowUNetTiledInferencer,py">TensorflowUNetTiledInferencer,py</a>.</li>
+<li>Added <a href="./src/TensorflowModelLoader,py">TensorflowModelLoader,py</a>.</li>
+<li>Added <a href="./src/RGB2GrayscaleImageMaskDataset,py">RGB2GrayscaleImageMaskDataset,py</a>.</li>
 
 

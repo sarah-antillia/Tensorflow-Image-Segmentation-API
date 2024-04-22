@@ -1,4 +1,4 @@
-<h2> Tensorflow-Image-Segmentation-API V1.2(Updated: 2024/04/13)</h2>
+<h2> Tensorflow-Image-Segmentation-API V1.3(Updated: 2024/04/22)</h2>
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -49,6 +49,11 @@ in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter
 <li>2024/04/13: Updated <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a> to support distortion-augmentation.</li>
 <li>2024/04/13: Modified <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a> to 
 be able to specify a section name wich includes the parameters for image/mask datapaths.</li>
+
+<li>2024/04/22: Moved train method in TensorflowModel to <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetTrainer.py</a>.</li>
+<li>2024/04/22: Moved evaluate method in TensorflowModel to <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a>.</li>
+<li>2024/04/22: Moved infer method in TensorflowModel to <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer.py</a>.</li>
+<li>2024/04/22: Moved infer_tiles method in TensorflowModel to <a href="./src/TensorflowUNetTiledInferencer.py">TensorflowUNetTiledInferencer.py</a>.</li>
 
 <br>
 

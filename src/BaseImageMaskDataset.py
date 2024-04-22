@@ -20,6 +20,8 @@
 import os
 import numpy as np
 import cv2
+import shutil
+
 from tensorflow.python.keras.utils import np_utils
 from tqdm import tqdm
 import glob
@@ -32,39 +34,91 @@ from skimage.io import imread
 import traceback
 from ConfigParser import ConfigParser
 
+"""
 MODEL  = "model"
 TRAIN  = "train"
 EVAL   = "eval"
 TEST   = "test"
 MASK   = "mask"
 IMAGE  = "image"
+"""
 
 class BaseImageMaskDataset:
 
   def __init__(self, config_file):
     print("=== BaseImageMaskDataset.constructor")
 
-    self.config = ConfigParser(config_file)
+    self.config         = ConfigParser(config_file)
     self.image_width    = self.config.get(ConfigParser.MODEL, "image_width")
     self.image_height   = self.config.get(ConfigParser.MODEL, "image_height")
     self.image_channels = self.config.get(ConfigParser.MODEL, "image_channels")
     self.num_classes    = self.config.get(ConfigParser.MODEL, "num_classes")
-    self.binarize       = self.config.get(ConfigParser.MASK,  "binarize")
+
     self.algorithm      = self.config.get(ConfigParser.MASK,  "algorithm", dvalue=None)
     self.batch_size     = self.config.get(ConfigParser.TRAIN, "batch_size", dvalue=2)
-    print("--- binarize algorithm {}".format(self.algorithm))
-    if self.algorithm !=None:
-      self.algorithm = eval(self.algorithm)
-
     self.threshold      = self.config.get(ConfigParser.MASK, "threshold")
     self.blur_mask      = self.config.get(ConfigParser.MASK, "blur")
   
-    self.blur_size = self.config.get(ConfigParser.MASK, "blur_size", dvalue=(3,3))
+    self.blur_size      = self.config.get(ConfigParser.MASK,  "blur_size", dvalue=(3,3))
+    
+    # image_format may take "rgb" which is default, or "grayscale" 
+    self.image_format   = self.config.get(ConfigParser.DATASET, "image_format", dvalue="rgb")
 
+    self.input_normalize= self.config.get(ConfigParser.DATASET, "input_normalize", dvalue=True)
+    self.debug          = self.config.get(ConfigParser.DATASET, "debug", dvalue=True)
+    self.rgb_mask       = self.config.get(ConfigParser.DATASET, "rgb_mask", dvalue=False)
+    # 2024/04/20
+    self.color_order    = self.config.get(ConfigParser.DATASET, "color_order", dvalue="bgr")
+    self.sharpening    = self.config.get(ConfigParser.DATASET, "sharpening",   dvalue=False)
+  
+    self.debug_images_dir = "./dataset_images/"
+    self.debug_masks_dir  = "./dataset_masks/"
+    self.mask_format      = self.config.get(ConfigParser.DATASET, "mask_format", dvalue="gray")
 
+    if os.path.exists(self.debug_images_dir):
+      shutil.rmtree(self.debug_images_dir)
+    if not os.path.exists(self.debug_images_dir):
+      os.makedirs(self.debug_images_dir)
+
+    if os.path.exists(self.debug_masks_dir):
+      shutil.rmtree(self.debug_masks_dir)
+    if not os.path.exists(self.debug_masks_dir):
+      os.makedirs(self.debug_masks_dir)
+  
+    # Convert white-black mask from gray-scale mask if binarize is True
+    self.binarize       = self.config.get(ConfigParser.MASK,  "binarize", dvalue=False)
+    
+    # Convert gray-scale mask from rgb-mask if grayscaling is True
+
+    self.grayscaling    = self.config.get(ConfigParser.MASK,  "grayscaling", dvalue=True)
+
+    self.image_normalize= self.config.get(ConfigParser.DATASET, "image_normalize", dvalue=False)
+    self.debug          = self.config.get(ConfigParser.DATASET, "debug",     dvalue=False)
+
+    self.image_dtype    = np.int8
+    self.mask_dtype     = bool
+    #
+    if self.image_normalize:
+      # Color Image (R,G,B) in range 0~255 to be converted in range 0~1.0
+      self.image_dtype = np.float32
+
+  
+    self.mask_dtype  = np.int32   
+
+    self.mask_colors   = self.config.get(ConfigParser.MASK,  "mask_colors", dvalue=None)
+    print("--- mask_colors {}".format(self.mask_colors))
+    print("--- num_classes {}".format(self.num_classes))
+
+    print("--- image_normalize {}".format(self.image_normalize))
+    print("--- binarize algorithm {}".format(self.algorithm))
+
+    if self.algorithm !=None:
+      self.algorithm = eval(self.algorithm)
+
+ 
   # If needed, please override this method in a subclass derived from this class.
-  def create(self, dataset = TRAIN,  debug=False):
-    if not dataset in [TRAIN, EVAL, TEST]:
+  def create(self, dataset = ConfigParser.TRAIN,  debug=False):
+    if not dataset in [ConfigParser.TRAIN, ConfigParser.EVAL, ConfigParser.TEST]:
       raise Exception("Invalid dataset")
     print("=== BaseImagMaskDataset.create dataset {}".format(dataset))
     image_datapath = self.config.get(dataset, "image_datapath")
@@ -96,47 +150,88 @@ class BaseImageMaskDataset:
     num_images  = len(image_files)
     if num_images == 0:
       raise Exception("FATAL: Not found image files")
-    
-    X = np.zeros((num_images, self.image_height, self.image_width, self.image_channels), dtype=np.uint8)
-    if self.num_classes == 1:
-      print("--- Single class")
-      Y = np.zeros((num_images, self.image_height, self.image_width, 1                ), dtype=bool)
-    #if self.num_classes > 1:
-    #  Y = np.zeros((num_images, self.image_height, self.image_width, self.image_channels),  dtype=bool)
 
-    else:   
-      print("--- Multi classes {}".format(self.num_classes))
-      Y = np.zeros((num_images, self.image_height, self.image_width, 1                ), dtype=np.uint8)
+    # image datatype    
+    # 2024/04/15
+    self.image_dtype = np.uint8
+    if self.image_normalize:
+      self.image_dtype = np.float32
+    
+    print("--- num_classes {} image data_type {}".format(self.num_classes, self.image_dtype))
+    X = np.zeros((num_images, self.image_height, self.image_width, self.image_channels),
+                 dtype=self.image_dtype)
+
+    # mask datatype
+    # 2024/04/15
+    self.mask_dtype = bool
+    if self.num_classes >1:
+      self.mask_dtype = np.int8
+      print("--- num_classes {} mask data_type  {}".format(self.num_classes, self.mask_dtype))
+    Y = np.zeros((num_images, self.image_height, self.image_width, 1, ), 
+                 dtype=self.mask_dtype)
+
 
     for n, image_file in tqdm(enumerate(image_files), total=len(image_files)):
       X[n]  = self.read_image_file(image_file)
       Y[n]  = self.read_mask_file(mask_files[n])
 
-      if debug:
-          cv2.imshow("---", Y[n])
-          #plt.show()
-          cv2.waitKey(27)
-          input("XX")   
-    if self.num_classes >1:
-      print("=== call to_categorical ")
-      Y = np_utils.to_categorical(Y, self.num_classes)
+      if self.debug:
+        basename    = os.path.basename(image_file)
+        output_file = os.path.join(self.debug_images_dir, basename)
+        cv2.imwrite(output_file, X[n])
+
+        basename    = os.path.basename(mask_files[n])
+        output_file = os.path.join(self.debug_masks_dir, basename)
+
+        print("Y shape {}".format(Y[n].shape))
+        M = Y[n]
+        back = np.zeros((self.image_width, self.image_height, 1))
+        for i in range(self.num_classes):
+          mask = M[:,:, i]
+          mask = np.expand_dims(mask, axis=-1)
+          print("---- mask shape {}".format(mask.shape))
+          back += mask
+          
+        cv2.imwrite(output_file, back)
+
+      if self.num_classes >1:
+        pass
+        #print("=== call to_categorical ")
+        #Y = np_utils.to_categorical(Y, self.num_classes)
+    print("=== X: shape {} type {}".format(X.shape, X.dtype))
+    print("=== Y: shape {} type {}".format(Y.shape, Y.dtype))
+
     print("-----Create X-len: {}  Y-len {}".format(len(X), len(Y)))
     return X, Y
+
 
   def read_image_file(self, image_file):
     image = imread(image_file)
     image = resize(image, (self.image_height, self.image_width, self.image_channels), 
                      mode='constant', 
                      preserve_range=True)
+    # 2024/04/15
+    if self.image_normalize:
+      image = image/255.0
+    image = image.astype(self.image_dtype)
     return image
   
   def read_mask_file(self, mask_file):
     mask = imread(mask_file)
-    mask = resize(mask, (self.image_height, self.image_width, 1),  
+    channel = 1
+    if self.rgb_mask:
+      channel = 3
+
+    mask = resize(mask, (self.image_height, self.image_width, channel),  
                     mode='constant', 
                     preserve_range=False, 
                     anti_aliasing=False) 
 
+    if channel == 3 and self.grayscaling:
+      mask = self.to_one_hot_mask(mask)
+      
+    mask = mask.astype(self.mask_dtype)
+    
     return mask
 
 if __name__ == "__main__":
