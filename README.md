@@ -50,7 +50,7 @@ in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter
 <li>2024/04/13: Modified <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a> to 
 be able to specify a section name wich includes the parameters for image/mask datapaths.</li>
 
-<li>2024/04/22: Moved train method in TensorflowModel to <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetTrainer.py</a>.</li>
+<li>2024/04/22: Moved train method in TensorflowModel to <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a>.</li>
 <li>2024/04/22: Moved evaluate method in TensorflowModel to <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a>.</li>
 <li>2024/04/22: Moved infer method in TensorflowModel to <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer.py</a>.</li>
 <li>2024/04/22: Moved infer_tiles method in TensorflowModel to <a href="./src/TensorflowUNetTiledInferencer.py">TensorflowUNetTiledInferencer.py</a>.</li>

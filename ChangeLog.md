@@ -144,7 +144,7 @@ be able to specify a section name wich includes the parameters for image/mask da
 <br>
 <b>2024/04/22</b><br
 
-<li>Moved train method in TensorflowModel to <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetTrainer.py</a>.</li>
+<li>Moved train method in TensorflowModel to <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a>.</li>
 <li>Moved evaluate method in TensorflowModel to <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a>.</li>
 <li>Moved infer method in TensorflowModel to <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer.py</a>.</li>
 <li>Moved infer_tiles method in TensorflowModel to <a href="./src/TensorflowUNetTiledInferencer.py">TensorflowUNetTiledInferencer.py</a>.</li>
