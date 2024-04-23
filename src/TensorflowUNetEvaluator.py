@@ -20,6 +20,9 @@
 #GENERATOR = True
 # 2024/04/22: Moved evaluate method in TensorflowModel to this class 
 
+# 2024/04/24 Fixed a bug in evaluate method.
+# ConfigParser.DATASETCLASS -> ConfigParser.DATASET
+
 import os
 import sys
 
@@ -34,6 +37,8 @@ from ConfigParser import ConfigParser
 from ImageMaskDataset import ImageMaskDataset
 from BaseImageMaskDataset import BaseImageMaskDataset
 from NormalizedImageMaskDataset import NormalizedImageMaskDataset
+# 2024/04/24 Added the following line
+from RGB2GrayscaleImageMaskDataset import RGB2GrayscaleImageMaskDataset
 
 from TensorflowUNet import TensorflowUNet
 from TensorflowAttentionUNet import TensorflowAttentionUNet 
@@ -67,8 +72,10 @@ class TensorflowUNetEvaluator:
   def evaluate(self):
     # Create a DatasetClass
     # 2024/03/05 MODEL -> DATASETCLASS
-    DatasetClass = eval(self.config.get(ConfigParser.DATASETCLASS, "datasetclass", dvalue="ImageMaskDataset"))
+    # 2024/04/24 ConfigParser.DATASETCLASS -> ConfigParser.DATASET
+    DatasetClass = eval(self.config.get(ConfigParser.DATASET, "datasetclass", dvalue="ImageMaskDataset"))
     print("=== DatasetClass {}".format(DatasetClass))
+
     dataset = DatasetClass(config_file)
 
     # 2024/04/13 You may specify an evaluation section name including

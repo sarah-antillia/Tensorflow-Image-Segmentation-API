@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/04/22)</h2>
+<h2>ChangeLog (Updated: 2024/04/24)</h2>
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -151,4 +151,9 @@ be able to specify a section name wich includes the parameters for image/mask da
 <li>Added <a href="./src/TensorflowModelLoader.py">TensorflowModelLoader.py</a>.</li>
 <li>Added <a href="./src/RGB2GrayscaleImageMaskDataset.py">RGB2GrayscaleImageMaskDataset.py</a>.</li>
 
+<br>
+<b>2024/04/24</b><br>
+<li>Fixed a bug in evaluate method of <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a>.<br>
+
+</li>
 
