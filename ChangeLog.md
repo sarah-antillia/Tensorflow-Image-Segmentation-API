@@ -154,6 +154,9 @@ be able to specify a section name wich includes the parameters for image/mask da
 <br>
 <b>2024/04/24</b><br>
 <li>Fixed a bug in evaluate method of <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a>.<br>
-
 </li>
+<b>2024/05/04</b><br>
+
+<li>Fixed a bug in infer method to colorize a mask in <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer.py</a>.</li>
+<li>Added <a href="./src/MaskColorizedWriter.py">MaskColorizedWriter.py</a>.</li> to src folder.</li>
 

@@ -64,6 +64,7 @@ class TensorflowUNetTiledInferencer(TensorflowUNetInferencer):
     self.tiledinfer_binarize =self.config.get(ConfigParser.TILEDINFER,   "binarize", dvalue=True) 
     print("--- tiledinfer binarize {}".format(self.tiledinfer_binarize))
     self.tiledinfer_threshold = self.config.get(ConfigParser.TILEDINFER, "threshold", dvalue=60)
+    self.sharpening = self.config.get(ConfigParser.TILEDINFER, "sharpening", dvalue=False)
 
     # Create a UNetMolde and compile
     #model          = TensorflowUNet(config_file)
@@ -266,7 +267,11 @@ class TensorflowUNetTiledInferencer(TensorflowUNetInferencer):
         cv2.imwrite(bitwized_output_file, bitwised)
       else:
         # Save the tiled-background. 
-        background.save(output_file)
+        if self.sharpening:
+          sharpened = self.sharpen(cv_background)
+          cv2.imwrite(output_file, sharpened)
+        else:
+          background.save(output_file)
 
       print("=== Saved outputfile {}".format(output_file))
       if merged_dir !=None:

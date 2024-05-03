@@ -32,6 +32,8 @@ import traceback
 from ConfigParser import ConfigParser
 from ImageMaskDataset import ImageMaskDataset
 from NormalizedImageMaskDataset import NormalizedImageMaskDataset
+from GrayScaleImageWriter import GrayScaleImageWriter
+from MaskColorizedWriter import MaskColorizedWriter
 
 from TensorflowUNet import TensorflowUNet
 from TensorflowAttentionUNet import TensorflowAttentionUNet 
@@ -57,7 +59,9 @@ class TensorflowUNetInferencer:
 
     self.images_dir = self.config.get(ConfigParser.INFER, "images_dir")
     self.output_dir = self.config.get(ConfigParser.INFER, "output_dir")
- 
+    # 2024/04/25
+    self.sharpening = self.config.get(ConfigParser.INFER, "sharpening", dvalue=False)
+
     # Create a UNetMolde and compile
     #model          = TensorflowUNet(config_file)
     ModelClass = eval(self.config.get(ConfigParser.MODEL, "model", dvalue="TensorflowUNet"))
@@ -76,17 +80,7 @@ class TensorflowUNetInferencer:
     if not os.path.exists(self.images_dir):
       raise Exception("Not found " + self.images_dir)
         
-  def create_gray_map(self,):
-     self.gray_map = []
-     print("---- create_gray_map {}".format(self.grayscaling))
-        
-     if self.grayscaling !=None and self.colorize_mask: 
-       (IR, IG, IB) = self.grayscaling
-       for color in self.mask_colors:
-         (b, g, r) = color
-         gray = int(IR* r + IG * g + IB * b)
-         self.gray_map += [gray]
-
+ 
   def infer(self):
     if os.path.exists(self.output_dir):
       shutil.rmtree(self.output_dir)
@@ -102,30 +96,21 @@ class TensorflowUNetInferencer:
     black    = self.config.get(ConfigParser.SEGMENTATION, "black",    dvalue="black")
     white    = self.config.get(ConfigParser.SEGMENTATION, "white",    dvalue="white")
     blursize = self.config.get(ConfigParser.SEGMENTATION, "blursize", dvalue=None)
-    #writer   = GrayScaleImageWriter(colorize=colorize, black=black, white=white)
+    writer   = GrayScaleImageWriter(colorize=colorize, black=black, white=white)
+    # 2024/05/04
+    maskcolorizer = MaskColorizedWriter(self.config)
+
     color_order = self.config.get(ConfigParser.DATASET,   "color_order", dvalue="rgb")
    
-    # 2024/04/18
-    self.mask_colors= self.config.get(ConfigParser.MASK, "mask_colors")
-    self.grayscaling = self.config.get(ConfigParser.MASK, "grayscaling", dvalue=None)
-    
     image_files  = glob.glob(input_dir + "/*.png")
     image_files += glob.glob(input_dir + "/*.jpg")
     image_files += glob.glob(input_dir + "/*.tif")
     image_files += glob.glob(input_dir + "/*.bmp")
-
     width        = self.config.get(ConfigParser.MODEL, "image_width")
     height       = self.config.get(ConfigParser.MODEL, "image_height")
-    print("--- self.grayscaling {}".format(self.grayscaling))
-    self.create_gray_map()
+  
     self.num_classes  = self.config.get(ConfigParser.MODEL, "num_classes")
-    self.mask_channels = self.config.get(ConfigParser.MASK, "mask_channels")
-    self.masks_colors_order   = self.config.get(ConfigParser.MASK, "color_order")
-    self.mask_colors   = self.config.get(ConfigParser.MASK, "mask_colors")
-    self.colorized_output_format = self.config.get(ConfigParser.INFER, 
-                                                   "colorized_output_format",
-                                                   dvalue="rgb")
-
+  
     merged_dir   = None
     
     merged_dir = self.config.get(ConfigParser.INFER, "merged_dir", dvalue=None)
@@ -134,16 +119,6 @@ class TensorflowUNetInferencer:
         shutil.rmtree(merged_dir)
       if not os.path.exists(merged_dir):
         os.makedirs(merged_dir)
-    mask_colorize = self.config.get(ConfigParser.INFER, "mask_colorize", dvalue=False)
-    if mask_colorize:
-      self.create_gray_map()
-
-    colorized_dir = self.config.get(ConfigParser.INFER, "colorized_dir", dvalue=None)
-    if mask_colorize and colorized_dir !=None:
-      if os.path.exists(colorized_dir):
-        shutil.rmtree(colorized_dir)
-      if not os.path.exists(colorized_dir):
-        os.makedirs(colorized_dir)
 
     for image_file in image_files:
       print("--- infer image_file {}".format(image_file))
@@ -163,62 +138,26 @@ class TensorflowUNetInferencer:
       image       = prediction[0]    
 
       output_filepath = os.path.join(output_dir, basename)
-
-      # You will have to resize the predicted image to be the original image size (w, h), and save it as a grayscale image.
-      mask = cv2.resize(image, (w, h), interpolation=cv2.INTER_NEAREST)
-
-      #mask = cv2.cvtColor(mask, cv2.COLOR_RGB2BGR)
-      mask = mask*255
-      mask = mask.astype(np.uint8) 
-      gray_mask = mask    # This is used for merging input image with.
-      if self.num_classes ==1:
-        print("=== Inference for a single classes {} ".format(self.num_classes))
-        cv2.imwrite(output_filepath, mask)
-        print("--- Saved {}".format(output_filepath))
-
-        if mask_colorize and os.path.exists(colorized_dir):
-          print("--- colorizing the inferred mask ")
-          mask = self.colorize_mask(mask, w, h)
-          colorized_filepath = os.path.join(colorized_dir, basename)
-          #2024/04/20 Experimental
-          #mask = cv2.medianBlur(mask, 3)
-          # colorrized_output_format = "bgr"
-
-          if self.colorized_output_format == "bgr":
-            mask = cv2.cvtColor(mask, cv2.COLOR_RGB2BGR)
-          cv2.imwrite(colorized_filepath, mask)
-          print("--- Saved {}".format(colorized_filepath))
+      # 2024/0/5/04
+      mask_colorize = self.config.get(ConfigParser.INFER, "mask_colorize", dvalue=False)
+      if mask_colorize:
+        # MakColorizer
+        gray_mask = maskcolorizer.save_mask(image, (w, h), basename, output_filepath)
       else:
-        print("=== Inference in multi classes {} ".format(self.num_classes))
-        print("----infered mask shape {}".format(image.shape))
-        # The mask used in traiing     
+        #Use GrayScaleWriter
+        gray_mask = writer.save_resized(image, (w, h), output_dir, name)
+   
       if merged_dir !=None:
         img   = cv2.resize(img, (w, h), interpolation=cv2.INTER_NEAREST)
         if blursize:
           img   = cv2.blur(img, blursize)
         #img = cv2.medianBlur(img, 3)
+        if gray_mask.ndim ==2:
+          gray_mask = cv2.cvtColor(gray_mask, cv2.COLOR_GRAY2BGR)
         img += gray_mask
         merged_file = os.path.join(merged_dir, basename)
         cv2.imwrite(merged_file, img)
         print("--- Saved {}".format(merged_file))
-
-  def colorize_mask_one(self, mask, color=(255, 255, 255), gray=0):
-    h, w = mask.shape[:2]
-    rgb_mask = np.zeros((w, h, 3), np.uint8)
-    #condition = (mask[...] == gray) 
-    condition = (mask[...] >= gray-10) & (mask[...] <= gray+10)   
-    rgb_mask[condition] = [color]  
-    return rgb_mask   
-    
-  def colorize_mask(self, img, w, h,):
-      rgb_background = np.zeros((w, h, 3), np.uint8)
-      for i in range(len(self.mask_colors)):
-        color  = self.mask_colors[i]
-        gray  = self.gray_map[i]
-        rgb_mask = self.colorize_mask_one(img, color=color, gray=gray)
-        rgb_background += rgb_mask
-      rgb_background = cv2.resize(rgb_background, (w, h), interpolation=cv2.INTER_NEAREST)
-      return rgb_background
            
   def predict(self, images, expand=True):
     predictions = []
@@ -239,7 +178,6 @@ class TensorflowUNetInferencer:
     elif new_image.shape[2] == 4: 
         new_image = cv2.cvtColor(new_image, cv2.COLOR_RGBA2BGRA)
     return new_image
-
 
 
 if __name__ == "__main__":
