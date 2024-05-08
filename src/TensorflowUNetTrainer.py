@@ -48,7 +48,7 @@ from ImageMaskDataset import ImageMaskDataset
 from BaseImageMaskDataset import BaseImageMaskDataset
 from NormalizedImageMaskDataset import NormalizedImageMaskDataset
 from RGB2GrayscaleImageMaskDataset import RGB2GrayscaleImageMaskDataset
-
+from ImageMaskDatasetGenerator import ImageMaskDatasetGenerator
 from TensorflowUNet import TensorflowUNet
 from TensorflowAttentionUNet import TensorflowAttentionUNet 
 from TensorflowEfficientUNet import TensorflowEfficientUNet

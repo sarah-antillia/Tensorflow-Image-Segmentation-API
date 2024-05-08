@@ -27,32 +27,32 @@
 # sigmoid = 8
 # Modified method name 'elastic_transform' to 'deform' 
 
-# 2024/05/10 
-
 import os
 import sys
-import glob
-import shutil
-
 import numpy as np
 import cv2
 from scipy.ndimage.interpolation import map_coordinates
 from scipy.ndimage.filters import gaussian_filter
 from ConfigParser import ConfigParser
-import traceback
+
+MODEL     = "model"
+GENERATOR = "generator"
+AUGMENTOR = "augmentor"
+
+# 2024/04/06
+DEFORMATION = "deformation" 
+DISTORTION  = "distortion"
 
 class ImageMaskAugmentor:
   
   def __init__(self, config_file):
     self.seed     = 137
+  
     self.config   = ConfigParser(config_file)
-    #self.config.dump_all()
-
-    self.debug    = self.config.get(ConfigParser.GENERATOR, "debug",   dvalue=True)
-    self.verbose =  self.config.get(ConfigParser.GENERATOR, "verbose", dvalue=False)
+    self.debug    = self.config.get(ConfigParser.GENERATOR, "debug",  dvalue=True)
     self.W        = self.config.get(ConfigParser.MODEL,     "image_width")
     self.H        = self.config.get(ConfigParser.MODEL,     "image_height")
-    
+
     self.rotation = self.config.get(ConfigParser.AUGMENTOR, "rotation", dvalue=True)
     self.SHRINKS  = self.config.get(ConfigParser.AUGMENTOR, "shrinks",  dvalue=[0.8])
     self.ANGLES   = self.config.get(ConfigParser.AUGMENTOR, "angles",   dvalue=[90, 180, 270])
@@ -62,55 +62,60 @@ class ImageMaskAugmentor:
     self.hflip    = self.config.get(ConfigParser.AUGMENTOR, "hflip", dvalue=True)
     self.vflip    = self.config.get(ConfigParser.AUGMENTOR, "vflip", dvalue=True)
   
+    transformer = self.config.get(ConfigParser.AUGMENTOR, "transformer", dvalue=False)
+
+    if transformer :
+      raise Exception("Deprecated [augmentor] transformer, use deformation.") 
+     
     self.deformation = self.config.get(ConfigParser.AUGMENTOR, "deformation", dvalue=False)
     if self.deformation:
       self.alpha    = self.config.get(ConfigParser.DEFORMATION, "alpah", dvalue=1300)
       self.sigmoid  = self.config.get(ConfigParser.DEFORMATION, "sigmoid", dvalue=8)
  
+    # 2024/04/06
     self.distortion = self.config.get(ConfigParser.AUGMENTOR, "distortion", dvalue=False)
     # Distortion
-    if self.distortion:
-      self.gaussina_filer_rsigma = self.config.get(ConfigParser.DISTORTION, "gaussian_filter_rsigma", dvalue=40)
-      self.gaussina_filer_sigma  = self.config.get(ConfigParser.DISTORTION, "gaussian_filter_sigma",  dvalue=0.5)
-      self.distortions           = self.config.get(ConfigParser.DISTORTION, "distortions",  dvalue=[0.02])
-      self.rsigma = "sigma"  + str(self.gaussina_filer_rsigma)
-      self.sigma  = "rsigma" + str(self.gaussina_filer_sigma)
+    self.gaussina_filer_rsigma = self.config.get(ConfigParser.DISTORTION, "gaussian_filter_rsigma", dvalue=40)
+    self.gaussina_filer_sigma  = self.config.get(ConfigParser.DISTORTION, "gaussian_filter_sigma",  dvalue=0.5)
+    self.distortions           = self.config.get(ConfigParser.DISTORTION, "distortions",  dvalue=[0.02])
+    self.rsigma = "sigma"  + str(self.gaussina_filer_rsigma)
+    self.sigma  = "rsigma" + str(self.gaussina_filer_sigma)
 
   # It applies  horizotanl and vertical flipping operations to image and mask repectively.
   def augment(self, IMAGES, MASKS, image, mask,
                 generated_images_dir, image_basename,
                 generated_masks_dir,  mask_basename ):
+    """ 
+    IMAGES: Python list
+    MASKS:  Python list
+    image:  OpenCV image
+    mask:   OpenCV mask
+    """
     if self.hflip:
       hflip_image = self.horizontal_flip(image) 
       hflip_mask  = self.horizontal_flip(mask) 
+      #print("--- hflp_mask shape {}".format(hflip_mask.shape))
       IMAGES.append(hflip_image )
+  
       MASKS.append( hflip_mask  )
       if self.debug:
         filepath = os.path.join(generated_images_dir, "hfliped_" + image_basename)
         cv2.imwrite(filepath, hflip_image)
-        if self.verbose:
-          print("=== Saved {}".format(filepath))
         filepath = os.path.join(generated_masks_dir,  "hfliped_" + mask_basename)
         cv2.imwrite(filepath, hflip_mask)
-        if self.verbose:
-          print("=== Saved {}".format(filepath))
 
     if self.vflip:
       vflip_image = self.vertical_flip(image)
       vflip_mask  = self.vertical_flip(mask)
-      IMAGES.append(vflip_image )
+      #print("== vflip shape {}".format(vflip_mask.shape))
+      
+      IMAGES.append(vflip_image )    
       MASKS.append( vflip_mask  )
-
       if self.debug:
         filepath = os.path.join(generated_images_dir, "vfliped_" + image_basename)
         cv2.imwrite(filepath, vflip_image)
-        if self.verbose:
-          print("=== Saved {}".format(filepath))
-
         filepath = os.path.join(generated_masks_dir,  "vfliped_" + mask_basename)
         cv2.imwrite(filepath, vflip_mask)
-        if self.verbose:
-          print("=== Saved {}".format(filepath))
 
     if self.rotation:
        self.rotate(IMAGES, MASKS, image, mask,
@@ -126,12 +131,13 @@ class ImageMaskAugmentor:
        self.shear(IMAGES, MASKS, image, mask,
                  generated_images_dir, image_basename,
                  generated_masks_dir,  mask_basename )
-
+    # 2023/08/28
+    #if self.transformer:
     if self.deformation:
       self.deform(IMAGES, MASKS, image, mask,
                  generated_images_dir, image_basename,
                  generated_masks_dir,  mask_basename )
-      
+    # 2024/04/06
     if self.distortion:
       self.distort(IMAGES, MASKS, image, mask,
                  generated_images_dir, image_basename,
@@ -153,34 +159,26 @@ class ImageMaskAugmentor:
 
       center = (self.W/2, self.H/2)
       rotate_matrix = cv2.getRotationMatrix2D(center=center, angle=angle, scale=1)
-      color  = image[2][2].tolist()
-      rotated_image = cv2.warpAffine(src=image, M=rotate_matrix, dsize=(self.W, self.H), borderValue=color)
-      color  = mask[2][2].tolist()
-      rotated_mask  = cv2.warpAffine(src=mask, M=rotate_matrix, dsize=(self.W, self.H), borderValue=color)
-      #rotated_mask  = np.expand_dims(rotated_mask, axis=-1) 
+
+      rotated_image = cv2.warpAffine(src=image, M=rotate_matrix, dsize=(self.W, self.H))
+      rotated_mask  = cv2.warpAffine(src=mask, M=rotate_matrix, dsize=(self.W, self.H))
+      IMAGES.append(rotated_image)
+      rotated_mask  = np.expand_dims(rotated_mask, axis=-1) 
+      #print("rotated_mask shape {}".format(rotated_mask.shape))
+      MASKS.append(rotated_mask)
 
       if self.debug:
         filepath = os.path.join(generated_images_dir, "rotated_" + str(angle) + "_" + image_basename)
         cv2.imwrite(filepath, rotated_image)
-        if self.verbose:
-          print("=== Saved {}".format(filepath))
         filepath = os.path.join(generated_masks_dir,  "rotated_" + str(angle) + "_" + mask_basename)
         cv2.imwrite(filepath, rotated_mask)
-        if self.verbose:
-          print("=== Saved {}".format(filepath))
   
-
-      if rotated_mask.ndim==2:
-        rotated_mask  = np.expand_dims(rotated_mask, axis=-1) 
-
-      IMAGES.append(rotated_image)
-      MASKS.append(rotated_mask)
-
 
   def shrink(self, IMAGES, MASKS, image, mask,
                 generated_images_dir, image_basename,
                 generated_masks_dir,  mask_basename ):
-
+    # 2023/08/26
+    # Added the following shrinking augmentation.
     h, w = image.shape[:2]
   
     for shrink in self.SHRINKS:
@@ -191,57 +189,51 @@ class ImageMaskAugmentor:
       
       squared_image = self.paste(resized_image, mask=False)
       squared_mask  = self.paste(resized_mask,  mask=True)
-
+      IMAGES.append(squared_image)
+      MASKS.append(squared_mask)
       if self.debug:
         ratio   = str(shrink).replace(".", "_")
         image_filename = "shrinked_" + ratio + "_" + image_basename
-        filepath  = os.path.join(generated_images_dir, image_filename)
-        cv2.imwrite(filepath, squared_image)
-        if self.verbose:
-          print("=== Saved {}".format(filepath))
+        image_filepath  = os.path.join(generated_images_dir, image_filename)
+        cv2.imwrite(image_filepath, squared_image)
+        #print("=== Saved {}".format(image_filepath))
     
         mask_filename = "shrinked_" + ratio + "_" + mask_basename
-        filepath  = os.path.join(generated_masks_dir, mask_filename)
-        cv2.imwrite(filepath, squared_mask)
-        if self.verbose:
-          print("=== Saved {}".format(filepath))
-
-      if squared_mask.ndim==2:
-        squared_mask  = np.expand_dims(squared_mask, axis=-1) 
-
-      IMAGES.append(squared_image)
-      MASKS.append(squared_mask)
-
+        mask_filepath  = os.path.join(generated_masks_dir, mask_filename)
+        cv2.imwrite(mask_filepath, squared_mask)
+        #print("=== Saved {}".format(mask_filepath))
 
 
   def paste(self, image, mask=False):
     l = len(image.shape)
    
     h, w,  = image.shape[:2]
+
     if l==3:
-      back_color = image[2][2]
-      background = np.ones((self.H, self.W, 3), dtype=np.uint8)
-      background = background * back_color
-
-      #background = np.zeros((self.H, self.W, 3), dtype=np.uint8)
-
+      background = np.zeros((self.H, self.W, 3), dtype=np.uint8)
       (b, g, r) = image[h-10][w-10] 
       #print("r:{} g:{} b:c{}".format(b,g,r))
       background += [b, g, r][::-1]
     else:
       v =  image[h-10][w-10] 
+      #print("x {}".format(v))
       image  = np.expand_dims(image, axis=-1) 
       background = np.zeros((self.H, self.W, 1), dtype=np.uint8)
       background[background !=v] = v
     x = (self.W - w)//2
     y = (self.H - h)//2
     background[y:y+h, x:x+w] = image
+
     return background
   
 
+  # Shear image and mask
+  # 2023/08/27 Added shear method to augment images and masks.
   # This method has been taken from the following code in stackoverflow.
   # https://stackoverflow.com/questions/57881430/how-could-i-implement-a-centered-shear-an-image-with-opencv
-  # Do shear, hflip and vflip the image and mask and save them 
+  
+  # 2024/02/12 Modified to check self.hflip and self.vflip flags
+
   def shear(self, IMAGES, MASKS, image, mask,
                  generated_images_dir, image_basename,
                  generated_masks_dir,  mask_basename ):
@@ -256,93 +248,66 @@ class ImageMaskAugmentor:
       M2[0,2] = -M2[0,1] * H/2 
       M2[1,2] = -M2[1,0] * W/2 
 
-      # 1 shear and image
-      color  = image[2][2].tolist()
-      sheared_image = cv2.warpAffine(image, M2, (W, H), borderValue=color)
-    
-      color  = mask[2][2].tolist()
-      sheared_mask  = cv2.warpAffine(mask,  M2, (W, H), borderValue=color)
+      sheared_image = cv2.warpAffine(image, M2, (W, H))
+      sheared_mask  = cv2.warpAffine(mask,  M2, (W, H))
 
-      if self.debug:
-        # 2 save sheared image and mask 
-        filepath = os.path.join(generated_images_dir, "sheared_" + ratio + "_" + image_basename)
-        cv2.imwrite(filepath, sheared_image)
-        if self.verbose:
-          print("=== Saved {}".format(filepath))
-
-        filepath = os.path.join(generated_masks_dir,  "sheared_" + ratio + "_" + mask_basename)
-        cv2.imwrite(filepath, sheared_mask)
-        if self.verbose:
-          print("=== Saved {}".format(filepath))
-
-      if sheared_mask.ndim == 2:
-        sheared_mask  = np.expand_dims(sheared_mask, axis=-1) 
       IMAGES.append(sheared_image)
+      #print(" shape {}".format(sheared_mask.shape))
+      sheared_mask  = np.expand_dims(sheared_mask, axis=-1) 
+
       MASKS.append(sheared_mask)
 
-  
+      # 2024/02/12
       if self.hflip:
-        # hflipp sheared image and mask
-        hflipped_sheared_image = self.horizontal_flip(sheared_image)
-        hflipped_sheared_mask  = self.horizontal_flip(sheared_mask)
+        hflipped_image  = self.horizontal_flip(sheared_image)
+        hflipped_mask   = self.horizontal_flip(sheared_mask)
 
-        if self.debug:
-          filepath = os.path.join(generated_images_dir, "hflipped_sheared_" + ratio + "_" + image_basename)
-          cv2.imwrite(filepath, hflipped_sheared_image)
-          if self.verbose:
-            print("=== Saved {}".format(filepath))
-
-          filepath = os.path.join(generated_masks_dir,  "hflipped_sheared_" + ratio + "_" + mask_basename)
-          cv2.imwrite(filepath, hflipped_sheared_mask)
-          if self.verbose:
-            print("=== Saved {}".format(filepath))
-
-        if hflipped_sheared_mask.ndim == 2:
-          hflipped_sheared_mask  = np.expand_dims(hflipped_sheared_mask, axis=-1) 
-        IMAGES.append(hflipped_sheared_image)
-        MASKS.append(hflipped_sheared_mask)
-
+        IMAGES.append(hflipped_image)
+        MASKS.append(hflipped_mask)
       if self.vflip:
+        vflipped_image  = self.vertical_flip(sheared_image)
+        vflipped_mask   = self.vertical_flip(sheared_mask)
 
-        vflipped_sheared_image  = self.vertical_flip(sheared_image)
-        vflipped_sheared_mask   = self.vertical_flip(sheared_mask)
+        IMAGES.append(vflipped_image)
+        MASKS.append(vflipped_mask)
 
-        if self.debug:
+        hvflipped_image = self.vertical_flip(hflipped_image)
+        hvflipped_mask  = self.vertical_flip(hflipped_mask)
+
+        IMAGES.append(hvflipped_image)
+        MASKS.append(hvflipped_mask)
+
+      if self.debug:
+        filepath = os.path.join(generated_images_dir, "sheared_" + ratio + "_" + image_basename)
+        cv2.imwrite(filepath, sheared_image)
+        #print("Saved {}".format(filepath))
+        filepath = os.path.join(generated_masks_dir,  "sheared_" + ratio + "_" + mask_basename)
+        cv2.imwrite(filepath, sheared_mask)
+        #print("Saved {}".format(filepath))
+        # 2024/02/12
+        if self.hflip:
+          filepath = os.path.join(generated_images_dir, "hflipped_sheared_" + ratio + "_" + image_basename)
+          cv2.imwrite(filepath, hflipped_image)
+          #print("Saved {}".format(filepath))
+          filepath = os.path.join(generated_masks_dir,  "hflipped_sheared_" + ratio + "_" + mask_basename)
+          cv2.imwrite(filepath, hflipped_mask)
+          #print("Saved {}".format(filepath))
+        if self.vflip:
           filepath = os.path.join(generated_images_dir, "vflipped_sheared_" + ratio + "_" + image_basename)
-          cv2.imwrite(filepath, vflipped_sheared_image)
-          if self.verbose:
-            print("=== Saved {}".format(filepath))
+          cv2.imwrite(filepath, vflipped_image)
+          #print("Saved {}".format(filepath))
           filepath = os.path.join(generated_masks_dir,  "vflipped_sheared_" + ratio + "_" + mask_basename)
-          cv2.imwrite(filepath, vflipped_sheared_mask)
-          if self.verbose:
-            print("=== Saved {}".format(filepath))
+          cv2.imwrite(filepath, vflipped_mask)
+          #print("Saved {}".format(filepath))
 
-        if vflipped_sheared_mask.ndim == 2:
-          vflipped_sheared_mask  = np.expand_dims(vflipped_sheared_mask, axis=-1) 
-        IMAGES.append(vflipped_sheared_image)
-        MASKS.append(vflipped_sheared_mask)
-        
-      if self.hflip and self.vflip:
-        hvflipped_sheared_image = self.vertical_flip(hflipped_sheared_image)
-        hvflipped_sheared_mask  = self.vertical_flip(hflipped_sheared_mask)
-
-        if self.debug:
           filepath = os.path.join(generated_images_dir, "hvflipped_sheared_" + ratio + "_" + image_basename)
-          cv2.imwrite(filepath, hvflipped_sheared_image)
-          if self.verbose:
-            print("=== Saved {}".format(filepath))
+          cv2.imwrite(filepath, hvflipped_image)
+          #print("Saved {}".format(filepath))
           filepath = os.path.join(generated_masks_dir,  "hvflipped_sheared_" + ratio + "_" + mask_basename)
-          cv2.imwrite(filepath, hvflipped_sheared_mask)
-          if self.verbose:
-            print("=== Saved {}".format(filepath))
+          cv2.imwrite(filepath, hvflipped_mask)
+          #print("Saved {}".format(filepath))
 
-        if hvflipped_sheared_mask.ndim == 2:
-          hvflipped_sheared_mask  = np.expand_dims(hvflipped_sheared_mask, axis=-1) 
-
-        IMAGES.append(hvflipped_sheared_image)
-        MASKS.append(hvflipped_sheared_mask)
-
-
+    
   # This method has been taken from the following code.
   # https://github.com/MareArts/Elastic_Effect/blob/master/Elastic.py
   #
@@ -351,6 +316,7 @@ class ImageMaskAugmentor:
   # See also
   # https://www.kaggle.com/code/jiqiujia/elastic-transform-for-data-augmentation/notebook
   # 
+  # 2024/04/08 elastic_transform -> deform
   def deform(self, IMAGES, MASKS, image, mask,
                 generated_images_dir, image_basename,
                 generated_masks_dir,  mask_basename ):
@@ -382,7 +348,7 @@ class ImageMaskAugmentor:
     indices = np.reshape(y+dy, (-1, 1)), np.reshape(x+dx, (-1, 1)), np.reshape(z, (-1, 1))
     deformed_mask = map_coordinates(mask, indices, order=1, mode='nearest')  
     deformed_mask = deformed_mask.reshape(mask.shape)
-    
+
     IMAGES.append(deformed_image)
     MASKS.append(deformed_mask)
 
@@ -390,15 +356,13 @@ class ImageMaskAugmentor:
       image_filename = "deformed" + "_alpha_" + str(self.alpha) + "_sigmoid_" +str(self.sigmoid) + "_" + image_basename
       image_filepath  = os.path.join(generated_images_dir, image_filename)
       cv2.imwrite(image_filepath, deformed_image)
-      if self.verbose:
-        print("=== Saved {}".format(image_filepath))
+      #print("=== Saved {}".format(image_filepath))
     
       mask_filename = "deformed" + "_alpha_" + str(self.alpha) + "_sigmoid_" +str(self.sigmoid) + "_" + mask_basename
       mask_filepath  = os.path.join(generated_masks_dir, mask_filename)
       cv2.imwrite(mask_filepath, deformed_mask)
-      if self.verbose:
-        print("=== Saved {}".format(mask_filepath))
 
+  # 2024/04/06 
   # The code used here is based on the following stakoverflow web-site
   #https://stackoverflow.com/questions/41703210/inverting-a-real-valued-index-grid/78031420#78031420
 
@@ -419,14 +383,10 @@ class ImageMaskAugmentor:
 
         image_filepath  = os.path.join(generated_images_dir, image_filename)
         cv2.imwrite(image_filepath, distorted_image)
-        if self.verbose:
-          print("=== Saved {}".format(image_filepath))
     
         mask_filename = "distorted_" + str(size) + "_" + self.sigma + "_" + self.rsigma + "_" + mask_basename
         mask_filepath  = os.path.join(generated_masks_dir, mask_filename)
         cv2.imwrite(mask_filepath, distorted_mask)
-        if self.verbose:
-          print("=== Saved {}".format(mask_filepath))
 
   def distort_one(self, image, size):
     shape = (image.shape[1], image.shape[0])

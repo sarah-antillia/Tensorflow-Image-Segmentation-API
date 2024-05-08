@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/04/24)</h2>
+<h2>ChangeLog (Updated: 2024/05/08)</h2>
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -159,4 +159,10 @@ be able to specify a section name wich includes the parameters for image/mask da
 
 <li>Fixed a bug in infer method to colorize a mask in <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer.py</a>.</li>
 <li>Added <a href="./src/MaskColorizedWriter.py">MaskColorizedWriter.py</a>.</li> to src folder.</li>
+
+<br>
+<b>2024/05/08</b><br>
+<li>Fixed some bugs to save the augmented masks to files in <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a>.</li>
+<li>Removed  TensorflowUNetGeneratorTrainer.py</li>
+<li>Fixed a bug to merge an image and a mask in infer method of <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer.py</a>.</li>
 
