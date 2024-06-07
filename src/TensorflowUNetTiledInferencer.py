@@ -47,13 +47,11 @@ from TensorflowUNetInferencer import TensorflowUNetInferencer
 from TensorflowModelLoader import TensorflowModelLoader
 from TiledInferencer import TiledInferencer
 
-class TensorflowUNetTiledInferencer(TensorflowUNetInferencer):
+class TensorflowUNetTiledInferencer:
 
   def __init__(self, config_file):
-    super().__init__(config_file)
-
     print("=== TensorflowUNetTiledInferencer.__init__ config?file {}".format(config_file))
-    
+    self.config = ConfigParser(config_file)
     # Create a UNetMolde and compile
     #model          = TensorflowUNet(config_file)
     ModelClass = eval(self.config.get(ConfigParser.MODEL, "model", dvalue="TensorflowUNet"))
