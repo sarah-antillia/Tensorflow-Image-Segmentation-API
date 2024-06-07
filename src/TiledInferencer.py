@@ -96,14 +96,12 @@ class TiledInferencer(Inferencer):
         self.num_infer_images =  1
       self.image_files = self.image_files[:self.num_infer_images]
 
-    #print("=== TiledInferencer.infer() start")
     if os.path.exists(self.output_dir):
       shutil.rmtree(self.output_dir)
     if not os.path.exists(self.output_dir):
       os.makedirs(self.output_dir)
 
   def infer(self, epoch =None):
-
     if self.on_epoch_change == False:
       print("=== TiledInferencer.infer ")
             
