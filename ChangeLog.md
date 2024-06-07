@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/05/08)</h2>
+<h2>ChangeLog (Updated: 2024/06/08)</h2>
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -130,7 +130,7 @@ using a modified train_eval_infer.config file</li>
 <li>Moved 'train', 'evaluate', 'infer' and some other methods in the original TensorflowUNet.py to a new 
   <a href="./src/TensorflowModel.py">TensorflowModel.py</a> </li>
 <li>Modified the new 'train' method in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> to be able to 
-use valid dataset specified in [eval] section if available.</li
+use valid dataset specified in [eval] section if available.</li>
 
 <li>Modified <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a> to call the new 'train' method 
 in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter.</li>
@@ -142,7 +142,7 @@ in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter
 <li> Modified <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a> to 
 be able to specify a section name wich includes the parameters for image/mask datapaths.</li>
 <br>
-<b>2024/04/22</b><br
+<b>2024/04/22</b><br>
 
 <li>Moved train method in TensorflowModel to <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a>.</li>
 <li>Moved evaluate method in TensorflowModel to <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a>.</li>
@@ -165,4 +165,20 @@ be able to specify a section name wich includes the parameters for image/mask da
 <li>Fixed some bugs to save the augmented masks to files in <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a>.</li>
 <li>Removed  TensorflowUNetGeneratorTrainer.py</li>
 <li>Fixed a bug to merge an image and a mask in infer method of <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer.py</a>.</li>
+
+<br>
+<b>2024/06/08</b><br>
+<li>Added <a href="./src/EpochChangeInferencer.py">EpochChangeInferencer.py</a> callback to infer the segmentation regions 
+for an image on epoch_changed.</li>
+<li>Added <a href="./src/EpochChangeTiledInferencer.py">EpochChangeTiledInferencer.py</a> callback to 
+tiled-infer the segmentation regions for an image on epoch_changed.</li>
+<li>Modifed <a href="./src/TensorFlowUNetTrainer.py">TensorFlowUNetTrainer</a> to be able to add
+EpochChangeInferencer and EpochChangeTiledInferencer callbacks. </li>
+
+<li>Modifed <a href="./src/TensorFlowUNetInferencer.py">TensorFlowUNetInferencer</a> to use
+<a href="./src/Inferencer.py">Inferencer.py</a>. </li>
+
+<li>Modifed <a href="./src/TensorFlowUNetTiledInferencer.py">TensorFlowUNetTiledInferencer</a> to use
+<a href="./src/TiledInferencer.py">TiledInferencer.py</a>. </li>
+
 

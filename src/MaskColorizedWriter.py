@@ -28,16 +28,19 @@ from PIL import Image, ImageOps
 
 class MaskColorizedWriter:
 
-  def __init__(self, config):
+  def __init__(self, config, verbose=True):
     print("=== MaskColorizedWriter ")
+
     self.config = config 
+    self.verbose = verbose
     #ConfigParser(config_file)
     self.num_classes  = self.config.get(ConfigParser.MODEL, "num_classes")
 
     self.mask_colors     = self.config.get(ConfigParser.MASK, "mask_colors")
     self.grayscaling     = self.config.get(ConfigParser.MASK, "grayscaling", dvalue=None)
     self.sharpening      = self.config.get(ConfigParser.MASK, "sharpening",  dvalue=False)
-    print("--- self.grayscaling {}".format(self.grayscaling))
+    if self.verbose:
+      print("--- self.grayscaling {}".format(self.grayscaling))
 
     self.mask_channels   = self.config.get(ConfigParser.MASK, "mask_channels")
     self.masks_colors_order   = self.config.get(ConfigParser.MASK, "color_order")
@@ -56,7 +59,8 @@ class MaskColorizedWriter:
         
   def create_gray_map(self,):
      self.gray_map = []
-     print("---- create_gray_map {}".format(self.grayscaling))
+     if self.verbose:
+       print("---- create_gray_map {}".format(self.grayscaling))
         
      if self.grayscaling !=None and self.mask_colorize: 
        (IR, IG, IB) = self.grayscaling
@@ -71,7 +75,6 @@ class MaskColorizedWriter:
     if self.mask_colorize:
       self.create_gray_map()
 
-
     # You will have to resize the predicted image to be the original image size (w, h), and save it as a grayscale image.
     mask = cv2.resize(image, size, interpolation=cv2.INTER_NEAREST)
 
@@ -85,12 +88,15 @@ class MaskColorizedWriter:
           mask = self.sharpen(mask)
           cv2.imwrite(output_filepath, mask)
         else:
-          print("=== Inference for a single classes {} ".format(self.num_classes))
+          if self.verbose:
+            print("=== Inference for a single classes {} ".format(self.num_classes))
           cv2.imwrite(output_filepath, mask)
-          print("--- Saved {}".format(output_filepath))
+          if self.verbose:
+            print("--- Saved {}".format(output_filepath))
 
         if self.mask_colorize and os.path.exists(self.colorized_dir):
-          print("--- colorizing the inferred mask ")
+          if self.verbose:
+            print("--- colorizing the inferred mask ")
           mask = self.colorize_mask(mask, w, h)
           colorized_filepath = os.path.join(self.colorized_dir, basename)
           #2024/04/20 Experimental
@@ -100,7 +106,8 @@ class MaskColorizedWriter:
           if self.colorized_output_format == "bgr":
             mask = cv2.cvtColor(mask, cv2.COLOR_RGB2BGR)
           cv2.imwrite(colorized_filepath, mask)
-          print("--- Saved {}".format(colorized_filepath))
+          if self.verbose:
+            print("--- Saved {}".format(colorized_filepath))
     else:
         print("=== Inference in multi classes {} ".format(self.num_classes))
         print("----infered mask shape {}".format(image.shape))

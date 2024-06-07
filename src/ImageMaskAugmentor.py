@@ -213,7 +213,6 @@ class ImageMaskAugmentor:
       MASKS.append(squared_mask)
 
 
-
   def paste(self, image, mask=False):
     l = len(image.shape)
    

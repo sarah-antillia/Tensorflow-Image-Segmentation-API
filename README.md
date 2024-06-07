@@ -1,4 +1,4 @@
-<h2> Tensorflow-Image-Segmentation-API V1.3(Updated: 2024/05/08)</h2>
+<h2> Tensorflow-Image-Segmentation-API V1.4(Updated: 2024/06/08)</h2>
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -15,56 +15,9 @@
 <li><a href="#99">Python Code citations</a></li>
 <li><a href="#100">Dataset citations</a></li>
 <br>
-<li>2024/02/25: Fixed a git-clone error. </li>
-<li>2024/03/02: Fixed a bug in infer_tiles method in TensorflowUNet.py.</li>
-<li>2024/03/05: Modified TensorflowUNet.py to support bitwise_blending in infer_tiles method.</li>
-<li>2024/03/07: Updated 1.train_by_augmentor.bat and train_eval_infer_augmentor.config.</li>
-<li>2024/03/08: Updated <a href="./src/TensorflowTransUNet.py">TensorflowTransUnet.py</a> to 
-use <a href="https://github.com/yingkaisha/keras-unet-collection/tree/main/keras_unet_collection">keras-unet-collection</a>.</li>
-<li>2024/03/10: Fixed a bug in infer_tiles method of TensorflowUNet.py.</li>
-
-<li>2024/03/20: Added <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py</a>.</li>
-<li>2024/03/20: Added <a href="./src/TensorflowU2Net.py">TensorflowU2Net.py</a>.</li>
-<li>2024/03/23: Updated <a href="./src/TensorflowSharpUNet.py">TensorflowSharpUNet.py</a>.</li>
-<li>2024/03/25: Refactored the constructors of subclasses of TensorFlowUNet to achieve a more simplified codebase.</li>
-<li>2024/03/25: Added <a href="./src/TensorflowDeepLabV3Plus.py">TensorflowDeepLabV3Plus.py</a>.</li>
-<li>2024/03/29: Added <a href="./src/LineGraphPlotter.py">LineGraphPlotter.py</a> to plot line_graphs fo train_eval.csv and train_losses.</li>
-<li>2024/03/29: Added 'plot_line_graphs' method to <a href="./src/TensorflowUNet.py">TensorflowUNet</a> class 
-to plot line_graphs for <i>train_eval.csv</i> and <i>train_losses.csv</i> generated through the training-process.</li>
-<li>2024/03/31: Added <a href="./src/TensorflowEfficientNetB7UNet.py">TensorflowEfficientNetB7UNet.py</a>.</li>
-<li>2024/03/31: Updated create method of <a href="./src/TensorflowAttentionUNet.py">TensorflowAttentionUNet.py</a>.</li>
-<li>2024/04/02: Modified <a href="./src/EpochChangeCallback.py">EpochChangeCallback.py</a> to draw line-graphs in the 'on_epoch_end' method
- by using <a href="./src/LineGraph.py">LineGraph.py.</li>
-<li>2024/04/02: Retrained <a href="./projects/TensorflowSlightlyFlexibleUNet/MultipleMyeloma">TensorflowSlightlyFlexibleUNet/MultipleMyeloma</a> Model
-</li>
-<li>2024/04/13: Moved 'train', 'evaluate', 'infer' and some other methods in the original TensorflowUNet.py to a new 
-  <a href="./src/TensorflowModel.py">
-TensorflowModel.py</a> </li>
-<li>2024/04/13: Modified the new 'train' method in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> to be able to use valid dataset specified in [eval] section.</li>
-
-<li>2024/04/13: Modified <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a> to call the new 'train' method 
-in <a href="./src/TensorflowModel.py">TensorflowModel.py</a> wihtout a parameter.</li>
-<li>2024/04/13: Moved the section names used in config files to <a href="./src/ConfigParser.py">ConfigParser.py</a> </li>
-<li>2024/04/13: Modified the section name 'transoformer' to be 'deformation', and added a new section [distortion] to a config file.</li>
-<li>2024/04/13: Updated <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a> to support distortion-augmentation.</li>
-<li>2024/04/13: Modified <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a> to 
-be able to specify a section name wich includes the parameters for image/mask datapaths.</li>
-
-<li>2024/04/22: Moved train method in TensorflowModel to <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a>.</li>
-<li>2024/04/22: Moved evaluate method in TensorflowModel to <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a>.</li>
-<li>2024/04/22: Moved infer method in TensorflowModel to <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer.py</a>.</li>
-<li>2024/04/22: Moved infer_tiles method in TensorflowModel to <a href="./src/TensorflowUNetTiledInferencer.py">TensorflowUNetTiledInferencer.py</a>.</li>
-<li>2024/04/24: Fixed a bug in evalutate method in <a href="./src/TensorflowUNetEvaluator.py">TensorflowUNetEvaluator.py</a>.</li>
-<li>2024/05/04: Fixed a bug in infer method to colorize a mask in <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer.py</a>.</li>
-<li>2024/05/08: Fixed some bugs to save the augmented masks to files in <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a>.</li>
-<li>2024/05/08: Fixed a bug to merge an image and a mask in infer method of <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer.py</a>.</li>
-
 <br>
 
-See also <a href="./ChangeLog.md">ChangeLog.md</a>
-<br>
-<br>
-On bitwise_blending, please see <a href="https://github.com/sarah-antillia/Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma">Tensorflow-Tiled-Image-Segmentation-MultipleMyeloma</a>.
+On update history, please see <a href="./ChangeLog.md">ChangeLog.md</a>
 <br>
 <br>
 <h2>
@@ -106,6 +59,16 @@ In this repository, we provide <b>Image Segmentation API</b> that supports the f
        ├─ <a href="./src/TensorflowTransUNet.py">TensorflowTransUNet</a>
        ├─ <a href="./src/TensorflowUNet3Plus.py">TensorflowUNet3Plus</a>
        └─ <a href="./src/TensorflowU2Net.py">TensorflowU2Net</a>
+</pre>
+
+<b> Custom Callbacks</b><br>
+<pre>
+tf.keras.callbacks.Callback
+  ├─ <a href="./src/EpochChangeCallback.py">EpochChangeCallback</a>
+  ├─ <a href="./src/EpochChangeInferencer.py">EpochChangeInferencer</a>
+  ├─ <a href="./src/EpochChangeTiledInferencer.py">EpochChangeTiledInferencer</a>
+  └─ <a href="./src/SeedResetCallback.py">SeedResetCallback</a>
+
 </pre>
   
 <br>

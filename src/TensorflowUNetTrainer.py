@@ -21,7 +21,8 @@
 # 1. Keras U-Net starter - LB 0.277
 # https://www.kaggle.com/code/keegil/keras-u-net-starter-lb-0-277/notebook
 
-
+# 2024/06/01 Added two callbacks: EpochChangeInferencer and EpochChangeTiledInferencer
+#
 import os
 import sys
 import datetime
@@ -72,6 +73,8 @@ from losses import iou_coef, iou_loss, bce_iou_loss, dice_loss,  bce_dice_loss
 from EpochChangeCallback import EpochChangeCallback
 #from GrayScaleImageWriter import GrayScaleImageWriter
 
+from EpochChangeInferencer import EpochChangeInferencer
+from EpochChangeTiledInferencer import EpochChangeTiledInferencer
 
 #from SeedResetCallback       import SeedResetCallback
 from losses import dice_coef, basnet_hybrid_loss, sensitivity, specificity
@@ -143,18 +146,26 @@ class TensorflowUNetTrainer:
       lr_patience = int(patience/2)
       if lr_patience == 0:
         lr_patience = 5
-      lr_patience = lr_reducer = self.config.get(ConfigParser.TRAIN, "reducer_patience", dvalue= lr_patience)
+      lr_patience = self.config.get(ConfigParser.TRAIN, "reducer_patience", dvalue= lr_patience)
+      # 2024/05/30
+      reducer_factor = self.config.get(ConfigParser.TRAIN, "reducer_factor", dvalue= 0.1)
+
       reducer = tf.keras.callbacks.ReduceLROnPlateau(
                         monitor = 'val_loss',
-                        factor  = 0.1,
+                        factor  = reducer_factor, 
+                        #factor  = 0.1,
                         patience= lr_patience,
                         min_lr  = 0.0)
 
     early_stopping = tf.keras.callbacks.EarlyStopping(patience=patience, verbose=1)
+    print("=== Created callback: EarlyStopping ")
     check_point    = tf.keras.callbacks.ModelCheckpoint(weight_filepath, verbose=1, 
                                      save_best_only    = True,
                                      save_weights_only = save_weights_only)
+    print("=== Created callback: ModelCheckpoint ")
+
     self.epoch_change   = EpochChangeCallback(self.eval_dir, metrics)
+    print("=== Created callback: EpochChangeCallback ")
     
     if reducer:
       callbacks = [early_stopping, check_point, self.epoch_change, reducer]
@@ -163,9 +174,26 @@ class TensorflowUNetTrainer:
    
     seedreset_callback = self.config.get(ConfigParser.TRAIN, "seedreset_callback", dvalue=False) 
     if seedreset_callback:
-      print("=== Added SeedResetCallback")
+      print("=== Created callback: SeedResetCallback")
       seedercb = SeedResetCallback(seed=self.seed)
       callbacks += [seedercb]
+
+    epoch_change_infer   = self.config.get(ConfigParser.TRAIN, "epoch_change_infer", dvalue=False)
+
+    if epoch_change_infer:
+      print("=== Created callback: EpochChangeInferecer")
+      inference_callback = EpochChangeInferencer(self.model, self.config_file)
+      callbacks += [inference_callback]
+
+    epoch_change_tiledinfer   = self.config.get(ConfigParser.TRAIN, "epoch_change_tiledinfer", dvalue=False)
+
+    if epoch_change_tiledinfer:
+      print("=== Created callback: EpochChangeTiledInferecer")
+      tiled_inference_callback = EpochChangeTiledInferencer(self.model, self.config_file)
+      callbacks += [tiled_inference_callback]
+
+    print("=== callbacks {}".format(callbacks))
+    
     return callbacks
 
   def train(self):
