@@ -172,13 +172,13 @@ be able to specify a section name wich includes the parameters for image/mask da
 for an image on epoch_changed.</li>
 <li>Added <a href="./src/EpochChangeTiledInferencer.py">EpochChangeTiledInferencer.py</a> callback to 
 tiled-infer the segmentation regions for an image on epoch_changed.</li>
-<li>Modifed <a href="./src/TensorFlowUNetTrainer.py">TensorFlowUNetTrainer</a> to be able to add
+<li>Modifed <a href="./src/TensorflowUNetTrainer.py">TensorFlowUNetTrainer</a> to be able to add
 EpochChangeInferencer and EpochChangeTiledInferencer callbacks. </li>
 
-<li>Modifed <a href="./src/TensorFlowUNetInferencer.py">TensorFlowUNetInferencer</a> to use
+<li>Modifed <a href="./src/TensorflowUNetInferencer.py">TensorflowUNetInferencer</a> to use
 <a href="./src/Inferencer.py">Inferencer.py</a>. </li>
 
-<li>Modifed <a href="./src/TensorFlowUNetTiledInferencer.py">TensorFlowUNetTiledInferencer</a> to use
+<li>Modifed <a href="./src/TensorflowUNetTiledInferencer.py">TensorflowUNetTiledInferencer</a> to use
 <a href="./src/TiledInferencer.py">TiledInferencer.py</a>. </li>
 
 
