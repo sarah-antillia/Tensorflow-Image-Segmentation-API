@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/06/08)</h2>
+<h2>ChangeLog (Updated: 2024/06/09)</h2>
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -181,4 +181,7 @@ EpochChangeInferencer and EpochChangeTiledInferencer callbacks. </li>
 <li>Modifed <a href="./src/TensorflowUNetTiledInferencer.py">TensorflowUNetTiledInferencer</a> to use
 <a href="./src/TiledInferencer.py">TiledInferencer.py</a>. </li>
 
+<br>
+<b>2024/06/09</b><br>
+<li>Modifed <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a> to add EarlyStopping. </li>
 
