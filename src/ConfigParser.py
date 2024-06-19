@@ -43,6 +43,10 @@ class ConfigParser:
   AUGMENTOR   = "augmentor"
   DISTORTION  = "distortion"
   INSPECCT    = "inspect"
+  SHARPENING  = "sharpening"
+  BRIGHTENING = "brightening"
+  # 
+  BARRDISTORTION = "barrdistortion"
 
   # Constructor
   # 

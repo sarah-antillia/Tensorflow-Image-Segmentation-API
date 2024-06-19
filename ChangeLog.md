@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/06/09)</h2>
+<h2>ChangeLog (Updated: 2024/06/20)</h2>
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -184,4 +184,12 @@ EpochChangeInferencer and EpochChangeTiledInferencer callbacks. </li>
 <br>
 <b>2024/06/09</b><br>
 <li>Modifed <a href="./src/TensorflowUNetTrainer.py">TensorflowUNetTrainer.py</a> to add EarlyStopping. </li>
+
+<br>
+<b>2024/06/20</b><br>
+<li>Fixed a bug in <a href="./src/Inferencer.py">Inferencer.py</a> and <a href="./src/TiledInferencer.py">TiledInferencer.py</a>
+to save the merged_images. </li>
+<li>Modifed <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a> to support brigtening, sharpening and barrel_distortion
+augmentation for training images and masks. </li>
+
 

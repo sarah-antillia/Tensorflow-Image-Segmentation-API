@@ -30,7 +30,8 @@ import traceback
 import tensorflow as tf
 from GrayScaleImageWriter import GrayScaleImageWriter
 from MaskColorizedWriter import MaskColorizedWriter
-from PIL import Image
+
+from PIL import Image, ImageOps
 from ConfigParser import ConfigParser
 from Inferencer import Inferencer
 
@@ -65,10 +66,13 @@ class TiledInferencer(Inferencer):
     self.white    = self.config.get(ConfigParser.SEGMENTATION, "white",    dvalue="white")
     self.blursize = self.config.get(ConfigParser.SEGMENTATION, "blursize", dvalue=None)
     verbose       = not  self.on_epoch_change 
-    self.writer   = GrayScaleImageWriter(colorize=self.colorize, black=self.black, white=self.white, verbose=verbose)
-
+    self.writer   = GrayScaleImageWriter(colorize=self.colorize, 
+                                         black=self.black, white=self.white, verbose=verbose)
+    verbose = True
     self.maskcolorizer = MaskColorizedWriter(self.config, verbose=verbose)
-    self.mask_colorize = self.config.get(ConfigParser.INFER, "mask_colorize", dvalue=False)
+    # 2024/06/15 INFER ->TILEDINFER
+    #self.mask_colorize = self.config.get(ConfigParser.TILEDINFER, "mask_colorize", dvalue=False)
+
     self.MARGIN       = self.config.get(ConfigParser.TILEDINFER, "overlapping", dvalue=0)
     self.bitwise_blending    = self.config.get(ConfigParser.TILEDINFER, "bitwise_blending", dvalue=True)
     self.tiledinfer_binarize  = self.config.get(ConfigParser.TILEDINFER, "binarize", dvalue=False)
@@ -100,6 +104,12 @@ class TiledInferencer(Inferencer):
       shutil.rmtree(self.output_dir)
     if not os.path.exists(self.output_dir):
       os.makedirs(self.output_dir)
+
+    #2024/06/20
+    if os.path.exists(self.merged_dir):
+      shutil.rmtree(self.merged_dir)
+    if not os.path.exists(self.merged_dir):
+      os.makedirs(self.merged_dir)
 
   def infer(self, epoch =None):
     if self.on_epoch_change == False:
@@ -202,39 +212,49 @@ class TiledInferencer(Inferencer):
           background.paste(mask, (left, upper))
 
       basename = os.path.basename(image_file)
+      #name, ext = os.path.splitext(basename)
       filename = basename
+
       if self.on_epoch_change:
         filename = "Epoch_" + str(epoch+1) + "_" + basename
-      output_file = os.path.join(output_dir, filename)
+      output_filepath = os.path.join(output_dir, filename)
       cv_background = self.pil2cv(background)
-
-      bitwised = None
+         
       if self.bitwise_blending:
+        #print("--- TiledInferencer bitwise_blending")
         # Blend the non-tiled whole_mask and the tiled-background
-        bitwised = cv2.bitwise_and(whole_mask, cv_background)
+        #cv_background = cv2.cvtColor(cv_background, cv2.COLOR_BGR2GRAY)
+        cv_background = cv2.bitwise_and(whole_mask, cv_background)
 
-        bitwised = self.binarize(bitwised)
-        cv2.imwrite(output_file, bitwised)
-      else:
-        # Save the tiled-background. 
-        if self.tiledinfer_binarize:
-          sharpened = self.binarize(cv_background)
-          cv2.imwrite(output_file, sharpened)
-        else:
-          background.save(output_file)
+        cv_background = self.binarize(cv_background)
+      if self.tiledinfer_binarize:
+        #print("---non blending save binarize ")
+        cv_background = self.binarize(cv_background)
+
+      if self.colorize:
+        #print("--- TiledInferencer colorrize")  
+        background = self.cv2pil(cv_background)
+        if background.mode != "L":
+          background = image.convert("L")
+        background = ImageOps.colorize(background, black=self.black, white=self.white)
+        cv_background = self.pil2cv(background)
+  
+      cv2.imwrite(output_filepath, cv_background)
+
       if self.on_epoch_change == False:
-        print("=== Saved outputfile {}".format(output_file))
+        print("=== Saved outputfile {}".format(output_filepath))
 
-      if self.merged_dir !=None:
+      #if self.merged_dir !=None:
+      # 2024/06/20
+      # Don't save merged_image if self.on_epoch_change==True
+      if self.merged_dir !=None and self.on_epoch_change ==False:
+
         img   = np.array(image)
         img   = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
         #2024/03/10
-        if self.bitwise_blending:
-          mask = bitwised
-        else:
-          mask  = cv_background 
- 
-        mask  = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
+        mask  = cv_background
+        if mask.ndim ==2:  
+          mask  = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
         img += mask
         merged_file = os.path.join(self.merged_dir, basename)
         if self.on_epoch_change == False:

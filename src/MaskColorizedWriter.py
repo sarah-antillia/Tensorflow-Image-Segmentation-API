@@ -71,7 +71,7 @@ class MaskColorizedWriter:
  
   def save_mask(self, image, size, basename, output_filepath):
     (w, h) = size
-    self.mask_colorize = self.config.get(ConfigParser.INFER, "mask_colorize", dvalue=False)
+    self.mask_colorize = self.config.get(ConfigParser.SEGMENTATION, "colorize", dvalue=False)
     if self.mask_colorize:
       self.create_gray_map()
 
@@ -94,10 +94,10 @@ class MaskColorizedWriter:
           if self.verbose:
             print("--- Saved {}".format(output_filepath))
 
-        if self.mask_colorize and os.path.exists(self.colorized_dir):
+        if self.mask_colorize:# and os.path.exists(self.colorized_dir):
           if self.verbose:
             print("--- colorizing the inferred mask ")
-          mask = self.colorize_mask(mask, w, h)
+          mask = self.colorize_mask_one(mask, w, h)
           colorized_filepath = os.path.join(self.colorized_dir, basename)
           #2024/04/20 Experimental
           #mask = cv2.medianBlur(mask, 3)

@@ -92,6 +92,12 @@ class Inferencer:
     if not os.path.exists(self.output_dir):
       os.makedirs(self.output_dir)
 
+    #2024/06/20
+    if os.path.exists(self.merged_dir):
+      shutil.rmtree(self.merged_dir)
+    if not os.path.exists(self.merged_dir):
+      os.makedirs(self.merged_dir)
+
   def infer(self, epoch=None):
     if self.on_epoch_change == False:
       print("=== Inferencer.infer start")
@@ -100,7 +106,9 @@ class Inferencer:
     for image_file in self.image_files:
 
       basename = os.path.basename(image_file)
-      name     = basename.split(".")[0]    
+      # 2024/06/13 Modified to use os.path.splitext
+      #name     = basename.split(".")[0]    
+      name, ext = os.path.splitext(basename)
       img      = cv2.imread(image_file)
       # convert (B,G,R) -> (R,G,B) color-order
       # 2024/04/20
@@ -122,12 +130,19 @@ class Inferencer:
       output_filepath = os.path.join(self.output_dir, filename)
       if self.mask_colorize:
         # MaskColorizer
+        #print("==== using MaskColorizeWriter")
         gray_mask = self.maskcolorizer.save_mask(image, (w, h), filename, output_filepath)
       else:
         #Use GrayScaleWriter
+        #print("---- using GrayScaleImageWrite")
         gray_mask = self.writer.save_resized(image, (w, h), self.output_dir, filename)
 
-      if self.merged_dir !=None:
+      #if self.merged_dir !=None:
+      # 2024/06/20
+      # Don't save merged_image if self.on_epoch_change==True
+      if self.merged_dir !=None and self.on_epoch_change ==False:
+  
+        img   = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
         img   = cv2.resize(img, (w, h), interpolation=cv2.INTER_NEAREST)
         #if blursize:
         #  img   = cv2.blur(img, blursize)
@@ -150,6 +165,17 @@ class Inferencer:
       predictions.append(pred)
     return predictions    
 
+  def cv2pil(self, image):
+    new_image = image.copy()
+    if new_image.ndim == 2:
+        pass
+    elif new_image.shape[2] == 3: 
+        new_image = cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB)
+    elif new_image.shape[2] == 4: 
+        new_image = cv2.cvtColor(new_image, cv2.COLOR_BGRA2RGBA)
+    new_image = Image.fromarray(new_image)
+    return new_image
+  
   def pil2cv(self, image):
     new_image = np.array(image, dtype=np.uint8)
     if new_image.ndim == 2: 

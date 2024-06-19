@@ -62,10 +62,13 @@ class GrayScaleImageWriter:
     if self.verbose:
       print("== resized to {}".format(resized))
     image = image.resize(resized)
+    #print("--- colorize {}{}".format(self.colorize, image_filepath))
+
     if self.colorize:
        #2024/04/13 Added the following two lines
        if image.mode != "L":
          image = image.convert("L")
+       #print("-----colorized----")
        image = ImageOps.colorize(image, black=self.black, white=self.white)
     image.save(image_filepath)
     if self.verbose:
