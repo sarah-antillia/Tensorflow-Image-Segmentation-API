@@ -41,6 +41,11 @@ amount = 0.3
 centers =  [(0.3, 0.3), (0.5, 0.5), (0.7, 0.7)]
 """
 
+# 2024/06/20 Modified to use sigmoids list instead of sigmoid in [deformation] section.
+# [deformation]
+#sigmoids  = [8.0 10.0]
+# Modified method name 'elastic_transform' to 'deform' 
+
 import os
 import sys
 import glob
