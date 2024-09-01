@@ -1,17 +1,23 @@
-; train_val_infer_augmentor.config
+; train_eval_infer_augmentor.config
 ; 2024/04/08 antillia.com
+; Added the following setting to [train] section, 
+; , which enables to add learning_rate_reducer callback if True.
+;learning_rate_reducer = True
+; Added the following setting to [model] section
+; activation     = "mish"
 
 [model]
 ; Specify a className of UNetModel
-model          ="TensorflowDeepLabV3Plus"
-
+model          ="TensorflowUNet"
 generator      = True
 
 image_width    = 512
 image_height   = 512
 image_channels = 3
 num_classes    = 1
+;2024/09/01 
 ;activation     = "mish"
+
 optimizer      = "Adam"
 base_filters   = 16
 num_layers     = 7
@@ -31,7 +37,7 @@ datasetclass  = "ImageMaskDataset"
 
 [train]
 epochs        = 100
-batch_size    = 2
+batch_size    = 4
 patience      = 10
 metrics       = ["binary_accuracy", "val_binary_accuracy"]
 model_dir     = "./models"
@@ -74,7 +80,6 @@ binarize  = True
 ;threshold = 60
 threshold = 160
 
-
 [generator]
 debug        = False
 augmentation = True
@@ -86,7 +91,6 @@ rotation = True
 angles   = [90, 180,]
 shrinks  = [0.8]
 shears   = []
-
 deformation = False
 distortion  = True
 

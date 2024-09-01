@@ -33,7 +33,17 @@
 # code in stackoverflow.com
 # # https://stackoverflow.com/questions/59776772/python-opencv-how-to-apply-radial-barrel-distortion
 
+# 2024/09/01 Added pincushion_distortion to train_eval_infer.config
+# amount should be negative 
+"""
+[pincdistortion]
+radius = 0.3
+amount = -0.3
+centers =  [(0.3, 0.3), (0.5, 0.5), (0.7, 0.7)]
+"""
+
 # 2024/06/18 Added Barrel_distortion to train_eval_infer.config
+# amount should be positive
 """
 [barrdistortion]
 radius = 0.3
@@ -89,7 +99,8 @@ class ImageMaskAugmentor:
         self.sigmoids = sigmoids
       else:
         self.sigmoids = [sigmoid]
-    print("--- simgoids {}".format(self.sigmoids))
+      # 2024/09/01
+      print("--- simgoids {}".format(self.sigmoids))
 
     self.distortion = self.config.get(ConfigParser.AUGMENTOR, "distortion", dvalue=False)
     # Distortion
@@ -117,6 +128,13 @@ class ImageMaskAugmentor:
       self.radius  = self.config.get(ConfigParser.BARRDISTORTION, "radius",  dvalue=0.5)
       self.amount  = self.config.get(ConfigParser.BARRDISTORTION, "amount",  dvalue=0.5)
       self.centers = self.config.get(ConfigParser.BARRDISTORTION, "centers", dvalue=[(0.5, 0.5)])
+
+    # 2024/09/01
+    self.pincdistortion = self.config.get(ConfigParser.AUGMENTOR, "pincdistortion", dvalue=False)
+    if self.pincdistortion:
+      self.pincradius  = self.config.get(ConfigParser.PINCDISTORTION, "radius",  dvalue=0.5)
+      self.pincamount  = self.config.get(ConfigParser.PINCDISTORTION, "amount",  dvalue=-0.5)
+      self.pinccenters = self.config.get(ConfigParser.PINCDISTORTION, "centers", dvalue=[(0.5, 0.5)])
 
   # It applies  horizotanl and vertical flipping operations to image and mask repectively.
   def augment(self, IMAGES, MASKS, image, mask,
@@ -181,6 +199,11 @@ class ImageMaskAugmentor:
 
     if self.barrdistortion:
       self.barrel_distort(IMAGES, MASKS, image, mask,
+                 generated_images_dir, image_basename,
+                 generated_masks_dir,  mask_basename )
+    # 2024/09/01
+    if self.pincdistortion:
+      self.pincushion_distort(IMAGES, MASKS, image, mask,
                  generated_images_dir, image_basename,
                  generated_masks_dir,  mask_basename )
 
@@ -625,6 +648,73 @@ class ImageMaskAugmentor:
           print("=== Saved {}".format(image_filepath))
     
         mask_filename = "barrdistorted_" + str(index) + "_" + self.radius + "_" + self.amount + "_" + mask_basename
+        mask_filepath  = os.path.join(generated_masks_dir, mask_filename)
+        cv2.imwrite(mask_filepath, distorted_mask)
+        if self.verbose:
+          print("=== Saved {}".format(mask_filepath))
+
+  # The following barrel_distort method has been take from the following
+  # code in stackoverflow.com
+  # https://stackoverflow.com/questions/59776772/python-opencv-how-to-apply-radial-barrel-distortion
+  # 2024/09/01
+  def pincushion_distort(self, IMAGES, MASKS, image, mask,
+                generated_images_dir, image_basename,
+                generated_masks_dir,  mask_basename):
+    distorted_image  = image
+    distorted_mask   = mask
+    (h, w, _) = image.shape
+
+    # set up the x and y maps as float32
+    map_x = np.zeros((h, w), np.float32)
+    map_y = np.zeros((h, w), np.float32)
+
+    scale_x = 1
+    scale_y = 1
+    index = 100
+    for center in self.pinccenters:
+      index += 1
+      (ox, oy) = center
+      center_x = w * ox
+      center_y = h * oy
+      radius = w * self.pincradius
+      amount = self.pincamount   
+      # negative values produce pincushion
+ 
+      # create map with the barrel pincushion distortion formula
+      for y in range(h):
+        delta_y = scale_y * (y - center_y)
+        for x in range(w):
+          # determine if pixel is within an ellipse
+          delta_x = scale_x * (x - center_x)
+          distance = delta_x * delta_x + delta_y * delta_y
+          if distance >= (radius * radius):
+            map_x[y, x] = x
+            map_y[y, x] = y
+          else:
+            factor = 1.0
+            if distance > 0.0:
+                factor = math.pow(math.sin(math.pi * math.sqrt(distance) / radius / 2), amount)
+            map_x[y, x] = factor * delta_x / scale_x + center_x
+            map_y[y, x] = factor * delta_y / scale_y + center_y
+            
+
+       # do the remap
+      distorted_image = cv2.remap(distorted_image, map_x, map_y, cv2.INTER_LINEAR)
+      distorted_mask  = cv2.remap(distorted_mask,  map_x, map_y, cv2.INTER_LINEAR)
+      if distorted_mask.ndim == 2:
+        distorted_mask  = np.expand_dims(distorted_mask, axis=-1) 
+      IMAGES.append(distorted_image)
+      MASKS.append(distorted_mask)
+
+      if self.debug:
+        image_filename = "pincdistorted_" + str(index) + "_" + self.radius + "_" + self.amount + "_" + image_basename
+
+        image_filepath  = os.path.join(generated_images_dir, image_filename)
+        cv2.imwrite(image_filepath, distorted_image)
+        if self.verbose:
+          print("=== Saved {}".format(image_filepath))
+    
+        mask_filename = "pincdistorted_" + str(index) + "_" + self.radius + "_" + self.amount + "_" + mask_basename
         mask_filepath  = os.path.join(generated_masks_dir, mask_filename)
         cv2.imwrite(mask_filepath, distorted_mask)
         if self.verbose:

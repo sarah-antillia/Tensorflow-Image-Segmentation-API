@@ -32,6 +32,8 @@ class ConfigParser:
   EVAL        = "eval"
   GENERATOR   = "generator"
   MASK        = "mask"
+  # 2024/07/19
+  IMAGE       = "image"
   INFER       = "infer"
   MODEL       = "model"
   TEST        = "test"
@@ -45,8 +47,14 @@ class ConfigParser:
   INSPECCT    = "inspect"
   SHARPENING  = "sharpening"
   BRIGHTENING = "brightening"
-  # 
+
+  # Barrel-distortion 
   BARRDISTORTION = "barrdistortion"
+  # 2024/07/19
+  # Pincushion-distortion
+  PINCDISTORTION = "pincdistortion"
+
+  PREPROCESSOR = "preprocessor"
 
   # Constructor
   # 

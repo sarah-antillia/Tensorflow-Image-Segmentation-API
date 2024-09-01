@@ -49,6 +49,16 @@ class Inferencer:
     self.merged_dir = self.config.get(ConfigParser.INFER, "merged_dir")
     self.algorithm  = self.config.get(ConfigParser.INFER, "algorithm", dvalue=None)
     self.threshold  = self.config.get(ConfigParser.INFER, "threshold", dvalue=127)
+    self.blur       = self.config.get(ConfigParser.INFER, "blur",      dvalue=False)
+    self.ksize      = self.config.get(ConfigParser.INFER, "ksize",     dvalue= (5,5))
+    # 2024/07/19
+    self.color_converter  = self.config.get(ConfigParser.IMAGE, "color_converter", dvalue=None)
+    if self.color_converter != None:
+      self.color_converter  = eval(self.color_converter)
+    #self.gamma_correction     =
+    self.gamma  = self.config.get(ConfigParser.IMAGE, "gamma", dvalue=0)
+    self.sharpen_k  = self.config.get(ConfigParser.IMAGE, "sharpening", dvalue=0)
+
     if self.on_epoch_change:
       self.output_dir    = self.config.get(ConfigParser.TRAIN, "epoch_change_infer_dir", dvalue="./epoch_change_infer")
     self.num_infer_images = self.config.get(ConfigParser.TRAIN, "num_infer_images", dvalue=1)
@@ -60,6 +70,7 @@ class Inferencer:
     self.black    = self.config.get(ConfigParser.SEGMENTATION, "black",    dvalue="black")
     self.white    = self.config.get(ConfigParser.SEGMENTATION, "white",    dvalue="white")
     self.blursize = self.config.get(ConfigParser.SEGMENTATION, "blursize", dvalue=None)
+    self.bgr2hls   = True
 
     verbose       = not self.on_epoch_change
     self.writer   = GrayScaleImageWriter(colorize=self.colorize, black=self.black, 
@@ -93,10 +104,17 @@ class Inferencer:
       os.makedirs(self.output_dir)
 
     #2024/06/20
-    if os.path.exists(self.merged_dir):
-      shutil.rmtree(self.merged_dir)
-    if not os.path.exists(self.merged_dir):
-      os.makedirs(self.merged_dir)
+    #2024/06/27 Added the following line.
+    if self.merged_dir !=None:
+      if self.merged_dir and os.path.exists(self.merged_dir):
+        shutil.rmtree(self.merged_dir)
+      if not os.path.exists(self.merged_dir):
+        os.makedirs(self.merged_dir)
+
+  def gamma_correction(self, img, gamma):
+    table = (np.arange(256) / 255) ** gamma * 255
+    table = np.clip(table, 0, 255).astype(np.uint8)
+    return cv2.LUT(img, table)
 
   def infer(self, epoch=None):
     if self.on_epoch_change == False:
@@ -114,7 +132,19 @@ class Inferencer:
       # 2024/04/20
       if self.color_order == "rgb":
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)        
-      
+      # 2024/07/18
+      if self.gamma > 0:
+            img = self.gamma_correction(img, self.gamma)
+      # 2024/08/20
+      if self.sharpen_k > 0:
+        k = self.sharpen_k
+        kernel = np.array([[-k, -k, -k], 
+                       [-k, 1+8*k, -k], 
+                       [-k, -k, -k]])
+        img = cv2.filter2D(img, ddepth=-1, kernel=kernel)
+      if self.color_converter:
+            img = cv2.cvtColor(img, self.color_converter) # cv2.COLOR_BGR2HLS)
+
       h, w = img.shape[:2]
       # Any way, we have to resize input image to match the input size of our TensorflowUNet model.
       img         = cv2.resize(img, (self.width, self.height), interpolation=cv2.INTER_NEAREST)
@@ -128,6 +158,10 @@ class Inferencer:
       if self.on_epoch_change:
         filename = "Epoch_" +str(epoch+1) + "_" + name
       output_filepath = os.path.join(self.output_dir, filename)
+      # 2024/06/22
+      if self.blur:
+          image = cv2.GaussianBlur(image, ksize=self.ksize, sigmaX=0)
+
       if self.mask_colorize:
         # MaskColorizer
         #print("==== using MaskColorizeWriter")

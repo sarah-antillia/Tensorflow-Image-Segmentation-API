@@ -51,6 +51,14 @@ class TiledInferencer(Inferencer):
     self.algorithm  = self.config.get(ConfigParser.TILEDINFER, "algorithm", dvalue=None)
     self.threshold  = self.config.get(ConfigParser.TILEDINFER, "threshold", dvalue=127)
 
+    # 2024/07/19
+    self.color_converter  = self.config.get(ConfigParser.IMAGE, "color_converter", dvalue=None)
+    if self.color_converter != None:
+      self.color_converter  = eval(self.color_converter)
+    # 2024/08/20 
+    self.gamma  = self.config.get(ConfigParser.IMAGE, "gamma", dvalue=0)
+    self.sharpen_k  = self.config.get(ConfigParser.IMAGE, "sharpening", dvalue=0)
+    
     if self.on_epoch_change:
        self.output_dir  = self.config.get(ConfigParser.TRAIN, "epoch_change_tiledinfer_dir", 
                                           dvalue="./epoch_change_tiledinfer")
@@ -106,10 +114,11 @@ class TiledInferencer(Inferencer):
       os.makedirs(self.output_dir)
 
     #2024/06/20
-    if os.path.exists(self.merged_dir):
-      shutil.rmtree(self.merged_dir)
-    if not os.path.exists(self.merged_dir):
-      os.makedirs(self.merged_dir)
+    if self.merged_dir !=None:
+      if os.path.exists(self.merged_dir):
+        shutil.rmtree(self.merged_dir)
+      if not os.path.exists(self.merged_dir):
+        os.makedirs(self.merged_dir)
 
   def infer(self, epoch =None):
     if self.on_epoch_change == False:
@@ -189,6 +198,20 @@ class TiledInferencer(Inferencer):
           cropped = cropped.resize((self.width, self.height))
 
           cvimage  = self.pil2cv(cropped)
+          # 2024/08/20
+          if self.gamma > 0:
+            cvimage = self.gamma_correction(cvimage, self.gamma)
+         # 2024/08/20
+          if self.sharpen_k > 0:
+            k = self.sharpen_k
+            kernel = np.array([[-k, -k, -k], 
+                       [-k, 1+8*k, -k], 
+                       [-k, -k, -k]])
+            cvimage = cv2.filter2D(cvimage, ddepth=-1, kernel=kernel)
+          # 2024/07/18
+          if self.color_converter:
+            cvimage = cv2.cvtColor(cvimage, self.color_converter) # cv2.COLOR_BGR2HLS)
+
           predictions = self.predict([cvimage], expand=expand)
           
           prediction  = predictions[0]

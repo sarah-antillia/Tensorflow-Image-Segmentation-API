@@ -1,4 +1,4 @@
-<h2>ChangeLog (Updated: 2024/06/20)</h2>
+<h2>ChangeLog V1.4.2 (Updated: 2024/09/01)</h2>
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -191,5 +191,21 @@ EpochChangeInferencer and EpochChangeTiledInferencer callbacks. </li>
 to save the merged_images. </li>
 <li>Modifed <a href="./src/ImageMaskAugmentor.py">ImageMaskAugmentor.py</a> to support brigtening, sharpening and barrel_distortion
 augmentation for training images and masks. </li>
+
+
+<br>
+<b>2024/09/01</b><br>
+<li>Modified <a href="./src/ConfigParser.py">ConfigParser.py</a>, <a href="./src/Inferencer.py">Inferencer.py</a> and <a href="./src/TiledInferencer.py">TiledInferencer.py</a>
+to support [image] section of train_eval_infer.config.</li>
+
+<li>Added opencv color space conversion parameter to [image] section.<br>
+[image]
+color_converter = "cv2.COLOR_BGR2HSV_FULL"
+</li>
+
+<li>Added <a href="./src/VERSION.conf">VERSION.conf</a> to ./src folder.</li>
+<li>Modified <a href="./src/mish.py">mish.py</a>.</li>
+<li>Modified python file name in 1.train_by_augmentor.bat in projects.</li>
+<li>Modified not to use activation="mish" in model section in train_eval_infer_aumentor.config in projects.</li>
 
 

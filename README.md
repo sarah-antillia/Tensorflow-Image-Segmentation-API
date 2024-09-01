@@ -1,4 +1,4 @@
-<h2> Tensorflow-Image-Segmentation-API V1.4.1(Updated: 2024/06/20)</h2>
+<h2> Tensorflow-Image-Segmentation-API V1.4.2(Updated: 2024/09/01)</h2>
 <h3>Contents</h3>
 <li><a href="#1">1 Image Segmentation API </a></li>
 <li><a href="#2">2 Dataset </a></li>
@@ -17,7 +17,7 @@
 <br>
 <br>
 
-On update history, please see <a href="./ChangeLog.md">ChangeLog.md Updated:2024/06/20)</a>
+On update history, please see <a href="./ChangeLog.md">ChangeLog.md Updated:2024/09/01)</a>
 <br><br>
 Please refer to the following Tiled-Image-Segmentation examples:<br>
 
