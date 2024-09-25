@@ -1,4 +1,4 @@
-<h2>ChangeLog V1.4.2 (Updated: 2024/09/01)</h2>
+<h2>ChangeLog V1.4.3 (Updated: 2024/09/26)</h2>
 <b>2023/10/07: Updated</b><br>
 <li>Added BaseImageMaskDataset.py to src for MultipleMyeloma dataset.</li>
 <li>Added datasetclass property to model section in train_eval_infer.config file.</li>
@@ -208,4 +208,9 @@ color_converter = "cv2.COLOR_BGR2HSV_FULL"
 <li>Modified python file name in 1.train_by_augmentor.bat in projects.</li>
 <li>Modified not to use activation="mish" in model section in train_eval_infer_aumentor.config in projects.</li>
 
+<br>
+<b>2024/09/26</b><br>
+<li>Renamed VERSION.conf to <a href="./src/VERSION.inf">VERSION.inf</a> in ./src folder.</li>
+<li>Updated <a href="./src/Inferencer.py">Inferencer.py</a>. </li>
+<li>Updated <a href="./src/TiledInferencer.py">TiledInferencer.py</a>. </li>
 

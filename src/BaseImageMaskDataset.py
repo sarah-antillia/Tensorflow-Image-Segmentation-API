@@ -60,8 +60,13 @@ class BaseImageMaskDataset:
     self.blur_mask      = self.config.get(ConfigParser.MASK, "blur")
   
     self.blur_size      = self.config.get(ConfigParser.MASK,  "blur_size", dvalue=(3,3))
-    
+
+    self.color_converter= self.config.get(ConfigParser.IMAGE,  "color_converter", dvalue=None)
+    if self.color_converter != None:
+      self.color_converter  = eval(self.color_converter)
     # image_format may take "rgb" which is default, or "grayscale" 
+    self.gamma= self.config.get(ConfigParser.IMAGE, "gamma", dvalue=0)
+
     self.image_format   = self.config.get(ConfigParser.DATASET, "image_format", dvalue="rgb")
 
     self.input_normalize= self.config.get(ConfigParser.DATASET, "input_normalize", dvalue=True)
@@ -69,7 +74,9 @@ class BaseImageMaskDataset:
     self.rgb_mask       = self.config.get(ConfigParser.DATASET, "rgb_mask", dvalue=False)
     # 2024/04/20
     self.color_order    = self.config.get(ConfigParser.DATASET, "color_order", dvalue="bgr")
-    self.sharpening    = self.config.get(ConfigParser.DATASET, "sharpening",   dvalue=False)
+    #self.sharpening_k   = self.config.get(ConfigParser.DATASET, "sharpening",   dvalue=False)
+    # 2024/09/19 Added the following line
+    self.sharpening_k  = self.config.get(ConfigParser.IMAGE, "sharpening", dvalue=0)
   
     self.debug_images_dir = "./dataset_images/"
     self.debug_masks_dir  = "./dataset_masks/"
@@ -158,6 +165,8 @@ class BaseImageMaskDataset:
       self.image_dtype = np.float32
     
     print("--- num_classes {} image data_type {}".format(self.num_classes, self.image_dtype))
+    print("num_images {} {} {}".format(num_images, self.image_height, self.image_width, self.image_channels))
+
     X = np.zeros((num_images, self.image_height, self.image_width, self.image_channels),
                  dtype=self.image_dtype)
 
@@ -204,12 +213,28 @@ class BaseImageMaskDataset:
     print("-----Create X-len: {}  Y-len {}".format(len(X), len(Y)))
     return X, Y
 
+  def gamma_correction(self, img, gamma):
+    table = (np.arange(256) / 255) ** gamma * 255
+    table = np.clip(table, 0, 255).astype(np.uint8)
+    return cv2.LUT(img, table)
+
+  # 2024/09/20
+  def sharpen(self, img, k):
+    if k > 0:
+      kernel = np.array([[-k, -k, -k], 
+                       [-k, 1+8*k, -k], 
+                       [-k, -k, -k]])
+      img = cv2.filter2D(img, ddepth=-1, kernel=kernel)
+    return img
+  
 
   def read_image_file(self, image_file):
     image = imread(image_file)
+  
     image = resize(image, (self.image_height, self.image_width, self.image_channels), 
                      mode='constant', 
                      preserve_range=True)
+ 
     # 2024/04/15
     if self.image_normalize:
       image = image/255.0
@@ -240,12 +265,12 @@ if __name__ == "__main__":
 
     dataset = BaseImageMaskDataset(config_file)
 
-    x_train, y_train = dataset.create(dataset=TRAIN, debug=False)
+    x_train, y_train = dataset.create(dataset= ConfigParser.TRAIN, debug=False)
     print(" len x_train {}".format(len(x_train)))
     print(" len y_train {}".format(len(y_train)))
 
     # test dataset
-    x_test, y_test = dataset.create(dataset=EVAL)
+    x_test, y_test = dataset.create(dataset=ConfigParser.EVAL)
     print(" len x_test {}".format(len(x_test)))
     print(" len y_test {}".format(len(y_test)))
 

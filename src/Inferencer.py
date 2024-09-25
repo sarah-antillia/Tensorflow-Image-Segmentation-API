@@ -116,6 +116,15 @@ class Inferencer:
     table = np.clip(table, 0, 255).astype(np.uint8)
     return cv2.LUT(img, table)
 
+ # 2024/09/20
+  def sharpen(self, img, k):
+    if k > 0:
+      kernel = np.array([[-k, -k, -k], 
+                       [-k, 1+8*k, -k], 
+                       [-k, -k, -k]])
+      img = cv2.filter2D(img, ddepth=-1, kernel=kernel)
+    return img
+  
   def infer(self, epoch=None):
     if self.on_epoch_change == False:
       print("=== Inferencer.infer start")
@@ -134,16 +143,13 @@ class Inferencer:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)        
       # 2024/07/18
       if self.gamma > 0:
-            img = self.gamma_correction(img, self.gamma)
-      # 2024/08/20
+        img = self.gamma_correction(img, self.gamma)
+
+      # 2024/09/20
       if self.sharpen_k > 0:
-        k = self.sharpen_k
-        kernel = np.array([[-k, -k, -k], 
-                       [-k, 1+8*k, -k], 
-                       [-k, -k, -k]])
-        img = cv2.filter2D(img, ddepth=-1, kernel=kernel)
+        img = self.sharpen(img, self.sharpen_k)
       if self.color_converter:
-            img = cv2.cvtColor(img, self.color_converter) # cv2.COLOR_BGR2HLS)
+        img = cv2.cvtColor(img, self.color_converter) # cv2.COLOR_BGR2HLS)
 
       h, w = img.shape[:2]
       # Any way, we have to resize input image to match the input size of our TensorflowUNet model.
@@ -220,12 +226,14 @@ class Inferencer:
         new_image = cv2.cvtColor(new_image, cv2.COLOR_RGBA2BGRA)
     return new_image
 
+  """
   def sharpen(self, image):
     kernel = np.array([[-1,-1,-1], 
                        [-1, 9,-1],
                        [-1,-1,-1]])
     sharpened = cv2.filter2D(image, -1, kernel) 
     return sharpened
+  """
   
   def mask_to_image(self, data, factor=255.0, format="RGB"):
     h = data.shape[0]

@@ -30,7 +30,6 @@ import tensorflow as tf
 from ConfigParser import ConfigParser
 from BaseImageMaskDataset import BaseImageMaskDataset
 
-
 class ImageMaskDataset(BaseImageMaskDataset):
 
   def __init__(self, config_file):
@@ -42,7 +41,18 @@ class ImageMaskDataset(BaseImageMaskDataset):
 
   def read_image_file(self, image_file):
     image = cv2.imread(image_file) 
-    
+    if self.gamma >0:
+      #print("---- image gamma_correction{}".format(self.gamma))
+      image = self.gamma_correction(image, self.gamma)
+
+    if self.sharpening_k >0:
+      #print("---- image sharpening {}".format(self.sharpening_k))
+      image = self.sharpen(image, self.sharpening_k)
+
+    if self.color_converter !=None:
+      #print("---- image color_convter {}".format(self.color_converter))
+      image = cv2.cvtColor(image, self.color_converter)
+
     image = cv2.resize(image, dsize= (self.image_height, self.image_width), 
                        interpolation=self.resize_interpolation)
     if self.image_normalize:

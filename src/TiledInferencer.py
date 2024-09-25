@@ -201,13 +201,9 @@ class TiledInferencer(Inferencer):
           # 2024/08/20
           if self.gamma > 0:
             cvimage = self.gamma_correction(cvimage, self.gamma)
-         # 2024/08/20
+         # 2024/09/20
           if self.sharpen_k > 0:
-            k = self.sharpen_k
-            kernel = np.array([[-k, -k, -k], 
-                       [-k, 1+8*k, -k], 
-                       [-k, -k, -k]])
-            cvimage = cv2.filter2D(cvimage, ddepth=-1, kernel=kernel)
+            cvimage = self.sharpen(cvimage, self.sharpen_k)
           # 2024/07/18
           if self.color_converter:
             cvimage = cv2.cvtColor(cvimage, self.color_converter) # cv2.COLOR_BGR2HLS)
