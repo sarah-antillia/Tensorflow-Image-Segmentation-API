@@ -17,7 +17,7 @@
 <br>
 <br>
 
-On update history, please see <a href="./ChangeLog.md">ChangeLog.md Updated:2024/09/01)</a>
+On update history, please see <a href="./ChangeLog.md">ChangeLog.md Updated:2024/09/26)</a>
 <br><br>
 Please refer to the following Tiled-Image-Segmentation examples:<br>
 
